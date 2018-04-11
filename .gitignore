@@ -1,0 +1,7 @@
+# User-specific stuff
+OrganizerServer/.idea/**/workspace.xml
+OrganizerServer/.idea/**/tasks.xml
+OrganizerServer/.idea/dictionaries
+
+# IntelliJ
+OrganizerServer/out/
