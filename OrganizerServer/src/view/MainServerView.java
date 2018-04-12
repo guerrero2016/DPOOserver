@@ -8,16 +8,23 @@ import java.awt.*;
 
 public class MainServerView extends JFrame {
 
+    //Constants
+    private static final int MIN_WIDTH = 550;
+    private static final int MIN_HEIGHT = 400;
+
     private JPanel jpSuperGraph = new JPanel();
     private JTextField jtfUser = new JTextField();
     private JComboBox<String> jcbPeriod = new JComboBox<>();
     private JButton jbSearch = new JButton("Search");
+    private JPanel jpSuperTop10 = new JPanel();
+    private JTabbedPane jtpMain = new JTabbedPane();
 
     public MainServerView(){
         setSize(800, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Server Control Window");
         setLocationRelativeTo(null);
+        setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 
         //Here we create all the panels and configure their layouts
         // JPanel jpCenter = new JPanel();
@@ -40,7 +47,9 @@ public class MainServerView extends JFrame {
         jpEast.setBorder(BorderFactory.createTitledBorder("Controls"));
         jpSuperGraph.add(jpEast, BorderLayout.LINE_END);
 
-        getContentPane().add(jpSuperGraph);
+        jtpMain.addTab("Graph", null, jpSuperGraph, "User progression graph");
+        jtpMain.addTab("Top 10", null, jpSuperTop10, "Top 10 users with most pending tasks");
+        getContentPane().add(jtpMain);
         setVisible(true);
     }
 

@@ -19,9 +19,9 @@ public class GraphView extends JPanel {
     private int heigth = 500;
     private int padding = 25;
     private int labelPadding = 25;
-    private Color lineColor = new Color(44, 102, 230, 180);
-    private Color pointColor = new Color(100, 100, 100, 180);
-    private Color gridColor = new Color(200, 200, 200, 200);
+    private Color lineColor = new Color(255, 38, 38, 200);
+    private Color pointColor = new Color(159, 4, 4, 200);
+    private Color gridColor = new Color(44, 102, 230, 100);
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private int pointWidth = 4;
     private int numberYDivisions = 10;
