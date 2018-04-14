@@ -1,8 +1,12 @@
 package network;
 
+import model.project.Project;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Server extends Thread{
@@ -11,6 +15,7 @@ public class Server extends Thread{
     private boolean isOn;
     private ServerSocket serverSocket;
     private LinkedList<DedicatedServer> clients;
+    private HashMap<String, LinkedList<DedicatedServer>> projectServers;
 
     public Server() {
         try {
@@ -18,6 +23,7 @@ public class Server extends Thread{
             this.isOn = false;
             this.serverSocket = new ServerSocket(SERVER_PORT);
             this.clients = new LinkedList<>();
+            this.projectServers = new HashMap<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,7 +44,7 @@ public class Server extends Thread{
         while (isOn) {
             try {
                 Socket sClient = serverSocket.accept();
-                DedicatedServer dsClient = new DedicatedServer(sClient, this, clients);
+                DedicatedServer dsClient = new DedicatedServer(sClient, this, clients, projectServers);
                 clients.add(dsClient);
                 dsClient.startDedicatedServer();
             } catch (IOException e) {
