@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 
-public class GraphView extends JPanel {
+public class GraphView extends JPanel{
 
     private int width = 600;
     private int heigth = 500;
-    private int padding = 25;
+    private int padding = 10;
     private int labelPadding = 25;
     private Color lineColor = new Color(255, 38, 38, 200);
     private Color pointColor = new Color(159, 4, 4, 200);
@@ -27,9 +27,9 @@ public class GraphView extends JPanel {
     private int numberYDivisions = 10;
     private List<Double> scores;
 
-    public GraphView(List<Double> scores) {
+    /*public GraphView(List<Double> scores) {
         this.scores = scores;
-    }
+    }*/
 
     public GraphView(){
         ArrayList<Double> aux = new ArrayList<>();
@@ -103,7 +103,10 @@ public class GraphView extends JPanel {
         Stroke oldStroke = g2.getStroke();
         g2.setColor(lineColor);
         g2.setStroke(GRAPH_STROKE);
-        for (int i = 0; i < graphPoints.size() - 1; i++) {
+
+
+        //AQUI DIBUIXEM LA LINIA
+        for (int i = 0; i < graphPoints.size()-1; i++) {
             int x1 = graphPoints.get(i).x;
             int y1 = graphPoints.get(i).y;
             int x2 = graphPoints.get(i + 1).x;
@@ -111,15 +114,15 @@ public class GraphView extends JPanel {
             g2.drawLine(x1, y1, x2, y2);
         }
 
-        g2.setStroke(oldStroke);
-        g2.setColor(pointColor);
-        for (int i = 0; i < graphPoints.size(); i++) {
+       // g2.setStroke(oldStroke);
+        //g2.setColor(pointColor);
+       /* for (int i = 0; i < graphPoints.size(); i++) {
             int x = graphPoints.get(i).x - pointWidth / 2;
             int y = graphPoints.get(i).y - pointWidth / 2;
             int ovalW = pointWidth;
             int ovalH = pointWidth;
             g2.fillOval(x, y, ovalW, ovalH);
-        }
+        } */
     }
 
     @Override
@@ -135,7 +138,7 @@ public class GraphView extends JPanel {
         return minScore;
     }
 
-    private double getMaxScore() {
+    public double getMaxScore() {
         double maxScore = Double.MIN_VALUE;
         for (Double score : scores) {
             maxScore = Math.max(maxScore, score);
@@ -143,12 +146,8 @@ public class GraphView extends JPanel {
         return maxScore;
     }
 
-    public void setScores(List<Double> scores) {
+    public void setScores(ArrayList<Double> scores) {
         this.scores = scores;
-        //TEST
-        for(int i = 0; i < scores.size(); i++){
-            System.out.println("test: " + scores.get(i));
-        }
         invalidate();
         this.repaint();
     }

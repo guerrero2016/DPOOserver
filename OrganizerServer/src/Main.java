@@ -10,13 +10,14 @@ public class Main {
 
         System.out.println(test.getClass().getName());
 
-        /*MainServerView mainServerView = new MainServerView();
         //???????
         DataModel dataModel = new DataModel();
 
+        MainServerView mainServerView = new MainServerView();
+
         SuperController superController = new SuperController(mainServerView, dataModel);
 
-        mainServerView.linkController(superController);*/
+        mainServerView.linkController(superController);
 
     }
 }

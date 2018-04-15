@@ -11,12 +11,10 @@ public class DataModel extends Observable{
         return graphPoints;
     }
 
+
+
     public void setGraphPoints(ArrayList<Double> graphPoints) {
-        // this.graphPoints = graphPoints;
-        this.graphPoints.clear();
-        for(int i = 0; i < graphPoints.size(); i++){
-            this.graphPoints.add(graphPoints.get(i));
-        }
+        this.graphPoints = graphPoints;
         setChanged();
         notifyObservers(); //Estic notificant els dos observers //????
     }
