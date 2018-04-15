@@ -10,7 +10,6 @@ public class Register implements Serializable{
     private String password;
     private String confirm;
 
-
     public boolean checkSignIn() {
 
         if (userName == null){
@@ -25,13 +24,26 @@ public class Register implements Serializable{
 
         if (email == null) {
             return false;
-        }
-        for(int i = 0; i < email.length(); i++) {
-            if(!Character.isLetterOrDigit(email.charAt(i)) && !(email.charAt(i) == '_') &&
-                    !(email.charAt(i) == '@') && !(email.charAt(i) == '.')) {
+        }for(int i = 0; i < email.length(); i++) {
+            if(!Character.isLetterOrDigit(email.charAt(i)) && !(email.charAt(i) == '@') &&
+                    !(email.charAt(i) == '_') && !(email.charAt(i) == '.')) {
                 return false;
             }
         }
+        boolean arroba = false;
+        boolean dot = false;
+        for (int i = 0; i < email.length(); i++) {
+            if (email.charAt(i) == '@') {
+                arroba = true;
+            }
+            if (email.charAt(i) == '.') {
+                dot = true;
+            }
+        }
+        if (!arroba || !dot) {
+            return false;
+        }
+
         //TODO Comprovar a la bbdd
 
         if (!password.equals(confirm)) {
