@@ -24,6 +24,7 @@ public class SuperController implements Observer{
         this.top10Controller = new Top10Controller(this,dataModel);
         //TEST
         //FINS A ON ES DIU S'HAURA DE TREURE
+        /*
         ArrayList<Double> aux = new ArrayList<>();
         aux.add(0.0);
         aux.add(1.4);
@@ -34,6 +35,7 @@ public class SuperController implements Observer{
         aux.add(15.7);
         aux.add(16.75);
         dataModel.setGraphPoints(aux);
+        */
         //TREURE FINS AQUI
 
     }

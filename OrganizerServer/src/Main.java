@@ -10,7 +10,6 @@ public class Main {
 
         System.out.println(test.getClass().getName());
 
-        //???????
         DataModel dataModel = new DataModel();
 
         MainServerView mainServerView = new MainServerView();
