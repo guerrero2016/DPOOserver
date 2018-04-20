@@ -18,19 +18,15 @@ public class DedicatedServer extends Thread{
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
     private Server server;
-    private LinkedList<DedicatedServer> clients;
     private String hash;
-    private HashMap<String, LinkedList<DedicatedServer>> projectServers;
+    private DedicatedServerProvidable provider;
 
-
-    public DedicatedServer(Socket sClient, Server server, LinkedList<DedicatedServer> clients,
-                           HashMap<String, LinkedList<DedicatedServer>> projectServers) {
+    public DedicatedServer(Socket sClient, Server server, DedicatedServerProvidable provider) {
         this.isOn = false;
         this.sClient = sClient;
         this.server = server;
-        this.clients = clients;
         this.hash = null;
-        this.projectServers = projectServers;
+        this.provider = provider;
     }
 
     public void startDedicatedServer() {
@@ -74,13 +70,13 @@ public class DedicatedServer extends Thread{
                 aux = objectIn.readObject();
                 if (aux.getClass().equals(String.class)){
                     this.hash = (String)aux;
-                    if (projectServers.containsKey(hash)) {
+                    /*if (projectServers.containsKey(hash)) {
                         projectServers.get(hash).add(this);
                     }else {
                         final LinkedList<DedicatedServer> newlist = new LinkedList<>();
                         newlist.add(this);
                         projectServers.put(hash, newlist);
-                    }
+                    }*/
                 }else {
                     //TODO comprovar les altres classes que es poden passar
                 }
