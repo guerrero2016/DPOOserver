@@ -44,9 +44,9 @@ public class Server extends Thread{
         while (isOn) {
             try {
                 Socket sClient = serverSocket.accept();
-                DedicatedServer dsClient = new DedicatedServer(sClient, this, clients, projectServers);
-                clients.add(dsClient);
-                dsClient.startDedicatedServer();
+                //DedicatedServer dsClient = new DedicatedServer(sClient, this, clients, projectServers);
+                //clients.add(dsClient);
+                //dsClient.startDedicatedServer();
             } catch (IOException e) {
                 e.printStackTrace();
             }
