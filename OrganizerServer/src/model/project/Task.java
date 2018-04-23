@@ -1,106 +1,100 @@
 package model.project;
 
-import model.user.LogIn;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Task {
+public class Task implements Serializable{
 
     private String name;
+    private int order;
     private String description;
     private ArrayList<Tag> tags;
-    private ArrayList<User> members;  //Check if only need username
+    private ArrayList<String> membersName;
+    private String idCategory;
 
-    public Task() {
-        tags = new ArrayList<>();
-        members = new ArrayList<>();
+
+    public Task(String name, int order, String description, String idCategory) {
+        this.name = name;
+        this.order = order;
+        this.description = description;
+        this.idCategory = idCategory;
     }
 
-    public Task(String name, String description, ArrayList<Tag> tags, ArrayList<User> members) {
-        this.name = new String(name);
-        this.description = new String(description);
-        this.tags = tags != null ? new ArrayList<>(tags) : new ArrayList<>();
-        this.members = members != null ? new ArrayList<>(members) : new ArrayList<>();
+    public Task(String name, int order, String description, ArrayList<Tag> tags, ArrayList<String> membersName,
+                String idCategory) {
+        this.name = name;
+        this.order = order;
+        this.description = description;
+        this.tags = tags;
+        this.membersName = membersName;
+        this.idCategory = idCategory;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = new String(name);
+    public int getOrder() {
+        return order;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = new String(description);
-    }
-
-    public int getTotalTags() {
-        return tags.size();
-    }
-
-    public ArrayList<Tag> getAllTags() {
+    public ArrayList<Tag> getTags() {
         return tags;
     }
 
-    public Tag getTag(int tagPosition) {
-
-        if(tagPosition < tags.size()) {
-            return tags.get(tagPosition);
-        }
-
-        return null;
-
+    public ArrayList<String> getMembersName() {
+        return membersName;
     }
 
-    public void addTags(Tag tag) {
-        tags.add(tag);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getTotalMembers() {
-        return members.size();
+    public void setOrder(int order) {
+        this.order = order;
     }
 
-    public User getMember(int memberPosition) {
-
-        if(memberPosition < members.size()) {
-            return members.get(memberPosition);
-        }
-
-        return null;
-
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void addMembers(User member) {
-        members.add(member);
+    public void setTags(ArrayList<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void setMembersName(ArrayList<String> membersName) {
+        this.membersName = membersName;
+    }
+
+    public void addMemberName(String memberName){
+        this.membersName.add(memberName);
+    }
+
+    public void addTag(Tag tag){
+        this.tags.add(tag);
     }
 
     @Override
     public boolean equals(Object o) {
-
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-
-        return Objects.equals(name, task.name) && Objects.equals(description, task.description) &&
-                Objects.equals(tags, task.tags) && Objects.equals(members, task.members);
-
+        return order == task.order &&
+                Objects.equals(name, task.name) &&
+                Objects.equals(description, task.description) &&
+                Objects.equals(tags, task.tags) &&
+                Objects.equals(membersName, task.membersName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, tags, members);
+        return Objects.hash(name, order, description, tags, membersName);
     }
+
 
 }

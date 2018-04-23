@@ -1,15 +1,16 @@
 package network;
 
+import model.ServerObjectType;
+import model.project.Category;
 import model.project.Project;
-import model.user.LogIn;
-import model.user.Register;
+import model.project.Task;
+import model.user.UserLogIn;
+import model.user.UserRegister;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.LinkedList;
 
 public class DedicatedServer extends Thread{
 
@@ -42,44 +43,102 @@ public class DedicatedServer extends Thread{
     @Override
     public void run() {
         boolean logged = false;
-        Object aux;
+        ServerObjectType type;
+        Object object;
 
         try {
             objectIn = new ObjectInputStream(sClient.getInputStream());
             objectOut = new ObjectOutputStream(sClient.getOutputStream());
 
-            while (!logged) {
-                aux = objectIn.readObject();
-                //TODO s'ha de mirar si l'usuari ha enviat un objecte de registre o de logIn
-                if (aux.getClass().equals(Register.class)){
-                    logged = ((Register)aux).checkSignIn();
-                    //TODO enviar missatge d'error en cas que sigui incorrecte
-                }else if (aux.getClass().equals(LogIn.class)) {
-                    logged = ((LogIn)aux).checkLogIn();
-                    //TODO enviar missatge d'error en cas que sigui incorrecte
-                }
-
-            }
-
-            /*objectOut.reset();
-
-            //TODO recuperar l'array de projectes de la BBDD
-            objectOut.writeObject("so");*/
-
             while(isOn) {
-                aux = objectIn.readObject();
-                if (aux.getClass().equals(String.class)){
-                    this.hash = (String)aux;
-                    /*if (projectServers.containsKey(hash)) {
-                        projectServers.get(hash).add(this);
-                    }else {
-                        final LinkedList<DedicatedServer> newlist = new LinkedList<>();
-                        newlist.add(this);
-                        projectServers.put(hash, newlist);
-                    }*/
-                }else {
-                    //TODO comprovar les altres classes que es poden passar
+                type = (ServerObjectType) objectIn.readObject();
+                try {
+                    switch (type) {
+                        case LOGIN:
+                            final UserLogIn logIn = (UserLogIn) objectIn.readObject();
+                            logIn.checkLogIn();
+                            //TODO Enviar tot l'array de projectes
+                            break;
+
+                        case REGISTER:
+                            final UserRegister register = (UserRegister) objectIn.readObject();
+                            register.checkSignIn();
+                            //TODO Enviar tot l'array de projectes
+                            break;
+
+                        case GET_PROJECT:
+                            hash = objectIn.readUTF();
+                            //TODO agafar PROJECTE de la BBDD
+                            provider.addDedicated(hash, this);
+                            sendData("PROJECTE DE BBDD");
+                            break;
+
+                        case SET_PROJECT:
+                            final Project project = (Project) objectIn.readObject();
+                            //TODO afegir a la BBDD
+                            provider.sendBroadcast(hash, project);
+                            break;
+
+                        case DELETE_PROJECT:
+                            final String projectID = objectIn.readUTF();
+                            //TODO delete from BBDD
+                            provider.deleteAllByID(projectID);
+                            break;
+
+                        case SET_CATEGORY:
+                            final Category category = (Category) objectIn.readObject();
+                            //TODO afegir o editar de la BBDD
+                            provider.sendBroadcast(hash, category);
+                            break;
+
+                        case DELETE_CATEGORY:
+                            final String categoryID = objectIn.readUTF();
+                            //TODO delete from BBDD
+                            provider.sendBroadcast(hash, categoryID);
+                            break;
+
+                        case SET_TASK:
+                            final Task task = (Task) objectIn.readObject();
+                            //TODO afegir o editar de la BBDD
+                            provider.sendBroadcast(hash, task);
+                            break;
+
+                        case DELETE_TASK:
+                            final String taskID = objectIn.readUTF();
+                            //TODO delete from BBDD
+                            provider.sendBroadcast(hash, taskID);
+                            break;
+
+                        case ADD_USER:
+                            final String userName = objectIn.readUTF();
+                            //TODO afegir o editar de la BBDD
+                            provider.sendBroadcast(hash, userName);
+                            break;
+
+                        case DELETE_USER:
+                            final String username = objectIn.readUTF();
+                            //TODO afegir o editar de la BBDD
+                            provider.sendBroadcast(hash, username);
+                            break;
+
+                        case EXIT_PROJECT:
+                            provider.deleteDedicated(hash, this);
+                            hash = null;
+                            sendData(ServerObjectType.EXIT_PROJECT);
+                            break;
+
+                        case LOGOUT:
+                            provider.deleteDedicated(hash, this);
+                            hash = null;
+                            sendData(ServerObjectType.LOGOUT);
+                            break;
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
             }
 
         } catch (IOException | ClassNotFoundException e) {
@@ -87,4 +146,14 @@ public class DedicatedServer extends Thread{
         }
 
     }
+
+    public void sendData(Object obj){
+        try {
+            objectOut.reset();
+            objectOut.writeObject(obj);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
