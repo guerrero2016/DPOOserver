@@ -10,7 +10,7 @@ public class UserRegister implements Serializable{
     private String password;
     private String confirm;
 
-    public boolean checkSignIn() {
+    public boolean checkSignIn() throws Exception{
 
         if (userName == null){
             return false;
