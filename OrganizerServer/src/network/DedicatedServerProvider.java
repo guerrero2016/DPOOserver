@@ -1,5 +1,7 @@
 package network;
 
+import model.ServerObjectType;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -46,5 +48,11 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
         for (DedicatedServer ds : projectServers.get(hashCode)) {
             //TODO funció al Dedicated server d'enviar dades
         }
+    }
+
+    @Override
+    public void deleteAllByID(String hashCode) {
+        sendBroadcast(hashCode, ServerObjectType.EXIT_PROJECT);
+        projectServers.remove(hashCode);
     }
 }

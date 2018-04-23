@@ -1,5 +1,7 @@
 package network;
 
+import model.ServerObjectType;
+
 import java.util.LinkedList;
 
 public interface DedicatedServerProvidable {
@@ -9,5 +11,6 @@ public interface DedicatedServerProvidable {
     int countDedicated(String hashCode);
     void deleteDedicated(String hashCode, DedicatedServer dedicated);
     void sendBroadcast(String hashCode, Object object);
+    void deleteAllByID(String hashCode);
 
 }
