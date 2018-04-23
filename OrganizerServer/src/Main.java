@@ -1,6 +1,5 @@
 import controller.SuperController;
 import model.DataModel;
-import model.user.LogIn;
 import network.Server;
 import view.MainServerView;
 

@@ -1,15 +1,12 @@
 package network;
 
-import model.project.Project;
-import model.user.LogIn;
-import model.user.Register;
+import model.user.UserLogIn;
+import model.user.UserRegister;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.LinkedList;
 
 public class DedicatedServer extends Thread{
 
@@ -51,11 +48,11 @@ public class DedicatedServer extends Thread{
             while (!logged) {
                 aux = objectIn.readObject();
                 //TODO s'ha de mirar si l'usuari ha enviat un objecte de registre o de logIn
-                if (aux.getClass().equals(Register.class)){
-                    logged = ((Register)aux).checkSignIn();
+                if (aux.getClass().equals(UserRegister.class)){
+                    logged = ((UserRegister)aux).checkSignIn();
                     //TODO enviar missatge d'error en cas que sigui incorrecte
-                }else if (aux.getClass().equals(LogIn.class)) {
-                    logged = ((LogIn)aux).checkLogIn();
+                }else if (aux.getClass().equals(UserLogIn.class)) {
+                    logged = ((UserLogIn)aux).checkLogIn();
                     //TODO enviar missatge d'error en cas que sigui incorrecte
                 }
 

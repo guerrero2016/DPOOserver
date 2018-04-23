@@ -1,9 +1,10 @@
 package model.project;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Tag {
+public class Tag implements Serializable{
 
     private String name;
     private Color color;

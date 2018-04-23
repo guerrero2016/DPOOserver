@@ -3,8 +3,9 @@ package model.project;
 import java.awt.*;
 
 public class Project {
-    private Color color;
+
     private String name;
+    private Color color;
 
     public Project(Color color, String name) {
         this.color = color;

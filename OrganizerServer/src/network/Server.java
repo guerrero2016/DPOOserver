@@ -15,7 +15,7 @@ public class Server extends Thread{
     private boolean isOn;
     private ServerSocket serverSocket;
     private LinkedList<DedicatedServer> clients;
-    private HashMap<String, LinkedList<DedicatedServer>> projectServers;
+    private DedicatedServerProvidable projectServers;
 
     public Server() {
         try {
@@ -23,7 +23,7 @@ public class Server extends Thread{
             this.isOn = false;
             this.serverSocket = new ServerSocket(SERVER_PORT);
             this.clients = new LinkedList<>();
-            this.projectServers = new HashMap<>();
+            this.projectServers = new DedicatedServerProvider();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ public class Server extends Thread{
         while (isOn) {
             try {
                 Socket sClient = serverSocket.accept();
-                DedicatedServer dsClient = new DedicatedServer(sClient, this, clients, projectServers);
+                DedicatedServer dsClient = new DedicatedServer(sClient, this, projectServers);
                 clients.add(dsClient);
                 dsClient.startDedicatedServer();
             } catch (IOException e) {

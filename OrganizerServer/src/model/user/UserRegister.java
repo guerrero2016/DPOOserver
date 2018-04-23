@@ -2,7 +2,7 @@ package model.user;
 
 import java.io.Serializable;
 
-public class Register implements Serializable{
+public class UserRegister implements Serializable{
     private final int MIN_LENGTH = 8;
 
     private String userName;
