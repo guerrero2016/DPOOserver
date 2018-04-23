@@ -1,5 +1,6 @@
 import controller.SuperController;
 import db.ConnectorDB;
+import model.DataBaseManager;
 import model.DataModel;
 import network.Server;
 import view.MainServerView;
@@ -26,7 +27,7 @@ public class Main {
         mainServerView.linkController(superController);
 
         while (!ok) {
-            final char[] CANCEL = {'.', '-', '^'};
+            final String CANCEL = ".-^";
             String password = new PasswordDialog(mainServerView).getPass();
             if (password.equals(CANCEL)) {
                 mainServerView.dispatchEvent(new WindowEvent(mainServerView, WindowEvent.WINDOW_CLOSING));

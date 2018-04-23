@@ -25,7 +25,7 @@ public class ConnectorDB {
         this.url += ":" + port + "/";
         this.url += db;
     }
-    
+
     public boolean connect() {
         try {
             conn = (Connection) DriverManager.getConnection(url + "?useSSL=false", userName, password);
@@ -38,43 +38,5 @@ public class ConnectorDB {
             System.out.println("Problema al connecta-nos a la BBDD --> " + url);
         }
         return false;
-    }
-
-    public void insertQuery(String query) {
-        try {
-            s = (Statement) conn.createStatement();
-            s.executeUpdate(query);
-
-        } catch (SQLException ex) {
-            System.out.println("Problema al Inserir --> " + ex.getSQLState());
-        }
-    }
-    public void updateQuery(String query) {
-        try {
-            s = (Statement) conn.createStatement();
-            s.executeUpdate(query);
-
-        } catch (SQLException ex) {
-            System.out.println("Problema al Modificar --> " + ex.getSQLState());
-        }
-    }
-    public void deleteQuery(String query) {
-        try {
-            s = (Statement) conn.createStatement();
-            s.executeUpdate(query);
-        } catch (SQLException ex) {
-            System.out.println("Problema al Eliminar --> " + ex.getSQLState());
-        }
-
-    }
-    public ResultSet selectQuery(String query) {
-        ResultSet rs = null;
-        try {
-            s = (Statement) conn.createStatement();
-            rs = s.executeQuery(query);
-        } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
-        }
-        return rs;
     }
 }
