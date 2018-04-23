@@ -1,9 +1,10 @@
 package model.project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Category {
+public class Category implements Serializable{
 
     private String id;
     private String name;
