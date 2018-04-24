@@ -2,12 +2,16 @@ import controller.SuperController;
 import db.ConnectorDB;
 import model.DataBaseManager;
 import model.DataModel;
+import model.project.Category;
+import model.project.Project;
+import model.project.Task;
 import network.Server;
 import view.MainServerView;
 import view.PasswordDialog;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -41,5 +45,12 @@ public class Main {
                 }
             }
         }
+        DataBaseManager.deleteCategory("", "");
+        DataBaseManager.deleteEncarregat("","","", "");
+        DataBaseManager.deleteProject("");
+        DataBaseManager.deleteTag("","","", "");
+        DataBaseManager.deleteTask("","","");
+        DataBaseManager.deleteEncarregat("","","", "");
+        DataBaseManager.addProject(new Project());
     }
 }

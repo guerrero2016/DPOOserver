@@ -11,24 +11,29 @@ public class Task implements Serializable{
     private String description;
     private ArrayList<Tag> tags;
     private ArrayList<String> membersName;
-    private String idCategory;
+    private String nomCategoria;
+    private ArrayList<Encarregat> encarregats;
 
-
-    public Task(String name, int order, String description, String idCategory) {
+    public Task(String name, int order, String description, ArrayList<Tag> tags, ArrayList<Encarregat> encarregats) {
         this.name = name;
         this.order = order;
         this.description = description;
-        this.idCategory = idCategory;
+        this.encarregats = encarregats;
+        this.tags = tags;
+    }
+
+    public ArrayList<Encarregat> getEncarregats() {
+        return encarregats;
     }
 
     public Task(String name, int order, String description, ArrayList<Tag> tags, ArrayList<String> membersName,
-                String idCategory) {
+                String nom_categoria) {
         this.name = name;
         this.order = order;
         this.description = description;
         this.tags = tags;
         this.membersName = membersName;
-        this.idCategory = idCategory;
+        this.nomCategoria = nom_categoria;
     }
 
     public String getName() {
@@ -97,4 +102,7 @@ public class Task implements Serializable{
     }
 
 
+    public String getNomCategoria() {
+        return nomCategoria;
+    }
 }

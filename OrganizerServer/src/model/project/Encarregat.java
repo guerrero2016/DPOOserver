@@ -1,17 +1,14 @@
 package model.project;
 
 import java.awt.*;
-import java.io.Serializable;
-import java.util.Objects;
 
-public class Tag implements Serializable{
-
+public class Encarregat {
     private String name;
-    private String color;
+    private String  color;
     private String nomTasca;
     private String nomCategoria;
 
-    public Tag(String name, String color) {
+    public Encarregat(String name, String color) {
         this.name = new String(name);
         this.color = color;
     }
@@ -21,11 +18,7 @@ public class Tag implements Serializable{
     }
 
     public void setName(String name) {
-        this.name = new String(name);
-    }
-
-    public String getColor() {
-        return color;
+        this.name = name;
     }
 
     public void setColor(String color) {
@@ -48,26 +41,7 @@ public class Tag implements Serializable{
         this.nomCategoria = nomCategoria;
     }
 
-    @Override
-    public boolean equals(Object o) {
-
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Tag tag = (Tag) o;
-
-        return Objects.equals(name, tag.name) && Objects.equals(color, tag.color);
-
+    public String getColor() {
+        return color;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, color);
-    }
-
 }

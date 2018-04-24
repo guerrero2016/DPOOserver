@@ -1,9 +1,8 @@
 package network;
 
+import model.DataBaseManager;
 import model.ServerObjectType;
-import model.project.Category;
-import model.project.Project;
-import model.project.Task;
+import model.project.*;
 import model.user.UserLogIn;
 import model.user.UserRegister;
 
@@ -11,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class DedicatedServer extends Thread{
 
@@ -56,56 +56,117 @@ public class DedicatedServer extends Thread{
                     switch (type) {
                         case LOGIN:
                             final UserLogIn logIn = (UserLogIn) objectIn.readObject();
-                            logIn.checkLogIn();
-                            //TODO Enviar tot l'array de projectes
+                            if(logIn.checkLogIn()) {
+                                ArrayList<Project> projects = DataBaseManager.getProjectsInfo(DataBaseManager.getUser(logIn.getUserName()));
+                                //TODO Enviar tot l'array de projectes
+                            } else {
+                                //TODO Enviar missatge de que no es correcte
+                            }
                             break;
 
                         case REGISTER:
                             final UserRegister register = (UserRegister) objectIn.readObject();
-                            register.checkSignIn();
-                            //TODO Enviar tot l'array de projectes
+                            if(register.checkSignIn() == 0) {
+                                ArrayList<Project> projects = DataBaseManager.getProjectsInfo(register.getUserName());
+                                //TODO Enviar tot l'array de projectes
+                            } else if(register.checkSignIn() == 1) {
+                                //L'usuari introduit ja existeix a la bbdd
+                            } else if(register.checkSignIn() == 2) {
+                                //El correu introduit ja existeix a la bbdd
+                            } else if(register.checkSignIn() ==3) {
+                                //Falla alguna comprovació de les que es fan al client
+                            }
                             break;
 
                         case GET_PROJECT:
                             hash = objectIn.readUTF();
-                            //TODO agafar PROJECTE de la BBDD
+                            Project project = DataBaseManager.getProject(hash);
                             provider.addDedicated(hash, this);
-                            sendData("PROJECTE DE BBDD");
+                            //TODO enviar el projecte
                             break;
 
                         case SET_PROJECT:
-                            final Project project = (Project) objectIn.readObject();
-                            //TODO afegir a la BBDD
-                            provider.sendBroadcast(hash, project);
+                            final Project projecte = (Project) objectIn.readObject();
+                            if(DataBaseManager.addProject(projecte)) {
+                                provider.sendBroadcast(hash, projecte);
+                            } else {
+                                //TODO Alguna cosa ha fotut un pet.
+                            }
                             break;
 
                         case DELETE_PROJECT:
                             final String projectID = objectIn.readUTF();
-                            //TODO delete from BBDD
+                            DataBaseManager.deleteProject(projectID);
                             provider.deleteAllByID(projectID);
                             break;
 
                         case SET_CATEGORY:
                             final Category category = (Category) objectIn.readObject();
-                            //TODO afegir o editar de la BBDD
-                            provider.sendBroadcast(hash, category);
+                            if(DataBaseManager.addCategory(category, hash)) {
+                                provider.sendBroadcast(hash, category);
+                            } else {
+                                //TODO Alguna cosa ha fotut un pet
+                            }
                             break;
 
                         case DELETE_CATEGORY:
                             final String categoryID = objectIn.readUTF();
-                            //TODO delete from BBDD
+                            //TODO obtenir nom de la categoria
+                            DataBaseManager.deleteCategory(hash, categoryID);
                             provider.sendBroadcast(hash, categoryID);
+                            break;
+
+                        case SET_TAG:
+                            final Tag tag = (Tag) objectIn.readObject();
+                            if(DataBaseManager.addTag(tag, hash, tag.getNomCategoria(), tag.getNomTasca())) {
+                                provider.sendBroadcast(hash, tag);
+                            } else {
+                                //TODO Alguna cosa ha fotut un pet.
+                            }
+                            break;
+
+                        case DELETE_TAG:
+                            //TODO
+                            final String nom_tag = objectIn.readUTF();
+                            String nom_columna = "";
+                            String nom_tasca = "";
+                            DataBaseManager.deleteTag(hash, nom_columna, nom_tasca, nom_tag);
+                            provider.sendBroadcast(hash, nom_tag);
+                            break;
+
+                        case SET_ENCARREGAT:
+                            final Encarregat encarregat = (Encarregat) objectIn.readObject();
+                            if(DataBaseManager.addEncarregat(encarregat, hash, encarregat.getNomCategoria(), encarregat.getNomTasca())) {
+                                provider.sendBroadcast(hash, encarregat);
+                            } else {
+                                //TODO Alguna cosa ha fotut un pet.
+                            }
+                            break;
+
+                        case DELETE_ENCARREGAT:
+                            //TODO
+                            final String nomEncarregat = objectIn.readUTF();
+                            String nom_columna2 = "";
+                            String nom_tasca2 = "";
+                            DataBaseManager.deleteEncarregat(hash, nom_columna2, nom_tasca2, nomEncarregat);
+                            provider.sendBroadcast(hash, nomEncarregat);
                             break;
 
                         case SET_TASK:
                             final Task task = (Task) objectIn.readObject();
-                            //TODO afegir o editar de la BBDD
+                            if(DataBaseManager.addTask(task, hash, task.getNomCategoria())) {
+                                provider.sendBroadcast(hash, task);
+                            } else {
+                                //TODO Alguna cosa ha fotut un pet.
+                            }
                             provider.sendBroadcast(hash, task);
                             break;
 
                         case DELETE_TASK:
                             final String taskID = objectIn.readUTF();
-                            //TODO delete from BBDD
+                            //TODO
+                            String nom_columna3 = "";
+                            DataBaseManager.deleteTask(hash, nom_columna3, taskID);
                             provider.sendBroadcast(hash, taskID);
                             break;
 
@@ -132,19 +193,14 @@ public class DedicatedServer extends Thread{
                             hash = null;
                             sendData(ServerObjectType.LOGOUT);
                             break;
-
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     public void sendData(Object obj){

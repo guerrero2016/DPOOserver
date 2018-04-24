@@ -1,5 +1,7 @@
 package model.user;
 
+import model.DataBaseManager;
+
 import java.io.Serializable;
 
 public class UserRegister implements Serializable{
@@ -10,24 +12,27 @@ public class UserRegister implements Serializable{
     private String password;
     private String confirm;
 
-    public boolean checkSignIn() throws Exception{
+    public String getUserName() {
+        return userName;
+    }
+
+    public int checkSignIn() throws Exception{
 
         if (userName == null){
-            return false;
+            return 3;
         }
         for(int i = 0; i < userName.length(); i++) {
             if(!Character.isLetterOrDigit(userName.charAt(i)) && !(userName.charAt(i) == '_')) {
-                return false;
+                return 3;
             }
         }
-        //TODO Comprovar a la base de dades
 
         if (email == null) {
-            return false;
+            return 3;
         }for(int i = 0; i < email.length(); i++) {
             if(!Character.isLetterOrDigit(email.charAt(i)) && !(email.charAt(i) == '@') &&
                     !(email.charAt(i) == '_') && !(email.charAt(i) == '.')) {
-                return false;
+                return 3;
             }
         }
         boolean arroba = false;
@@ -41,17 +46,15 @@ public class UserRegister implements Serializable{
             }
         }
         if (!arroba || !dot) {
-            return false;
+            return 3;
         }
 
-        //TODO Comprovar a la bbdd
-
         if (!password.equals(confirm)) {
-            return false;
+            return 3;
         }
 
         if (password.length() < MIN_LENGTH) {
-            return false;
+            return 3;
         }
 
         boolean majus = false;
@@ -70,9 +73,8 @@ public class UserRegister implements Serializable{
         }
 
         if (!minus || !majus || !num) {
-            return false;
+            return 3;
         }
-
-        return true;
+        return DataBaseManager.RegistrarUsuari(userName, email, password);
     }
 }

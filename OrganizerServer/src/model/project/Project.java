@@ -11,12 +11,15 @@ public class Project implements Serializable{
 
     private String id;
     private String name;
-    private Color color;
+    private String color;
     private ArrayList<Category> categories;
     private ArrayList<String> membersName;
-    private Image background;   //s'haurà de canviar PROFE
+    private String background;   //s'haurà de canviar PROFE
+    private boolean propietari; //per sortir del pas
 
-    public Project(String name, Color color, ArrayList<Category> categories, ArrayList<String> membersName, Image background) {
+    public Project() {}
+
+    public Project(String name, String color, ArrayList<Category> categories, ArrayList<String> membersName, String background) {
         this.name = name;
         this.color = color;
         this.categories = categories;
@@ -24,11 +27,19 @@ public class Project implements Serializable{
         this.background = background;
     }
 
+    public Project(String id, String name, String color, String background, boolean propietari) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+        this.background = background;
+        this.propietari = propietari;
+    }
+
     public String getId() {
         return id;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 
@@ -44,7 +55,7 @@ public class Project implements Serializable{
         return membersName;
     }
 
-    public Image getBackground() {
+    public String getBackground() {
         return background;
     }
 
@@ -56,7 +67,7 @@ public class Project implements Serializable{
         this.name = name;
     }
 
-    public void setColor(Color color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
@@ -68,7 +79,7 @@ public class Project implements Serializable{
         this.membersName = membersName;
     }
 
-    public void setBackground(Image background) {
+    public void setBackground(String background) {
         this.background = background;
     }
 
