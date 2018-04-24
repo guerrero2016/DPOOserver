@@ -2,9 +2,7 @@ import controller.SuperController;
 import db.ConnectorDB;
 import model.DataBaseManager;
 import model.DataModel;
-import model.project.Category;
-import model.project.Project;
-import model.project.Task;
+import model.project.*;
 import network.Server;
 import view.MainServerView;
 import view.PasswordDialog;
@@ -45,12 +43,5 @@ public class Main {
                 }
             }
         }
-        DataBaseManager.deleteCategory("", "");
-        DataBaseManager.deleteEncarregat("","","", "");
-        DataBaseManager.deleteProject("");
-        DataBaseManager.deleteTag("","","", "");
-        DataBaseManager.deleteTask("","","");
-        DataBaseManager.deleteEncarregat("","","", "");
-        DataBaseManager.addProject(new Project());
     }
 }

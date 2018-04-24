@@ -19,7 +19,8 @@ public class Project implements Serializable{
 
     public Project() {}
 
-    public Project(String name, String color, ArrayList<Category> categories, ArrayList<String> membersName, String background) {
+    public Project(String id, String name, String color, ArrayList<Category> categories, ArrayList<String> membersName, String background) {
+        this.id = id;
         this.name = name;
         this.color = color;
         this.categories = categories;

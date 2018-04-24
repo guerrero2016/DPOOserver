@@ -12,7 +12,7 @@ public class Tag implements Serializable{
     private String nomCategoria;
 
     public Tag(String name, String color) {
-        this.name = new String(name);
+        this.name = name;
         this.color = color;
     }
 
@@ -21,7 +21,7 @@ public class Tag implements Serializable{
     }
 
     public void setName(String name) {
-        this.name = new String(name);
+        this.name = name;
     }
 
     public String getColor() {
