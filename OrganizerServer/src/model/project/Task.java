@@ -6,15 +6,18 @@ import java.util.Objects;
 
 public class Task implements Serializable{
 
+    private String id_category;
+    private String id;
     private String name;
     private int order;
     private String description;
     private ArrayList<Tag> tags;
     private ArrayList<String> membersName;
-    private String nomCategoria;
     private ArrayList<Encarregat> encarregats;
 
-    public Task(String name, int order, String description, ArrayList<Tag> tags, ArrayList<Encarregat> encarregats) {
+    public Task(String id_category, String id, String name, int order, String description, ArrayList<Tag> tags, ArrayList<Encarregat> encarregats) {
+        this.id_category = id_category;
+        this.id = id;
         this.name = name;
         this.order = order;
         this.description = description;
@@ -26,14 +29,18 @@ public class Task implements Serializable{
         return encarregats;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public Task(String name, int order, String description, ArrayList<Tag> tags, ArrayList<String> membersName,
-                String nom_categoria) {
+                String id_category) {
         this.name = name;
         this.order = order;
         this.description = description;
         this.tags = tags;
         this.membersName = membersName;
-        this.nomCategoria = nom_categoria;
+        this.id_category = id_category;
     }
 
     public String getName() {
@@ -101,8 +108,7 @@ public class Task implements Serializable{
         return Objects.hash(name, order, description, tags, membersName);
     }
 
-
-    public String getNomCategoria() {
-        return nomCategoria;
+    public String getId_category() {
+        return id_category;
     }
 }

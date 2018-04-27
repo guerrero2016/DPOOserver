@@ -87,11 +87,8 @@ public class DedicatedServer extends Thread{
 
                         case SET_PROJECT:
                             final Project projecte = (Project) objectIn.readObject();
-                            if(DataBaseManager.addProject(projecte)) {
-                                provider.sendBroadcast(hash, projecte);
-                            } else {
-                                //TODO Alguna cosa ha fotut un pet.
-                            }
+                            DataBaseManager.addProject(projecte);
+                            provider.sendBroadcast(hash, projecte);
                             break;
 
                         case DELETE_PROJECT:
@@ -102,11 +99,8 @@ public class DedicatedServer extends Thread{
 
                         case SET_CATEGORY:
                             final Category category = (Category) objectIn.readObject();
-                            if(DataBaseManager.addCategory(category, hash)) {
-                                provider.sendBroadcast(hash, category);
-                            } else {
-                                //TODO Alguna cosa ha fotut un pet
-                            }
+                            DataBaseManager.addCategory(category, hash);
+                            provider.sendBroadcast(hash, category);
                             break;
 
                         case DELETE_CATEGORY:
@@ -118,11 +112,8 @@ public class DedicatedServer extends Thread{
 
                         case SET_TAG:
                             final Tag tag = (Tag) objectIn.readObject();
-                            if(DataBaseManager.addTag(tag, hash, tag.getNomCategoria(), tag.getNomTasca())) {
-                                provider.sendBroadcast(hash, tag);
-                            } else {
-                                //TODO Alguna cosa ha fotut un pet.
-                            }
+                            DataBaseManager.addTag(tag, hash);
+                            provider.sendBroadcast(hash, tag);
                             break;
 
                         case DELETE_TAG:
@@ -136,11 +127,8 @@ public class DedicatedServer extends Thread{
 
                         case SET_ENCARREGAT:
                             final Encarregat encarregat = (Encarregat) objectIn.readObject();
-                            if(DataBaseManager.addEncarregat(encarregat, hash, encarregat.getNomCategoria(), encarregat.getNomTasca())) {
-                                provider.sendBroadcast(hash, encarregat);
-                            } else {
-                                //TODO Alguna cosa ha fotut un pet.
-                            }
+                            DataBaseManager.addEncarregat(encarregat, hash);
+                            provider.sendBroadcast(hash, encarregat);
                             break;
 
                         case DELETE_ENCARREGAT:
@@ -154,11 +142,7 @@ public class DedicatedServer extends Thread{
 
                         case SET_TASK:
                             final Task task = (Task) objectIn.readObject();
-                            if(DataBaseManager.addTask(task, hash, task.getNomCategoria())) {
-                                provider.sendBroadcast(hash, task);
-                            } else {
-                                //TODO Alguna cosa ha fotut un pet.
-                            }
+                            DataBaseManager.addTask(task, hash);
                             provider.sendBroadcast(hash, task);
                             break;
 
@@ -170,15 +154,27 @@ public class DedicatedServer extends Thread{
                             provider.sendBroadcast(hash, taskID);
                             break;
 
+                        case SWAP_CATEGORY:
+                            final Category category1 = (Category) objectIn.readObject();
+                            final Category category2 = (Category) objectIn.readObject();
+                            DataBaseManager.swapCategory(hash, category1, category2);
+                            break;
+
+                        case SWAP_TASK:
+                            final Task task1 = (Task) objectIn.readObject();
+                            final Task task2 = (Task) objectIn.readObject();
+                            DataBaseManager.swapTask(hash, task1, task2);
+                            break;
+
                         case ADD_USER:
                             final String userName = objectIn.readUTF();
-                            //TODO afegir o editar de la BBDD
+                            DataBaseManager.addUser(hash, userName);
                             provider.sendBroadcast(hash, userName);
                             break;
 
                         case DELETE_USER:
                             final String username = objectIn.readUTF();
-                            //TODO afegir o editar de la BBDD
+                            DataBaseManager.deleteUser(hash, username);
                             provider.sendBroadcast(hash, username);
                             break;
 

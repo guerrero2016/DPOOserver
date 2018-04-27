@@ -11,8 +11,8 @@ public class Category implements Serializable{
     private int order;
     private ArrayList<Task> tasks;
 
-    public Category(String name, int order, ArrayList<Task> tasks) {
-        this.id = UUID.randomUUID().toString();
+    public Category(String id, String name, int order, ArrayList<Task> tasks) {
+        this.id = id;
         this.name = name;
         this.order = order;
         this.tasks = tasks;

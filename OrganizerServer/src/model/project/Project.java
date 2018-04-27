@@ -1,8 +1,5 @@
 package model.project;
 
-import model.user.UserLogIn;
-
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;

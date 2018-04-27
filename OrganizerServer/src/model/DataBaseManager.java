@@ -12,10 +12,6 @@ public class DataBaseManager {
     private static Connection connection;
     private static Statement s;
 
-    public static DataBaseManager getInstance() {
-        return ourInstance;
-    }
-
     private DataBaseManager() {
     }
 
@@ -31,6 +27,7 @@ public class DataBaseManager {
     //Funció validada.
     public static int RegistrarUsuari(String nom_usuari, String correu, String contrasenya) {
             ResultSet rs;
+
             try {
                 String query = "{CALL Organizer.RegistrarUsuari(?,?,?)}";
                 java.sql.CallableStatement stmt = connection.prepareCall(query);
@@ -55,6 +52,7 @@ public class DataBaseManager {
     //Funció validada
     public static boolean IniciarSessio(String nom_correu, String password) {
         ResultSet rs;
+
         try {
             String query = "{CALL Organizer.IniciarSessio(?,?)}";
             java.sql.CallableStatement stmt = connection.prepareCall(query);
@@ -77,8 +75,10 @@ public class DataBaseManager {
     public static ArrayList<Project> getProjectsInfo(String userName) {
         ArrayList<Project> projects = new ArrayList<>();
         ResultSet rs = null;
+
         try {
             s =(Statement) connection.createStatement();
+            //Seleccionem tots els projectes en que l'usuari sigui propietari.
             rs = s.executeQuery ("SELECT * FROM Projecte as p JOIN Propietari as o ON p.id_projecte = o.id_projecte JOIN" +
                     " Usuari as u ON u.nom_usuari = o.nom_propietari WHERE u.nom_usuari = '" + userName + "' OR u.correu = '" + userName + "';");
             while(rs.next()) {
@@ -87,7 +87,9 @@ public class DataBaseManager {
                             rs.getString("color"), rs.getString("background"), true));
                 }
             }
+
             s =(Statement) connection.createStatement();
+            //Seleccionem tots els projectes on l'usuari es membre.
             rs = s.executeQuery ("SELECT * FROM Projecte as p JOIN Membre as m ON p.id_projecte = m.id_projecte JOIN" +
                     " Usuari as u ON u.nom_usuari = m.nom_usuari WHERE u.nom_usuari = '" + userName + "' OR u.correu = '" + userName + "';");
             while(rs.next()) {
@@ -96,6 +98,8 @@ public class DataBaseManager {
                             rs.getString("color"), rs.getString("background"), false));
                 }
             }
+
+            //Per cada projecte trobat:
             for (Project p: projects) {
                 p.setMembersName(DataBaseManager.getMembers(p.getId(), userName));
             }
@@ -109,6 +113,7 @@ public class DataBaseManager {
     private static ArrayList<String> getMembers(String id_projecte, String userName) {
         ArrayList<String> members = new ArrayList<>();
         ResultSet rs;
+
         try {
             s =(Statement) connection.createStatement();
             rs = s.executeQuery ("SELECT * FROM Membre WHERE id_projecte = '" + id_projecte + "' AND nom_usuari != '" + userName + "';");
@@ -167,9 +172,9 @@ public class DataBaseManager {
             s =(Statement) connection.createStatement();
             rs = s.executeQuery ("SELECT * FROM Columna WHERE id_projecte = '" + id_projecte + "';");
             while(rs.next()) {
-                if (rs.getString("nom_columna") != null) {
-                    categories.add(new Category(rs.getString("nom_columna"), rs.getInt("posicio"),
-                            DataBaseManager.getTasks(id_projecte, rs.getString("nom_columna"))));
+                if (rs.getString("id_columna") != null) {
+                    categories.add(new Category(rs.getString("id_columna"), rs.getString("nom_columna"), rs.getInt("posicio"),
+                            DataBaseManager.getTasks(id_projecte, rs.getString("id_columna"))));
                 }
             }
         } catch (SQLException ex) {
@@ -179,17 +184,18 @@ public class DataBaseManager {
     }
 
     //Funció validada
-    private static ArrayList<Task> getTasks(String id_projecte, String nom_columna) {
+    private static ArrayList<Task> getTasks(String id_projecte, String id_columna) {
         ArrayList<Task> tasks = new ArrayList<>();
         ResultSet rs;
+
         try {
             s =(Statement) connection.createStatement();
-            rs = s.executeQuery ("SELECT * FROM Tasca WHERE id_projecte = '" + id_projecte + "' AND nom_columna = '" + nom_columna + "';");
+            rs = s.executeQuery ("SELECT * FROM Tasca WHERE id_projecte = '" + id_projecte + "' AND id_columna = '" + id_columna + "';");
             while(rs.next()) {
-                if (rs.getString("nom_columna") != null) {
-                    tasks.add(new Task(rs.getString("nom_tasca"), rs.getInt("posicio"),
-                            rs.getString("descripcio"), DataBaseManager.getTags(id_projecte, nom_columna, rs.getString("nom_tasca")),
-                            DataBaseManager.getEncarregats(id_projecte, nom_columna, rs.getString("nom_tasca"))));
+                if (rs.getString("id_tasca") != null) {
+                    tasks.add(new Task(rs.getString("id_columna"), rs.getString("id_tasca"), rs.getString("nom_tasca"), rs.getInt("posicio"),
+                            rs.getString("descripcio"), DataBaseManager.getTags(id_projecte, id_columna, rs.getString("id_tasca")),
+                            DataBaseManager.getEncarregats(id_projecte, id_columna, rs.getString("id_tasca"))));
                 }
             }
         } catch (SQLException ex) {
@@ -199,16 +205,18 @@ public class DataBaseManager {
     }
 
     //Funció validada
-    private static ArrayList<Tag> getTags(String id_projecte, String nom_columna, String nom_tasca) {
+    private static ArrayList<Tag> getTags(String id_projecte, String id_columna, String id_tasca) {
         ArrayList<Tag> tags = new ArrayList<>();
         ResultSet rs;
+
         try {
             s =(Statement) connection.createStatement();
-            rs = s.executeQuery ("SELECT * FROM Etiqueta WHERE id_projecte = '" + id_projecte + "' AND nom_columna = '" + nom_columna +
-                    "' AND nom_tasca = '" + nom_tasca + "';");
+            rs = s.executeQuery ("SELECT * FROM Etiqueta WHERE id_projecte = '" + id_projecte + "' AND id_columna = '" + id_columna +
+                    "' AND id_tasca = '" + id_tasca + "';");
             while(rs.next()) {
-                if (rs.getString("nom_columna") != null) {
-                    tags.add(new Tag(rs.getString("nom_etiqueta"), rs.getString("color")));
+                if (rs.getString("id_etiqueta") != null) {
+                    tags.add(new Tag(rs.getString("id_columna"), rs.getString("id_tasca"), rs.getString("id_etiqueta"),
+                            rs.getString("nom_etiqueta"), rs.getString("color")));
                 }
             }
         } catch (SQLException ex) {
@@ -218,17 +226,17 @@ public class DataBaseManager {
     }
 
     //Funció validada
-    private static ArrayList<Encarregat> getEncarregats(String id_projecte, String nom_columna, String nom_tasca) {
+    private static ArrayList<Encarregat> getEncarregats(String id_projecte, String id_columna, String id_tasca) {
         ArrayList<Encarregat> encarregats = new ArrayList<>();
         ResultSet rs;
         try {
             s =(Statement) connection.createStatement();
-            rs = s.executeQuery ("SELECT * FROM Etiqueta WHERE id_projecte = '" + id_projecte + "' AND nom_columna = '" + nom_columna +
-                    "' AND nom_tasca = '" + nom_tasca + "';");
+            rs = s.executeQuery ("SELECT * FROM Etiqueta WHERE id_projecte = '" + id_projecte + "' AND id_columna = '" + id_columna +
+                    "' AND id_tasca = '" + id_tasca + "';");
             while(rs.next()) {
-                if (rs.getString("nom_columna") != null) {
-                    encarregats.add(new Encarregat(rs.getString("nom_encarregat"), rs.getString("color")));
-                }
+                if (rs.getString("id_encarregat") != null) {
+                    encarregats.add(new Encarregat(rs.getString("id_columna"), rs.getString("id_tasca"), rs.getString("id_encarregat"),
+                            rs.getString("nom_encarregat"), rs.getString("color")));                }
             }
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -237,8 +245,7 @@ public class DataBaseManager {
     }
 
     //Funció validada
-    public static boolean addProject(Project projecte) {
-        ResultSet rs;
+    public static void addProject(Project projecte) {
         try {
             String query = "{CALL Organizer.AddProject(?,?,?,?)}";
             java.sql.CallableStatement stmt = connection.prepareCall(query);
@@ -246,125 +253,93 @@ public class DataBaseManager {
             stmt.setString(2, projecte.getColor());
             stmt.setString(3, projecte.getId());
             stmt.setString(4, projecte.getBackground());
-            rs = stmt.executeQuery();
-            rs.next();
-            if(rs.getString(1).equals("NO")) {
-                return false;
-            }
+            stmt.executeQuery();
+
             for(Category c: projecte.getCategories()) {
-                if(!DataBaseManager.addCategory(c, projecte.getId())) {
-                    return false;
-                }
+                DataBaseManager.addCategory(c, projecte.getId());
                 for(Task t: c.getTasks()) {
-                    if(!DataBaseManager.addTask(t, projecte.getId(), c.getName())) {
-                        return false;
-                    }
+                    DataBaseManager.addTask(t, projecte.getId());
                     for(Tag tag: t.getTags()) {
-                        if(!DataBaseManager.addTag(tag, projecte.getId(), c.getName(), t.getName())) {
-                            return false;
-                        }
+                        DataBaseManager.addTag(tag, projecte.getId());
                     }
                     for(Encarregat e: t.getEncarregats()) {
-                        if(!DataBaseManager.addEncarregat(e, projecte.getId(), c.getName(), t.getName())) {
-                            return false;
-                        }
+                        DataBaseManager.addEncarregat(e, projecte.getId());
                     }
                 }
             }
         } catch (SQLException e) {
             System.out.println("Problema al Recuperar les dades --> " + e.getSQLState());
         }
-        return true;
     }
 
     //Funció validada
-    public static boolean addEncarregat(Encarregat e, String id_projecte, String nom_columna, String nom_tasca) {
-        ResultSet rs;
-        String query = "{CALL Organizer.AddEncarregat(?,?,?,?,?)}";
+    public static void addEncarregat(Encarregat e, String id_projecte) {
+        String query = "{CALL Organizer.AddEncarregat(?,?,?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
         try {
             stmt = connection.prepareCall(query);
             stmt.setString(1, id_projecte);
-            stmt.setString(2, nom_columna);
-            stmt.setString(3, nom_tasca);
-            stmt.setString(4, e.getName());
-            stmt.setString(5, e.getColor());
-            rs = stmt.executeQuery();
-            rs.next();
-            if(rs.getString(1).equals("NO")) {
-                return false;
-            }
+            stmt.setString(2, e.getId_category());
+            stmt.setString(3, e.getId_task());
+            stmt.setString(4, e.getId());
+            stmt.setString(5, e.getName());
+            stmt.setString(6, e.getColor());
+            stmt.executeQuery();
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
         }
-        return true;
     }
 
     //Funció validada
-    public static boolean addTag(Tag tag, String id_projecte, String nom_columna, String nom_tasca) {
-        ResultSet rs;
-        String query = "{CALL Organizer.AddTag(?,?,?,?,?)}";
+    public static void addTag(Tag tag, String id_projecte) {
+        String query = "{CALL Organizer.AddTag(?,?,?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
         try {
             stmt = connection.prepareCall(query);
             stmt.setString(1, id_projecte);
-            stmt.setString(2, nom_columna);
-            stmt.setString(3, nom_tasca);
-            stmt.setString(4, tag.getName());
-            stmt.setString(5, tag.getColor());
-            rs = stmt.executeQuery();
-            rs.next();
-            if(rs.getString(1).equals("NO")) {
-                return false;
-            }
+            stmt.setString(2, tag.getId_category());
+            stmt.setString(3, tag.getId_task());
+            stmt.setString(4, tag.getId());
+            stmt.setString(5, tag.getName());
+            stmt.setString(6, tag.getColor());
+            stmt.executeQuery();
         } catch (SQLException e) {
             System.out.println("Problema al Recuperar les dades --> " + e.getSQLState());
         }
-        return true;
     }
 
     //Funció validada
-    public static boolean addTask(Task t, String id_projecte, String nom_columna) {
-        ResultSet rs;
-        String query = "{CALL Organizer.AddTask(?,?,?,?,?)}";
+    public static void addTask(Task t, String id_projecte) {
+        String query = "{CALL Organizer.AddTask(?,?,?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
         try {
             stmt = connection.prepareCall(query);
             stmt.setString(1, id_projecte);
-            stmt.setString(2, nom_columna);
-            stmt.setString(3, t.getName());
-            stmt.setString(4, t.getDescription());
-            stmt.setInt(5, t.getOrder());
-            rs = stmt.executeQuery();
-            rs.next();
-            if(rs.getString(1).equals("NO")) {
-                return false;
-            }
+            stmt.setString(2, t.getId_category());
+            stmt.setString(3, t.getId());
+            stmt.setString(4, t.getName());
+            stmt.setString(5, t.getDescription());
+            stmt.setInt(6, t.getOrder());
+            stmt.executeQuery();
         } catch (SQLException e) {
             System.out.println("Problema al Recuperar les dades --> " + e.getSQLState());
         }
-        return true;
     }
 
     //Funció validada
-    public static boolean addCategory(Category c, String id_projecte) {
-        ResultSet rs;
-        String query = "{CALL Organizer.AddCategory(?,?,?)}";
+    public static void addCategory(Category c, String id_projecte) {
+        String query = "{CALL Organizer.AddCategory(?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
         try {
             stmt = connection.prepareCall(query);
-            stmt.setString(1, c.getName());
-            stmt.setString(2, id_projecte);
-            stmt.setInt(3, c.getOrder());
-            rs = stmt.executeQuery();
-            rs.next();
-            if(rs.getString(1).equals("NO")) {
-                return false;
-            }
+            stmt.setString(1, id_projecte);
+            stmt.setString(2, c.getId());
+            stmt.setString(3, c.getName());
+            stmt.setInt(4, c.getOrder());
+            stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
     }
 
     //Funció validada
@@ -427,115 +402,168 @@ public class DataBaseManager {
     }
 
     //Funció validada
-    public static void deleteCategory(String id_projecte, String id_categoria) {
-        deleteEncarregats(id_projecte, id_categoria);
-        deleteTags(id_projecte, id_categoria);
-        deleteTasks(id_projecte, id_categoria);
-        deleteAllCategory(id_projecte, id_categoria);
+    public static void deleteCategory(String id_projecte, String id_columna) {
+        deleteEncarregats(id_projecte, id_columna);
+        deleteTags(id_projecte, id_columna);
+        deleteTasks(id_projecte, id_columna);
+        deleteAllCategory(id_projecte, id_columna);
     }
 
     //Funció validada
-    private static void deleteAllCategory(String id_projecte, String id_categoria) {
+    private static void deleteAllCategory(String id_projecte, String id_columna) {
         try {
             s =(Statement) connection.createStatement();
             s.executeUpdate ("DELETE FROM Columna WHERE id_projecte = '" + id_projecte + "' AND" +
-                    " nom_columna = '" + id_categoria + "';");
+                    " id_columna = '" + id_columna + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
 
     //Funció validada
-    private static void deleteTasks(String id_projecte, String id_categoria) {
+    private static void deleteTasks(String id_projecte, String id_columna) {
         try {
             s.executeUpdate ("DELETE FROM Tasca WHERE id_projecte = '" + id_projecte + "' AND" +
-                    " nom_columna = '" + id_categoria + "';");
+                    " id_columna = '" + id_columna + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
 
     //Funció validada
-    private static void deleteTags(String id_projecte, String id_categoria) {
+    private static void deleteTags(String id_projecte, String id_columna) {
         try {
             s =(Statement) connection.createStatement();
             s.executeUpdate ("DELETE FROM Etiqueta WHERE id_projecte = '" + id_projecte + "' AND" +
-                    " nom_columna = '" + id_categoria + "';");
+                    " id_columna = '" + id_columna + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
 
     //Funció validada
-    private static void deleteEncarregats(String id_projecte, String id_categoria) {
+    private static void deleteEncarregats(String id_projecte, String id_columna) {
         try {
             s =(Statement) connection.createStatement();
             s.executeUpdate ("DELETE FROM Encarregat WHERE id_projecte = '" + id_projecte + "' AND" +
-                    " nom_columna = '" + id_categoria + "';");
+                    " id_columna = '" + id_columna + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
 
     //Funció validada
-    public static void deleteTag(String id_projecte, String nom_columna, String nom_tasca, String nom_tag) {
+    public static void deleteTag(String id_projecte, String id_columna, String id_tasca, String id_etiqueta) {
         try {
             s =(Statement) connection.createStatement();
             s.executeUpdate ("DELETE FROM Etiqueta WHERE id_projecte = '" + id_projecte + "' AND" +
-                    " nom_columna = '" + nom_columna + "' AND nom_tasca = '" + nom_tasca + "' AND" +
-                    " nom_etiqueta = '" + nom_tag + "';");
+                    " id_columna = '" + id_columna + "' AND id_tasca = '" + id_tasca + "' AND" +
+                    " id_etiqueta = '" + id_etiqueta + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
 
     //Funció validada
-    public static void deleteEncarregat(String id_projecte, String nom_columna, String nom_tasca, String nom_encarregat) {
+    public static void deleteEncarregat(String id_projecte, String id_columna, String id_tasca, String id_encarregat) {
         try {
             s =(Statement) connection.createStatement();
             s.executeUpdate ("DELETE FROM Encarregat WHERE id_projecte = '" + id_projecte + "' AND" +
-                    " nom_columna = '" + nom_columna + "' AND nom_tasca = '" + nom_tasca + "' AND" +
-                    " nom_etiqueta = '" + nom_encarregat + "';");
+                    " id_columna = '" + id_columna + "' AND id_tasca = '" + id_tasca + "' AND" +
+                    " id_encarregat = '" + id_encarregat + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
 
     //Funció validada
-    public static void deleteTask(String id_projecte, String nom_columna, String nom_tasca) {
-        deleteTags(id_projecte, nom_columna, nom_tasca);
-        deleteEncarregats(id_projecte, nom_columna, nom_tasca);
-        deleteAllTask(id_projecte, nom_columna, nom_tasca);
+    public static void deleteTask(String id_projecte, String id_columna, String id_tasca) {
+        deleteTags(id_projecte, id_columna, id_tasca);
+        deleteEncarregats(id_projecte, id_columna, id_tasca);
+        deleteAllTask(id_projecte, id_columna, id_tasca);
     }
 
     //Funció validada
-    private static void deleteAllTask(String id_projecte, String nom_columna, String nom_tasca) {
+    private static void deleteAllTask(String id_projecte, String id_columna, String id_tasca) {
         try {
             s =(Statement) connection.createStatement();
             s.executeUpdate ("DELETE FROM Tasca WHERE id_projecte = '" + id_projecte + "' AND" +
-                    " nom_columna = '" + nom_columna + "' AND nom_tasca = '" + nom_tasca + "';");
+                    " id_columna = '" + id_columna + "' AND id_tasca = '" + id_tasca + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
 
     //Funció validada
-    private static void deleteEncarregats(String id_projecte, String nom_columna, String nom_tasca) {
+    private static void deleteEncarregats(String id_projecte, String id_columna, String id_tasca) {
         try {
             s =(Statement) connection.createStatement();
             s.executeUpdate ("DELETE FROM Encarregat WHERE id_projecte = '" + id_projecte + "' AND" +
-                    " nom_columna = '" + nom_columna + "' AND nom_tasca = '" + nom_tasca + "';");
+                    " id_columna = '" + id_columna + "' AND id_tasca = '" + id_tasca + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
 
     //Funció validada
-    private static void deleteTags(String id_projecte, String nom_columna, String nom_tasca) {
+    private static void deleteTags(String id_projecte, String id_columna, String id_tasca) {
         try {
             s =(Statement) connection.createStatement();
             s.executeUpdate ("DELETE FROM Etiqueta WHERE id_projecte = '" + id_projecte + "' AND" +
-                    " nom_columna = '" + nom_columna + "' AND nom_tasca = '" + nom_tasca + "';");
+                    " id_columna = '" + id_columna + "' AND id_tasca = '" + id_tasca + "';");
+        } catch (SQLException ex) {
+            System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
+        }
+    }
+
+    public static void swapTask(String id_projecte, Task task1, Task task2) {
+        String query = "{CALL Organizer.SwapTask(?,?,?,?,?,?)}";
+        java.sql.CallableStatement stmt = null;
+        try {
+            stmt = connection.prepareCall(query);
+            stmt.setString(1, id_projecte);
+            stmt.setString(2, task1.getId_category());
+            stmt.setString(3, task1.getId());
+            stmt.setString(4, task2.getId());
+            stmt.setInt(5, task1.getOrder());
+            stmt.setInt(6, task2.getOrder());
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void swapCategory(String id_projecte, Category category1, Category category2) {
+        String query = "{CALL Organizer.SwapCategory(?,?,?,?,?,?)}";
+        java.sql.CallableStatement stmt = null;
+        try {
+            stmt = connection.prepareCall(query);
+            stmt.setString(1, id_projecte);
+            stmt.setString(2, category1.getId());
+            stmt.setString(3, category2.getId());
+            stmt.setInt(4, category1.getOrder());
+            stmt.setInt(5, category2.getOrder());
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addUser(String id_projecte, String username) {
+        try {
+            s =(Statement) connection.createStatement();
+            s.executeUpdate ("INSERT INTO Membre(nom_usuari, id_projecte) VALUES ('" + id_projecte + "', '"
+            + username + "');");
+        } catch (SQLException ex) {
+            System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
+        }
+    }
+
+    public static void deleteUser(String id_projecte, String username) {
+        try {
+            s =(Statement) connection.createStatement();
+            s.executeUpdate ("DELETE FROM Membre WHERE id_projecte = '" + id_projecte + "'AND nom_usuari = '"
+                    + username + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
