@@ -9,16 +9,13 @@ import view.PasswordDialog;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         boolean ok = false;
         ConnectorDB connector;
-        Object test = new Server();
-
-
-        System.out.println(test.getClass().getName());
 
         DataModel dataModel = new DataModel();
 
@@ -27,6 +24,7 @@ public class Main {
         SuperController superController = new SuperController(mainServerView, dataModel);
 
         mainServerView.linkController(superController);
+
 
         while (!ok) {
             final String CANCEL = ".-^";
@@ -43,5 +41,9 @@ public class Main {
                 }
             }
         }
+
+
+        Server server = new Server();
+        server.startServer();
     }
 }

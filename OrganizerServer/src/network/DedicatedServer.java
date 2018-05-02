@@ -45,14 +45,18 @@ public class DedicatedServer extends Thread{
         boolean logged = false;
         ServerObjectType type;
         Object object;
-
+        System.out.println("ENTRAA");
         try {
+            System.out.println("AQUIII");
             objectIn = new ObjectInputStream(sClient.getInputStream());
+            System.out.println("FIRST");
             objectOut = new ObjectOutputStream(sClient.getOutputStream());
-
+            System.out.println("1");
             while(isOn) {
                 type = (ServerObjectType) objectIn.readObject();
+                System.out.println("2");
                 try {
+                    System.out.println(type.toString());
                     switch (type) {
                         case LOGIN:
                             final UserLogIn logIn = (UserLogIn) objectIn.readObject();
@@ -86,9 +90,11 @@ public class DedicatedServer extends Thread{
                             break;
 
                         case SET_PROJECT:
+                            System.out.println("Project");
                             final Project projecte = (Project) objectIn.readObject();
                             DataBaseManager.addProject(projecte);
                             provider.sendBroadcast(hash, projecte);
+                            System.out.println("Broadcast");
                             break;
 
                         case DELETE_PROJECT:

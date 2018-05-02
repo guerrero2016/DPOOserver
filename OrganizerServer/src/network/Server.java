@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Server extends Thread{
-    private static final int SERVER_PORT = 13373;
+    private static final int SERVER_PORT = 15001;
 
     private boolean isOn;
     private ServerSocket serverSocket;
@@ -51,9 +51,9 @@ public class Server extends Thread{
                 e.printStackTrace();
             }
 
-            for (DedicatedServer ds : clients) {
-                ds.stopDedicatedServer();
-            }
+        }
+        for (DedicatedServer ds : clients) {
+            ds.stopDedicatedServer();
         }
     }
 }
