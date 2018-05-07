@@ -55,24 +55,31 @@ public class GraphController implements ActionListener{
            //Això ho fem en funció del periode seleccionat
            Calendar cal;
            Date date;
+           java.sql.Date sqlDate;
            switch (periode){
                case "Setmanal":
                    cal = Calendar.getInstance();
                    cal.add(Calendar.DATE, -7);
                    date = cal.getTime();
+                   sqlDate = new java.sql.Date(date.getTime());
                    System.out.println("S: " + date);
+                   System.out.println("SQL S: " + sqlDate);
                    break;
                case "Mensual":
                    cal = Calendar.getInstance();
                    cal.add(Calendar.MONTH, -1);
                    date = cal.getTime();
+                   sqlDate = new java.sql.Date(date.getTime());
                    System.out.println("M: " + date);
+                   System.out.println("SQL M: " + sqlDate);
                    break;
                case "Anual":
                    cal = Calendar.getInstance();
                    cal.add(Calendar.YEAR, -1);
                    date = cal.getTime();
+                   sqlDate = new java.sql.Date(date.getTime());
                    System.out.println("Y: " + date);
+                   System.out.println("SQL S: " + sqlDate);
                    break;
            }
            //Un cop tenim la data fem la petició a la BBDD amb l'usuari i la data mínima

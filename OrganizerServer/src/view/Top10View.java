@@ -44,7 +44,7 @@ public class Top10View extends JPanel {
         jpCenter = new JPanel();
 
         //Definim el layout del JPanel que conté tot
-        jpSuperTop.setLayout(new BorderLayout());
+        jpSuperTop.setLayout(new BoxLayout(jpSuperTop, BoxLayout.PAGE_AXIS));
 
         //Definim el layout del panell central
         jpCenter.setLayout(new GridLayout(10,1));
@@ -53,14 +53,15 @@ public class Top10View extends JPanel {
         createTop10Items();
 
         JScrollPane jspCenter = new JScrollPane(jpCenter);
-        jspCenter.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jspCenter.setPreferredSize(new Dimension(300,475));
+        jspCenter.setBorder(BorderFactory.createTitledBorder("Llistat Top 10"));
 
         //Afegim el botó al lateral
         jpEast.add(jbActulize);
 
         //Afegim els panells al panell general
-        jpSuperTop.add(jspCenter, BorderLayout.CENTER);
-        jpSuperTop.add(jpEast, BorderLayout.LINE_END);
+        jpSuperTop.add(jpEast);
+        jpSuperTop.add(jspCenter);
 
         //Com la classe hereda de JPanel afegim el panell al JPanel de la classe
         this.add(jpSuperTop);
