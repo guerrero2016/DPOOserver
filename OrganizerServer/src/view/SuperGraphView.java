@@ -13,11 +13,10 @@ public class SuperGraphView extends JPanel{
     private GraphView graph ;
 
     private JPanel jpGraph = new JPanel();
-    JPanel jpSuperGraph = new JPanel();
+    private JPanel jpSuperGraph = new JPanel();
 
     public SuperGraphView(){
         //Here we create all the panels and configure their layouts
-
         JPanel jpEast = new JPanel();
         JPanel jpAuxUserPeriod = new JPanel();
 

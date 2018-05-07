@@ -49,7 +49,7 @@ public class GraphController implements ActionListener{
            aux.add(13.75);
            dataModel.setGraphPoints(aux);
            //TREURE FINS AQUI
-           
+
            //Demanem les dades
            //Primer necessitem saber des de quina data necessitem les dades
            //Això ho fem en funció del periode seleccionat
