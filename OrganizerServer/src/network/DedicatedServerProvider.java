@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class DedicatedServerProvider implements DedicatedServerProvidable{
+    private static final String LOBBY = "lobby";
 
     private HashMap<String, LinkedList<DedicatedServer>> projectServers;
 
@@ -52,7 +53,29 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
 
     @Override
     public void deleteAllByID(String hashCode) {
-        sendBroadcast(hashCode, ServerObjectType.EXIT_PROJECT);
+        sendBroadcast(hashCode, ServerObjectType.DELETE_PROJECT);
+        //TODO s'hauria de fer que el exitcode mostres un dialog a l'usuari
         projectServers.remove(hashCode);
+    }
+
+    @Override
+    public void addToLoby(DedicatedServer dedicated) {
+        projectServers.get(LOBBY).add(dedicated);
+    }
+
+    @Override
+    public void deleteFromLobby(DedicatedServer dedicated) {
+        projectServers.get(LOBBY).remove(dedicated);
+    }
+
+    @Override
+    public void sendBroadcastToUser(String username, ServerObjectType type, Object obj) {
+        for (LinkedList<DedicatedServer> list : projectServers.values()) {
+            for (DedicatedServer ds : list) {
+                if (ds.getUsername().equals(username)) {
+                    ds.sendData(type, obj);
+                }
+            }
+        }
     }
 }

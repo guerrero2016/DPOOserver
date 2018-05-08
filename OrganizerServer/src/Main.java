@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,7 +25,6 @@ public class Main {
         SuperController superController = new SuperController(mainServerView, dataModel);
 
         mainServerView.linkController(superController);
-
 
         while (!ok) {
             final String CANCEL = ".-^";
