@@ -1,5 +1,99 @@
 package view;
 
-public class Top10View {
+import controller.Top10Controller;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+public class Top10View extends JPanel {
+
+    private JPanel jpSuperTop = new JPanel();
+    private JPanel jpCenter;
+    private JButton jbActulize = new JButton("Carregar");
+    private JPanel[] jpArray = new JPanel[10];
+    private JLabel[] jlNomUserArray = new JLabel[10];
+    private JLabel[] jlNumTaskPendentsArray = new JLabel[10];
+    private JLabel[] jlNumTaskTotalArray = new JLabel[10];
+
+    public Top10View() {
+        //Posem l'action command del botó
+        jbActulize.setActionCommand("Carregar");
+
+        //Iniciem els noms, i nombre de tasques a "-", valor buit d'arrencada
+        for(int i = 0; i < jlNomUserArray.length; i++){
+            JLabel jl = new JLabel("-");
+            jlNomUserArray[i] = jl;
+        }
+        for(int i = 0; i < jlNumTaskPendentsArray.length; i++){
+            JLabel jl = new JLabel("-");
+            jlNumTaskPendentsArray[i] = jl;
+        }
+        for(int i = 0; i < jlNumTaskTotalArray.length; i++){
+            JLabel jl = new JLabel("-");
+            jlNumTaskTotalArray[i] = jl;
+        }
+
+        //iniciem l'array de panells
+        for(int i = 0 ; i < jpArray.length; i++){
+            jpArray[i] = new JPanel();
+        }
+
+        //Creem els panells que contindran la secció lateral i la principal
+        JPanel jpEast = new JPanel();
+        jpCenter = new JPanel();
+
+        //Definim el layout del JPanel que conté tot
+        jpSuperTop.setLayout(new BoxLayout(jpSuperTop, BoxLayout.PAGE_AXIS));
+
+        //Definim el layout del panell central
+        jpCenter.setLayout(new GridLayout(10,1));
+
+        //Afegim els panells al centre del top10
+        createTop10Items();
+
+        JScrollPane jspCenter = new JScrollPane(jpCenter);
+        jspCenter.setPreferredSize(new Dimension(300,475));
+        jspCenter.setBorder(BorderFactory.createTitledBorder("Llistat Top 10"));
+
+        //Afegim el botó al lateral
+        jpEast.add(jbActulize);
+
+        //Afegim els panells al panell general
+        jpSuperTop.add(jpEast);
+        jpSuperTop.add(jspCenter);
+
+        //Com la classe hereda de JPanel afegim el panell al JPanel de la classe
+        this.add(jpSuperTop);
+    }
+
+    private void createTop10Items(){
+        for(int i = 0; i < jpArray.length; i++){
+            JLabel jlNom = new JLabel("Nom Usuari");
+            jlNom.setFont(new Font("Dialog", Font.BOLD, 12));
+            JLabel jlPendents = new JLabel("Tasques pendents");
+            jlPendents.setFont(new Font("Dialog", Font.BOLD, 12));
+            JLabel jlTotals = new JLabel("Tasques totals");
+            jlTotals.setFont(new Font("Dialog", Font.BOLD, 12));
+
+            JPanel jp = new JPanel();
+            jp.setLayout(new BoxLayout(jp, BoxLayout.PAGE_AXIS));
+            jp.add(jlNom);
+            jp.add(jlNomUserArray[i]);
+            jp.add(jlPendents);
+            jp.add(jlNumTaskPendentsArray[i]);
+            jp.add(jlTotals);
+            jp.add(jlNumTaskTotalArray[i]);
+            Integer aux = i + 1;
+            String title = aux.toString();
+            jp.setBorder(BorderFactory.createTitledBorder("Top " + title));
+            jpArray[i] = jp;
+            jpCenter.add(jpArray[i]);
+        }
+
+    }
+
+    public void linkController(Top10Controller top10Controller){
+        jbActulize.addActionListener(top10Controller);
+    }
 }
