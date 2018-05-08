@@ -3,6 +3,7 @@ package model;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import model.project.*;
+import model.user.Top10NeededData;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -575,6 +576,11 @@ public class DataBaseManager {
     //TODO:Implementar-la
     //El Date es el de sql, no java.util
     public static Date[] requestUserEvolution(String username, Date minDate){
+        return null;
+    }
+
+    //Funcio demanar el top10 d'usuaris amb tasques pendents
+    public static Top10NeededData[] requestTop10(){
         return null;
     }
 }

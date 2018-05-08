@@ -1,6 +1,8 @@
 package controller;
 
+import model.DataBaseManager;
 import model.DataModel;
+import model.user.Top10NeededData;
 import view.MainServerView;
 
 import java.awt.event.ActionEvent;
@@ -20,7 +22,8 @@ public class Top10Controller extends Observable implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Carregar")){
-            //TODO: Cridem a actualitzar a la BBDD
+            Top10NeededData[] top10People = DataBaseManager.requestTop10();
+            //TODO: Actualitzar el top 10 amb les dades de top10People
         }
     }
 }
