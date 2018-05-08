@@ -80,42 +80,42 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.AddTask $$
-CREATE PROCEDURE Organizer.AddTask (IN id_p_in VARCHAR(255), IN id_c_in VARCHAR(255), IN id_in VARCHAR(255), IN nom_in VARCHAR(255), IN des_in VARCHAR(255), pos_in INT)
+CREATE PROCEDURE Organizer.AddTask (IN id_c_in VARCHAR(255), IN id_in VARCHAR(255), IN nom_in VARCHAR(255), IN des_in VARCHAR(255), pos_in INT)
 BEGIN
-	IF (id_p_in, id_c_in, id_in) IN (SELECT id_projecte, id_columna, id_tasca FROM Tasca) THEN
+	IF (id_c_in, id_in) IN (SELECT id_columna, id_tasca FROM Tasca) THEN
 		UPDATE Tasca
 			SET nom_tasca = nom_in, descripcio = des_in, posicio = pos_in
-            WHERE id_projecte = id_p_in AND id_columna = id_c_in AND id_tasca = id_in;
+            WHERE id_columna = id_c_in AND id_tasca = id_in;
 	ELSE
-		INSERT INTO Tasca(id_projecte, id_columna, id_tasca, nom_tasca, descripcio, posicio) VALUES (id_p_in, id_c_in, id_in, nom_in, des_in, pos_in);
+		INSERT INTO Tasca(id_columna, id_tasca, nom_tasca, descripcio, posicio) VALUES (id_c_in, id_in, nom_in, des_in, pos_in);
     END IF;
 END $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.AddTag $$
-CREATE PROCEDURE Organizer.AddTag (IN id_p_in VARCHAR(255), IN id_c_in VARCHAR(255), IN id_t_in VARCHAR(255), IN id_in VARCHAR(255), IN nom_in VARCHAR(255), IN pos_in VARCHAR(255))
+CREATE PROCEDURE Organizer.AddTag (IN id_t_in VARCHAR(255), IN id_in VARCHAR(255), IN nom_in VARCHAR(255), IN pos_in VARCHAR(255))
 BEGIN
-	IF (id_p_in, id_c_in, id_t_in, id_in) IN (SELECT id_projecte, id_columna, id_tasca, id_etiqueta FROM Etiqueta) THEN
+	IF (id_t_in, id_in) IN (SELECT id_tasca, id_etiqueta FROM Etiqueta) THEN
 		UPDATE Etiqueta
 			SET nom_etiqueta = nom_in, descripcio = des_in, posicio = pos_in
-            WHERE id_projecte = id_p_in AND id_columna = id_c_in AND id_tasca = id_t_in AND id_etiqueta = id_in;
+            WHERE id_tasca = id_t_in AND id_etiqueta = id_in;
 	ELSE
-		INSERT INTO Etiqueta(id_projecte, id_columna, id_tasca, id_etiqueta, nom_etiqueta, color) VALUES (id_p_in, id_c_in, id_t_in, id_in, nom_in, color_in);
+		INSERT INTO Etiqueta(id_tasca, id_etiqueta, nom_etiqueta, color) VALUES (id_t_in, id_in, nom_in, color_in);
     END IF;
 END $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.AddEncarregat $$
-CREATE PROCEDURE Organizer.AddEncarregat (IN id_p_in VARCHAR(255), IN id_c_in VARCHAR(255), IN id_t_in VARCHAR(255), IN id_in VARCHAR(255), IN nom_in VARCHAR(255), IN pos_in VARCHAR(255))
+CREATE PROCEDURE Organizer.AddEncarregat (IN id_t_in VARCHAR(255), IN id_in VARCHAR(255), IN nom_in VARCHAR(255), IN pos_in VARCHAR(255))
 BEGIN
-	IF (id_p_in, id_c_in, id_t_in, id_in) IN (SELECT id_projecte, id_columna, id_tasca, id_encarregat FROM Encarregat) THEN
+	IF (id_t_in, id_in) IN (SELECT id_tasca, id_encarregat FROM Encarregat) THEN
 		UPDATE Etiqueta
 			SET nom_encarregat = nom_in, descripcio = des_in, posicio = pos_in
-            WHERE id_projecte = id_p_in AND id_columna = id_c_in AND id_tasca = id_t_in AND id_encarregat = id_in;
+            WHERE id_tasca = id_t_in AND id_encarregat = id_in;
 	ELSE
-		INSERT INTO Encarregat(id_projecte, id_columna, id_tasca, id_encarregat, nom_encarregat, color) VALUES (id_p_in, id_c_in, id_t_in, id_in, nom_in, color_in);
+		INSERT INTO Encarregat(id_tasca, id_encarregat, nom_encarregat, color) VALUES (id_t_in, id_in, nom_in, color_in);
     END IF;
 END $$
 DELIMITER ;
@@ -143,5 +143,59 @@ BEGIN
 	UPDATE Columna
 		SET posicio = pos2_in
 		WHERE id_projecte = id_p_in AND id_columna = id_c1_in;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS Organizer.requestUserEvolution $$
+CREATE PROCEDURE Organizer.requestUserEvolution (IN user_in VARCHAR(255), IN date_in DATE)
+BEGIN
+	SELECT data_done FROM Tasca as t JOIN Encarregat as e ON t.id_tasca = e.id_tasca
+    WHERE e.nom_encarregat = user_in AND date_done >= date_in;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS Organizer.requestTop10 $$
+CREATE PROCEDURE Organizer.requestTop10 ()
+BEGIN
+	SELECT nom_encarregat, COUNT(*) as tasques_per_fer FROM Tasca as t JOIN Encarregat as e ON t.id_tasca = e.id_tasca
+    WHERE data_done IS null
+    GROUP BY nom_encarregat
+    ORDER BY tasques_per_fer DESC LIMIT 10;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS Organizer.deleteProject $$
+CREATE PROCEDURE Organizer.deleteProject (id_in VARCHAR(255))
+BEGIN
+	DELETE p, c, t, en, e
+    FROM Projecte as p JOIN Columna as c USING (id_projecte)
+    JOIN Tasca as t USING (id_columna) JOIN Encarregat as en USING (id_tasca)
+    JOIN Etiqueta as e ON e.id_tasca = t.id_tasca
+    WHERE p.id_projecte = id_in;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS Organizer.deleteCategory $$
+CREATE PROCEDURE Organizer.deleteCategory (id_in VARCHAR(255))
+BEGIN
+	DELETE c, t, e, en
+    FROM Columna as c JOIN Tasca as t USING (id_columna) JOIN Encarregat as en USING (id_tasca)
+    JOIN Etiqueta as e ON e.id_tasca = t.id_tasca
+    WHERE c.id_columna = id_in;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS Organizer.deleteTask $$
+CREATE PROCEDURE Organizer.deleteTask (id_in VARCHAR(255))
+BEGIN
+	DELETE t, e, en
+    FROM Tasca as t JOIN Encarregat as en USING (id_tasca)
+    JOIN Etiqueta as e ON e.id_tasca = t.id_tasca
+    WHERE t.id_tasca = id_in;
 END $$
 DELIMITER ;

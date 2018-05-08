@@ -20,8 +20,9 @@ public class CategoryDBManager {
             rs = s.executeQuery ("SELECT * FROM Columna WHERE id_projecte = '" + id_projecte + "';");
             while(rs.next()) {
                 if (rs.getString("id_columna") != null) {
-                    categories.add(new Category(rs.getString("id_columna"), rs.getString("nom_columna"), rs.getInt("posicio"),
-                            TaskDBManager.getTasks(id_projecte, rs.getString("id_columna"))));
+                    categories.add(new Category(rs.getString("id_columna"),
+                            rs.getString("nom_columna"), rs.getInt("posicio"),
+                            DataBaseManager.getTaskDBManager().getTasks(id_projecte, rs.getString("id_columna"))));
                 }
             }
         } catch (SQLException ex) {

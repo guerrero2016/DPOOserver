@@ -1,5 +1,7 @@
 package model.user;
 
+import db.DataBaseManager;
+
 import java.io.Serializable;
 
 public class UserRegister implements Serializable{
@@ -80,7 +82,6 @@ public class UserRegister implements Serializable{
         if (!minus || !majus || !num) {
             return 3;
         }
-        return 0;
-        //return DataBaseManager.RegistrarUsuari(userName, email, password);
+        return DataBaseManager.getUserDBManager().RegistrarUsuari(userName, email, password);
     }
 }

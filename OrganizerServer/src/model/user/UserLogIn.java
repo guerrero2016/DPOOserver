@@ -9,7 +9,7 @@ public class UserLogIn implements Serializable{
         private String password;
 
     public boolean checkLogIn() {
-        return DataBaseManager.IniciarSessio(userName, password);
+        return DataBaseManager.getUserDBManager().IniciarSessio(userName, password);
     }
 
     public String getUserName() {

@@ -47,39 +47,35 @@ CREATE TABLE Columna(
     id_columna VARCHAR(255),
     nom_columna VARCHAR(255),
     posicio INT,
-    PRIMARY KEY (id_projecte, id_columna),
+    PRIMARY KEY (id_columna),
     FOREIGN KEY (id_projecte) REFERENCES Projecte(id_projecte)
 );
 
 CREATE TABLE Tasca(
-	id_projecte VARCHAR(255),
 	id_columna VARCHAR(255),
     id_tasca VARCHAR(255),
     nom_tasca VARCHAR(255),
     descripcio VARCHAR(255),
     posicio INT,
-    PRIMARY KEY (id_projecte, id_columna, id_tasca),
-    FOREIGN KEY (id_projecte, id_columna) REFERENCES Columna(id_projecte, id_columna)
+    data_done DATE DEFAULT NULL,
+    PRIMARY KEY (id_tasca),
+    FOREIGN KEY (id_columna) REFERENCES Columna(id_columna)
 );
 
 CREATE TABLE Etiqueta(
-	id_projecte VARCHAR(255),
-	id_columna VARCHAR(255),
     id_tasca VARCHAR(255),
     id_etiqueta VARCHAR(255),
     nom_etiqueta VARCHAR(255),
     color VARCHAR(255),
-    PRIMARY KEY (id_projecte, id_columna, id_tasca, id_etiqueta),
-    FOREIGN KEY (id_projecte, id_columna, id_tasca) REFERENCES Tasca(id_projecte, id_columna, id_tasca)
+    PRIMARY KEY (id_etiqueta),
+    FOREIGN KEY (id_tasca) REFERENCES Tasca(id_tasca)
 );
 
 CREATE TABLE Encarregat(
-	id_projecte VARCHAR(255),
-	id_columna VARCHAR(255),
     id_tasca VARCHAR(255),
     id_encarregat VARCHAR(255),
     nom_encarregat VARCHAR(255),
     color VARCHAR(255),
-    PRIMARY KEY (id_projecte, id_columna, id_tasca, id_encarregat),
-    FOREIGN KEY (id_projecte, id_columna, id_tasca) REFERENCES Tasca(id_projecte, id_columna, id_tasca)
+    PRIMARY KEY (id_encarregat),
+    FOREIGN KEY (id_tasca) REFERENCES Tasca(id_tasca)
 );

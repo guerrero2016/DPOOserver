@@ -30,7 +30,7 @@ public class ProjectDBManager {
 
             //Per cada projecte trobat:
             for (Project p: projects) {
-                p.setMembersName(DataBaseManager.getMemberDBManager().getMembers(p.getId(), userName));
+                p.setMembersName(DataBaseManager.getMemberDBManager().getMembers(p.getId()));
             }
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -55,7 +55,7 @@ public class ProjectDBManager {
             }
 
             for (Project p: projects) {
-                p.setMembersName(DataBaseManager.getMemberDBManager().getMembers(p.getId(), userName));
+                p.setMembersName(DataBaseManager.getMemberDBManager().getMembers(p.getId()));
             }
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());

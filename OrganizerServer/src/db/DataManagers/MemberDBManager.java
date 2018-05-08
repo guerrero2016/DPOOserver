@@ -10,13 +10,13 @@ import java.util.ArrayList;
 public class MemberDBManager {
     private Statement s;
 
-    ArrayList<String> getMembers(String id_projecte, String userName) {
+    public ArrayList<String> getMembers(String id_projecte) {
         ArrayList<String> members = new ArrayList<>();
         ResultSet rs;
 
         try {
             s =(Statement) DataBaseManager.getConnection().createStatement();
-            rs = s.executeQuery ("SELECT * FROM Membre WHERE id_projecte = '" + id_projecte + "' AND nom_usuari != '" + userName + "';");
+            rs = s.executeQuery ("SELECT * FROM Membre WHERE id_projecte = '" + id_projecte + "';");
             while(rs.next()) {
                 if(rs.getString("nom_usuari") != null) {
                     members.add(rs.getString("nom_usuari"));
