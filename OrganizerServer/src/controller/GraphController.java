@@ -1,11 +1,10 @@
 package controller;
 
-import model.DataBaseManager;
+import db.DataBaseManager;
 import model.DataModel;
 import view.GraphView;
 import view.SuperGraphView;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class GraphController implements ActionListener{
            //Date que passarem a la base de dades com a data mínima
            java.sql.Date sqlDate = null;
            //Array amb dates de les tasques realitzades que ens retorna la bbdd
-           java.sql.Date[] dateDots = null;
+           ArrayList<java.sql.Date> dateDots = null;
            switch (periode){
                case "Setmanal":
                    cal = Calendar.getInstance();

@@ -1,6 +1,6 @@
 package model.user;
 
-import model.DataBaseManager;
+import db.DataBaseManager;
 
 import java.io.Serializable;
 

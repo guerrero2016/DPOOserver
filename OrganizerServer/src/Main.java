@@ -1,16 +1,12 @@
 import controller.SuperController;
 import db.ConnectorDB;
-import model.DataBaseManager;
 import model.DataModel;
-import model.project.*;
 import network.Server;
 import view.MainServerView;
 import view.PasswordDialog;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;
-import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {

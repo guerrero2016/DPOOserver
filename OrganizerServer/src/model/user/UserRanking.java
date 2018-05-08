@@ -1,9 +1,13 @@
 package model.user;
 
-public class Top10NeededData {
+public class UserRanking {
     private String username;
     private int totalTasks;
     private int pendingTasks;
+
+    public String getUsername() {
+        return username;
+    }
 
     public int getPendingTasks() {
         return pendingTasks;

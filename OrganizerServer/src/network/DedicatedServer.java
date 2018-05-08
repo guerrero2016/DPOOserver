@@ -1,6 +1,6 @@
 package network;
 
-import model.DataBaseManager;
+import db.DataBaseManager;
 import model.ServerObjectType;
 import model.project.*;
 import model.user.UserLogIn;
@@ -177,13 +177,13 @@ public class DedicatedServer extends Thread{
 
                         case ADD_USER:
                             final String userName = objectIn.readUTF();
-                            DataBaseManager.addUser(hash, userName);
+                            DataBaseManager.addMember(hash, userName);
                             provider.sendBroadcast(hash, userName);
                             break;
 
                         case DELETE_USER:
                             final String username = objectIn.readUTF();
-                            DataBaseManager.deleteUser(hash, username);
+                            DataBaseManager.deleteMember(hash, username);
                             provider.sendBroadcast(hash, username);
                             break;
 
