@@ -3,6 +3,8 @@ package model;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import model.project.*;
+
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -567,5 +569,12 @@ public class DataBaseManager {
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
+    }
+
+    //Funcio demanar dades de l'evolució de l'usuari des de la data passada.
+    //TODO:Implementar-la
+    //El Date es el de sql, no java.util
+    public static Date[] requestUserEvolution(String username, Date minDate){
+        return null;
     }
 }

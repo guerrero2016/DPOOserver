@@ -1,5 +1,6 @@
 package controller;
 
+import model.DataBaseManager;
 import model.DataModel;
 import view.GraphView;
 import view.SuperGraphView;
@@ -55,7 +56,10 @@ public class GraphController implements ActionListener{
            //Això ho fem en funció del periode seleccionat
            Calendar cal;
            Date date;
-           java.sql.Date sqlDate;
+           //Date que passarem a la base de dades com a data mínima
+           java.sql.Date sqlDate = null;
+           //Array amb dates de les tasques realitzades que ens retorna la bbdd
+           java.sql.Date[] dateDots = null;
            switch (periode){
                case "Setmanal":
                    cal = Calendar.getInstance();
@@ -83,8 +87,8 @@ public class GraphController implements ActionListener{
                    break;
            }
            //Un cop tenim la data fem la petició a la BBDD amb l'usuari i la data mínima
-           //TODO:Crida a la bbdd
-
+           dateDots = DataBaseManager.requestUserEvolution(superGraphView.getJtfUserContent(), sqlDate);
+           //TODO:Usar l'array de dates (dateDots) per fer el gràfic bé
        }
 
        if (e.getActionCommand().equals("jcbPeriod")){
