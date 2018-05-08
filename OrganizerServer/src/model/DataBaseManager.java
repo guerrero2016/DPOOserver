@@ -226,8 +226,8 @@ public class DataBaseManager {
     }
 
     //Funció validada
-    private static ArrayList<Encarregat> getEncarregats(String id_projecte, String id_columna, String id_tasca) {
-        ArrayList<Encarregat> encarregats = new ArrayList<>();
+    private static ArrayList<MemberInCharge> getEncarregats(String id_projecte, String id_columna, String id_tasca) {
+        ArrayList<MemberInCharge> encarregats = new ArrayList<>();
         ResultSet rs;
         try {
             s =(Statement) connection.createStatement();
@@ -235,7 +235,7 @@ public class DataBaseManager {
                     "' AND id_tasca = '" + id_tasca + "';");
             while(rs.next()) {
                 if (rs.getString("id_encarregat") != null) {
-                    encarregats.add(new Encarregat(rs.getString("id_columna"), rs.getString("id_tasca"), rs.getString("id_encarregat"),
+                    encarregats.add(new MemberInCharge(rs.getString("id_columna"), rs.getString("id_tasca"), rs.getString("id_encarregat"),
                             rs.getString("nom_encarregat"), rs.getString("color")));                }
             }
         } catch (SQLException ex) {
@@ -262,7 +262,7 @@ public class DataBaseManager {
                     for(Tag tag: t.getTags()) {
                         DataBaseManager.addTag(tag, projecte.getId());
                     }
-                    for(Encarregat e: t.getEncarregats()) {
+                    for(MemberInCharge e: t.getEncarregats()) {
                         DataBaseManager.addEncarregat(e, projecte.getId());
                     }
                 }
@@ -273,7 +273,7 @@ public class DataBaseManager {
     }
 
     //Funció validada
-    public static void addEncarregat(Encarregat e, String id_projecte) {
+    public static void addEncarregat(MemberInCharge e, String id_projecte) {
         String query = "{CALL Organizer.AddEncarregat(?,?,?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
         try {

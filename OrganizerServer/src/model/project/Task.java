@@ -13,9 +13,9 @@ public class Task implements Serializable{
     private String description;
     private ArrayList<Tag> tags;
     private ArrayList<String> membersName;
-    private ArrayList<Encarregat> encarregats;
+    private ArrayList<MemberInCharge> encarregats;
 
-    public Task(String id_category, String id, String name, int order, String description, ArrayList<Tag> tags, ArrayList<Encarregat> encarregats) {
+    public Task(String id_category, String id, String name, int order, String description, ArrayList<Tag> tags, ArrayList<MemberInCharge> encarregats) {
         this.id_category = id_category;
         this.id = id;
         this.name = name;
@@ -25,7 +25,7 @@ public class Task implements Serializable{
         this.tags = tags;
     }
 
-    public ArrayList<Encarregat> getEncarregats() {
+    public ArrayList<MemberInCharge> getEncarregats() {
         return encarregats;
     }
 

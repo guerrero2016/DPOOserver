@@ -4,12 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Category implements Serializable{
+public class Category implements Serializable {
 
     private String id;
     private String name;
     private int order;
     private ArrayList<Task> tasks;
+
+    public Category(String name, int order, ArrayList<Task> tasks) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.order = order;
+        this.tasks = tasks;
+    }
 
     public Category(String id, String name, int order, ArrayList<Task> tasks) {
         this.id = id;
@@ -50,7 +57,19 @@ public class Category implements Serializable{
         this.tasks = tasks;
     }
 
-    public void addTask(Task task) {
-        this.tasks.add(task);
+    public void setTask(Task task) {
+        if (tasks.contains(task)) {
+            this.tasks.remove(task);
+            this.tasks.add(task.getOrder(), task);
+        } else {
+            this.tasks.add(task.getOrder(), task);
+        }
     }
+
+    public void deleteTask(Task task) {
+        if (tasks.contains(task)) {
+            this.tasks.remove(task);
+        }
+    }
+
 }

@@ -1,16 +1,17 @@
 package model.project;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Encarregat {
+public class MemberInCharge implements Serializable {
 
+    private String name;
+    private String color;
     private String id_category;
     private String id_task;
     private String id;
-    private String name;
-    private String color;
 
-    public Encarregat(String id_category, String id_task, String id, String name, String color) {
+    public MemberInCharge(String id_category, String id_task, String id, String name, String color) {
         this.id_category = id_category;
         this.id_task = id_task;
         this.id = id;

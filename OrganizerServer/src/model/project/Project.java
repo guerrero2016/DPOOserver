@@ -12,7 +12,7 @@ public class Project implements Serializable{
     private ArrayList<Category> categories;
     private ArrayList<String> membersName;
     private String background;   //s'haurà de canviar PROFE
-    private boolean propietari; //per sortir del pas
+    private boolean isOwner;
 
     public Project() {}
 
@@ -25,12 +25,12 @@ public class Project implements Serializable{
         this.background = background;
     }
 
-    public Project(String id, String name, String color, String background, boolean propietari) {
+    public Project(String id, String name, String color, String background, boolean isOwner) {
         this.id = id;
         this.name = name;
         this.color = color;
         this.background = background;
-        this.propietari = propietari;
+        this.isOwner = isOwner;
     }
 
     public String getId() {
@@ -47,6 +47,46 @@ public class Project implements Serializable{
 
     public ArrayList<Category> getCategories() {
         return categories;
+    }
+
+    public void setCategory(Category category) {
+        for (int i = 0; i < categories.size(); i++) {
+            if (category.getId().equals(categories.get(i).getId())) {
+                if (category.getName() != null) {
+                    categories.get(i).setName(category.getName());
+                }
+
+                if (category.getOrder() != -1) {
+                    Category auxCat = categories.get(i);
+                    auxCat.setOrder(category.getOrder());
+
+                    categories.remove(i);
+                    categories.add(auxCat.getOrder(), auxCat);
+                }
+                return;
+            }
+        }
+        categories.add(category.getOrder(), category);
+    }
+
+    public void deleteCategory(Category category) {
+        categories.remove(category);
+    }
+
+    public void setTask(Task task, String categoryID) {
+        for (int i = 0; i < categories.size(); i++) {
+            if (categoryID.equals(categories.get(i).getId())) {
+                categories.get(i).setTask(task);
+            }
+        }
+    }
+
+    public void deleteTask(Task task, String categoryID) {
+        for (int i = 0; i < categories.size(); i++) {
+            if (categoryID.equals(categories.get(i).getId())) {
+                categories.get(i).deleteTask(task);
+            }
+        }
     }
 
     public ArrayList<String> getMembersName() {
@@ -77,8 +117,20 @@ public class Project implements Serializable{
         this.membersName = membersName;
     }
 
+    public void addMemberName(String memberName) {
+        this.membersName.add(memberName);
+    }
+
     public void setBackground(String background) {
         this.background = background;
+    }
+
+    public boolean isOwner() {
+        return isOwner;
+    }
+
+    public void setOwner(boolean owner) {
+        isOwner = owner;
     }
 
     @Override

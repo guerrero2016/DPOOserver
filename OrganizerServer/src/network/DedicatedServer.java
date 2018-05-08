@@ -47,16 +47,18 @@ public class DedicatedServer extends Thread{
         Object object;
         System.out.println("ENTRAA");
         try {
+            objectOut = new ObjectOutputStream(sClient.getOutputStream());
+            System.out.println("1");
             System.out.println("AQUIII");
             objectIn = new ObjectInputStream(sClient.getInputStream());
             System.out.println("FIRST");
-            objectOut = new ObjectOutputStream(sClient.getOutputStream());
-            System.out.println("1");
             while(isOn) {
-                type = (ServerObjectType) objectIn.readObject();
-                System.out.println("2");
+                System.out.println("asasdad");
+                int input = objectIn.readInt();
+                type =  ServerObjectType.valueOf(input);
+                System.out.println();
                 try {
-                    System.out.println(type.toString());
+                    System.out.println(type.getValue());
                     switch (type) {
                         case LOGIN:
                             final UserLogIn logIn = (UserLogIn) objectIn.readObject();
@@ -72,6 +74,7 @@ public class DedicatedServer extends Thread{
                             final UserRegister register = (UserRegister) objectIn.readObject();
                             if(register.checkSignIn() == 0) {
                                 ArrayList<Project> projects = DataBaseManager.getProjectsInfo(register.getUserName());
+
                                 //TODO Enviar tot l'array de projectes
                             } else if(register.checkSignIn() == 1) {
                                 //L'usuari introduit ja existeix a la bbdd
@@ -132,7 +135,7 @@ public class DedicatedServer extends Thread{
                             break;
 
                         case SET_ENCARREGAT:
-                            final Encarregat encarregat = (Encarregat) objectIn.readObject();
+                            final MemberInCharge encarregat = (MemberInCharge) objectIn.readObject();
                             DataBaseManager.addEncarregat(encarregat, hash);
                             provider.sendBroadcast(hash, encarregat);
                             break;
@@ -200,14 +203,17 @@ public class DedicatedServer extends Thread{
                     e.printStackTrace();
                 }
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void sendData(Object obj){
+    public void sendData(ServerObjectType type, Object obj){
         try {
             objectOut.reset();
+            if (type != null) {
+                objectOut.write(type.getValue());
+            }
             objectOut.writeObject(obj);
         } catch (IOException e) {
             e.printStackTrace();

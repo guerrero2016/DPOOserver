@@ -12,6 +12,13 @@ public class UserRegister implements Serializable{
     private String password;
     private String confirm;
 
+    public UserRegister(String userName, String email, String password, String confirm) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.confirm = confirm;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -75,6 +82,7 @@ public class UserRegister implements Serializable{
         if (!minus || !majus || !num) {
             return 3;
         }
-        return DataBaseManager.RegistrarUsuari(userName, email, password);
+        return 0;
+        //return DataBaseManager.RegistrarUsuari(userName, email, password);
     }
 }
