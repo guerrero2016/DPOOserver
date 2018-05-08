@@ -1,7 +1,5 @@
 package model.user;
 
-import model.DataBaseManager;
-
 import java.io.Serializable;
 
 public class UserRegister implements Serializable{
