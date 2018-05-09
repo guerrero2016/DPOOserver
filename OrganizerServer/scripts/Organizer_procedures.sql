@@ -151,7 +151,7 @@ DROP PROCEDURE IF EXISTS Organizer.requestUserEvolution $$
 CREATE PROCEDURE Organizer.requestUserEvolution (IN user_in VARCHAR(255), IN date_in DATE)
 BEGIN
 	SELECT data_done FROM Tasca as t JOIN Encarregat as e ON t.id_tasca = e.id_tasca
-    WHERE e.nom_encarregat = user_in AND date_done >= date_in;
+    WHERE e.nom_encarregat = user_in AND data_done >= date_in;
 END $$
 DELIMITER ;
 

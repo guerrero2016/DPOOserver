@@ -113,13 +113,15 @@ public class DataBaseManager {
                 i++;
             }
             for(UserRanking u: ranking) {
-                s =(Statement) connection.createStatement();
-                s.executeUpdate ("SELECT COUNT(*) as tasques_fetes FROM Tasca as t JOIN Encarregat as e ON t.id_tasca = e.id_tasca\n" +
-                        "WHERE data_done IS NOT null AND nom_encarregat = '" + u.getUsername() + "' GROUP BY nom_encarregat;");
-                while(rs.next() && rs.getString("nom_encarregat") != null && i < 10) {
-                    ranking[i].setUsername(rs.getString("nom_encarregat"));
-                    ranking[i].setTotalTasks(rs.getInt("tasques_per_fer"));
-                    i++;
+                if(u != null) {
+                    s = (Statement) connection.createStatement();
+                    s.executeUpdate("SELECT COUNT(*) as tasques_fetes FROM Tasca as t JOIN Encarregat as e ON t.id_tasca = e.id_tasca\n" +
+                            "WHERE data_done IS NOT null AND nom_encarregat = '" + u.getUsername() + "' GROUP BY nom_encarregat;");
+                    while (rs.next() && rs.getString("nom_encarregat") != null && i < 10) {
+                        ranking[i].setUsername(rs.getString("nom_encarregat"));
+                        ranking[i].setTotalTasks(rs.getInt("tasques_per_fer"));
+                        i++;
+                    }
                 }
             }
         } catch (SQLException e) {
