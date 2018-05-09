@@ -21,7 +21,7 @@ public class SuperController implements Observer{
         dataModel.addObserver(this); //ELS DOS VIEWS SACTUALITZEN QUNA HI HA UPDATE
         this.mainServerView = mainServerView;
         this.graphController = new GraphController(this, dataModel, mainServerView.getSuperGraphContent());
-        this.top10Controller = new Top10Controller(this,dataModel);
+        this.top10Controller = new Top10Controller(this,dataModel, mainServerView.getTop10Content());
         //TEST
         //FINS A ON ES DIU S'HAURA DE TREURE
         /*

@@ -1,10 +1,12 @@
 package view;
 
 import controller.Top10Controller;
+import model.user.UserRanking;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Top10View extends JPanel {
 
@@ -76,6 +78,7 @@ public class Top10View extends JPanel {
             JLabel jlTotals = new JLabel("Tasques totals");
             jlTotals.setFont(new Font("Dialog", Font.BOLD, 12));
 
+
             JPanel jp = new JPanel();
             jp.setLayout(new BoxLayout(jp, BoxLayout.PAGE_AXIS));
             jp.add(jlNom);
@@ -95,5 +98,21 @@ public class Top10View extends JPanel {
 
     public void linkController(Top10Controller top10Controller){
         jbActulize.addActionListener(top10Controller);
+    }
+
+    public void actualizeTop10(ArrayList<UserRanking> top10people){
+        Integer integer;
+        if(top10people != null) {
+            for (int i = 0; i < top10people.size(); i++) {
+                if(top10people.get(i) != null) {
+                    //Fem top10people.size() - i - 1 perquè volem ordenaro al revés de com ho rebem
+                    jlNomUserArray[i].setText(top10people.get(top10people.size() - i - 1).getUsername());
+                    integer = top10people.get(top10people.size() -1-i).getTotalTasks();
+                    jlNumTaskTotalArray[i].setText(integer.toString());
+                    integer = top10people.get(top10people.size() - i - 1).getPendingTasks();
+                    jlNumTaskPendentsArray[i].setText(integer.toString());
+                }
+            }
+        }
     }
 }
