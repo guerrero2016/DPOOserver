@@ -7,9 +7,9 @@ import view.SuperGraphView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class GraphController implements ActionListener{
 
@@ -87,7 +87,40 @@ public class GraphController implements ActionListener{
            }
            //Un cop tenim la data fem la petició a la BBDD amb l'usuari i la data mínima
            dateDots = DataBaseManager.requestUserEvolution(superGraphView.getJtfUserContent(), sqlDate);
-           //TODO:Usar l'array de dates (dateDots) per fer el gràfic bé
+           //Ordenem les dates que ens retornen
+           //NOMES UTILITZAT PER TEST
+           //NO FER CAS
+           /*
+           SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+           Date parsed = null;
+           try {
+               parsed = format.parse("20180210");
+           } catch (ParseException e1) {
+               e1.printStackTrace();
+           }
+           java.sql.Date sql = new java.sql.Date(parsed.getTime());
+           dateDots.add(sql);
+           try {
+               parsed = format.parse("20170210");
+           } catch (ParseException e1) {
+               e1.printStackTrace();
+           }
+           java.sql.Date sql2 = new java.sql.Date(parsed.getTime());
+           dateDots.add(sql2);
+           try {
+               parsed = format.parse("20190210");
+           } catch (ParseException e1) {
+               e1.printStackTrace();
+           }
+           java.sql.Date sql3 = new java.sql.Date(parsed.getTime());
+           dateDots.add(sql3);
+           dateDots.sort(Comparator.naturalOrder());
+           for(java.sql.Date d: dateDots){
+               System.out.println("DATA: " + d.toString());
+           }
+           */
+           //Ara comptem quants cops es repeteix una data
+           //TODO: COMPTAR LES REPETICIONS D'UNA DATA I MUNTAR EL GRÀFIC
        }
 
        if (e.getActionCommand().equals("jcbPeriod")){
