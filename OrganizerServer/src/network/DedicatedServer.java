@@ -52,18 +52,14 @@ public class DedicatedServer extends Thread{
         boolean logged = false;
         ServerObjectType type;
         Object object;
-        System.out.println("ENTRAA");
+
         try {
             objectOut = new ObjectOutputStream(sClient.getOutputStream());
-            System.out.println("1");
-            System.out.println("AQUIII");
             objectIn = new ObjectInputStream(sClient.getInputStream());
             while(isOn) {
-                System.out.println("ja o no?");
                 int input = objectIn.readInt();
                 type =  ServerObjectType.valueOf(input);
                 System.out.println(type);
-                System.out.println("LATE");
                 try {
                     switch (type) {
                         case LOGIN:
@@ -134,14 +130,14 @@ public class DedicatedServer extends Thread{
 
                         case DELETE_CATEGORY:
                             final String categoryID = objectIn.readUTF();
-                            //TODO obtenir nom de la categoria
                             DataBaseManager.getCategoryDBManager().deleteCategory(categoryID);
                             provider.sendBroadcast(hash, categoryID);
                             break;
 
                         case SET_TAG:
+                            final String id_tasca = (String) objectIn.readObject();
                             final Tag tag = (Tag) objectIn.readObject();
-                            DataBaseManager.getTagDBManager().addTag(tag);
+                            DataBaseManager.getTagDBManager().addTag(tag, id_tasca);
                             provider.sendBroadcast(hash, tag);
                             break;
 
@@ -152,21 +148,23 @@ public class DedicatedServer extends Thread{
                             break;
 
                         case SET_ENCARREGAT:
+                            final String id_tasca2 = (String) objectIn.readObject();
                             final MemberInCharge encarregat = (MemberInCharge) objectIn.readObject();
-                            DataBaseManager.getMemberInChargeDBManager().addEncarregat(encarregat);
+                            DataBaseManager.getMemberInChargeDBManager().addMemberInCharge(encarregat, id_tasca2);
                             provider.sendBroadcast(hash, encarregat);
                             break;
 
                         case DELETE_ENCARREGAT:
+                            final String id_tasca3 = (String) objectIn.readObject();
+                            final String nom_usuari = objectIn.readUTF();
+                            DataBaseManager.getMemberInChargeDBManager().deleteMemberInCharge(nom_usuari, id_tasca3);
                             //TODO
-                            final String id_encarregat = objectIn.readUTF();
-                            DataBaseManager.getMemberInChargeDBManager().deleteEncarregat(id_encarregat);
-                            provider.sendBroadcast(hash, id_encarregat);
                             break;
 
                         case SET_TASK:
+                            final String id_category = (String) objectIn.readObject();
                             final Task task = (Task) objectIn.readObject();
-                            DataBaseManager.getTaskDBManager().addTask(task);
+                            DataBaseManager.getTaskDBManager().addTask(task, id_category);
                             provider.sendBroadcast(hash, task);
                             break;
 

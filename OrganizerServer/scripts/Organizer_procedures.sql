@@ -94,11 +94,11 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.AddTag $$
-CREATE PROCEDURE Organizer.AddTag (IN id_t_in VARCHAR(255), IN id_in VARCHAR(255), IN nom_in VARCHAR(255), IN pos_in VARCHAR(255))
+CREATE PROCEDURE Organizer.AddTag (IN id_t_in VARCHAR(255), IN id_in VARCHAR(255), IN nom_in VARCHAR(255))
 BEGIN
 	IF (id_t_in, id_in) IN (SELECT id_tasca, id_etiqueta FROM Etiqueta) THEN
 		UPDATE Etiqueta
-			SET nom_etiqueta = nom_in, descripcio = des_in, posicio = pos_in
+			SET nom_etiqueta = nom_in, descripcio = des_in
             WHERE id_tasca = id_t_in AND id_etiqueta = id_in;
 	ELSE
 		INSERT INTO Etiqueta(id_tasca, id_etiqueta, nom_etiqueta, color) VALUES (id_t_in, id_in, nom_in, color_in);
@@ -108,28 +108,23 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.AddEncarregat $$
-CREATE PROCEDURE Organizer.AddEncarregat (IN id_t_in VARCHAR(255), IN id_in VARCHAR(255), IN nom_in VARCHAR(255), IN pos_in VARCHAR(255))
+CREATE PROCEDURE Organizer.AddEncarregat (IN id_t_in VARCHAR(255), IN nom_u_in VARCHAR(255))
 BEGIN
-	IF (id_t_in, id_in) IN (SELECT id_tasca, id_encarregat FROM Encarregat) THEN
-		UPDATE Etiqueta
-			SET nom_encarregat = nom_in, descripcio = des_in, posicio = pos_in
-            WHERE id_tasca = id_t_in AND id_encarregat = id_in;
-	ELSE
-		INSERT INTO Encarregat(id_tasca, id_encarregat, nom_encarregat, color) VALUES (id_t_in, id_in, nom_in, color_in);
+	IF (id_t_in, nom_u_in) NOT IN (SELECT id_tasca, nom_usuari FROM Encarregat) THEN
+		INSERT INTO Tasca_Usuari(id_tasca, nom_usuari) VALUES (id_t_in, nom_u_in);
     END IF;
 END $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.SwapTask $$
-CREATE PROCEDURE Organizer.SwapTask (IN id_p_in VARCHAR(255), IN id_c_in VARCHAR(255), IN id_t1_in VARCHAR(255), IN id_t2_in VARCHAR(255), IN pos1_in INT, IN pos2_in INT)
+CREATE PROCEDURE Organizer.SwapTask (IN id_t_in VARCHAR(255), IN pos_in INT)
 BEGIN
-	UPDATE Tasca
-		SET posicio = pos1_in
-		WHERE id_projecte = id_p_in AND id_columna = id_c_in AND id_tasca = id_t2_in;
-	UPDATE Tasca
-		SET posicio = pos2_in
-		WHERE id_projecte = id_p_in AND id_columna = id_c_in AND id_tasca = id_t1_in;
+	IF (id_t_in) IN (SELECT id_tasca FROM Tasca) THEN
+		UPDATE Tasca
+			SET posicio = pos_in
+			WHERE id_tasca = id_t_in;
+	END IF;
 END $$
 DELIMITER ;
 
@@ -151,7 +146,7 @@ DROP PROCEDURE IF EXISTS Organizer.requestUserEvolution $$
 CREATE PROCEDURE Organizer.requestUserEvolution (IN user_in VARCHAR(255), IN date_in DATE)
 BEGIN
 	SELECT data_done FROM Tasca as t JOIN Encarregat as e ON t.id_tasca = e.id_tasca
-    WHERE e.nom_encarregat = user_in AND data_done >= date_in;
+    WHERE e.nom_encarregat = user_in AND date_done >= date_in;
 END $$
 DELIMITER ;
 

@@ -20,11 +20,9 @@ public class TaskDBManager {
             rs = s.executeQuery ("SELECT * FROM Tasca WHERE id_projecte = '" + id_projecte + "' AND id_columna = '" + id_columna + "';");
             while(rs.next()) {
                 if (rs.getString("id_tasca") != null) {
-                    tasks.add(new Task(rs.getString("id_columna"),
-                            rs.getString("id_tasca"), rs.getString("nom_tasca"), rs.getInt("posicio"),
-                            rs.getString("descripcio"), DataBaseManager.getTagDBManager().getTags(id_projecte, id_columna,
-                            rs.getString("id_tasca")), DataBaseManager.getMemberInChargeDBManager().
-                            getEncarregats(id_projecte, id_columna, rs.getString("id_tasca"))));
+                    tasks.add(new Task(rs.getString("id_tasca"), rs.getString("nom_tasca"), rs.getInt("posicio"),
+                            rs.getString("descripcio"), DataBaseManager.getTagDBManager().getTags(rs.getString("id_tasca")),
+                            DataBaseManager.getMemberInChargeDBManager().getMembersInCharge(id_projecte, id_columna, rs.getString("id_tasca"))));
                 }
             }
         } catch (SQLException ex) {
@@ -34,12 +32,12 @@ public class TaskDBManager {
     }
 
     //Funció validada
-    public void addTask(Task t) {
+    public void addTask(Task t, String id_category) {
         String query = "{CALL Organizer.AddTask(?,?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
         try {
             stmt = DataBaseManager.getConnection().prepareCall(query);
-            stmt.setString(1, t.getId_category());
+            stmt.setString(1, id_category);
             stmt.setString(2, t.getId());
             stmt.setString(3, t.getName());
             stmt.setString(4, t.getDescription());
@@ -64,6 +62,17 @@ public class TaskDBManager {
     }
 
     public void swapTask(ArrayList<Task> tasks) {
-        //TODO
+        for(Task t: tasks) {
+            String query = "{CALL Organizer.swapTask(?,?)}";
+            java.sql.CallableStatement stmt;
+            try {
+                stmt = DataBaseManager.getConnection().prepareCall(query);
+                stmt.setString(1, t.getId());
+                stmt.setInt(2, tasks.indexOf(t));
+                stmt.executeQuery();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

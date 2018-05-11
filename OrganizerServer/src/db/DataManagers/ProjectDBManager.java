@@ -93,19 +93,6 @@ public class ProjectDBManager {
             stmt.setString(3, projecte.getId());
             stmt.setString(4, projecte.getBackground());
             stmt.executeQuery();
-
-            for(Category c: projecte.getCategories()) {
-                DataBaseManager.getCategoryDBManager().addCategory(c, projecte.getId());
-                for(Task t: c.getTasks()) {
-                    DataBaseManager.getTaskDBManager().addTask(t);
-                    for(Tag tag: t.getTags()) {
-                        DataBaseManager.getTagDBManager().addTag(tag);
-                    }
-                    for(MemberInCharge e: t.getEncarregats()) {
-                        DataBaseManager.getMemberInChargeDBManager().addEncarregat(e);
-                    }
-                }
-            }
         } catch (SQLException e) {
             System.out.println("Problema al Recuperar les dades --> " + e.getSQLState());
         }

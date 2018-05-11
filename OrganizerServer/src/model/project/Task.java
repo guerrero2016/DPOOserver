@@ -6,41 +6,32 @@ import java.util.Objects;
 
 public class Task implements Serializable{
 
-    private String id_category;
     private String id;
     private String name;
     private int order;
     private String description;
     private ArrayList<Tag> tags;
-    private ArrayList<String> membersName;
-    private ArrayList<MemberInCharge> encarregats;
+    private ArrayList<MemberInCharge> usuaris;
 
-    public Task(String id_category, String id, String name, int order, String description, ArrayList<Tag> tags, ArrayList<MemberInCharge> encarregats) {
-        this.id_category = id_category;
+    public Task(String id, String name, int order, String description, ArrayList<Tag> tags, ArrayList<MemberInCharge> usuaris) {
         this.id = id;
         this.name = name;
         this.order = order;
         this.description = description;
-        this.encarregats = encarregats;
+        this.usuaris = usuaris;
         this.tags = tags;
-    }
-
-    public ArrayList<MemberInCharge> getEncarregats() {
-        return encarregats;
     }
 
     public String getId() {
         return id;
     }
 
-    public Task(String name, int order, String description, ArrayList<Tag> tags, ArrayList<String> membersName,
-                String id_category) {
+    public Task(String name, int order, String description, ArrayList<Tag> tags, ArrayList<MemberInCharge> usuaris) {
         this.name = name;
         this.order = order;
         this.description = description;
         this.tags = tags;
-        this.membersName = membersName;
-        this.id_category = id_category;
+        this.usuaris = usuaris;
     }
 
     public String getName() {
@@ -59,36 +50,8 @@ public class Task implements Serializable{
         return tags;
     }
 
-    public ArrayList<String> getMembersName() {
-        return membersName;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setTags(ArrayList<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public void setMembersName(ArrayList<String> membersName) {
-        this.membersName = membersName;
-    }
-
-    public void addMemberName(String memberName){
-        this.membersName.add(memberName);
-    }
-
-    public void addTag(Tag tag){
-        this.tags.add(tag);
+    public ArrayList<MemberInCharge> getUsuaris() {
+        return usuaris;
     }
 
     @Override
@@ -100,15 +63,11 @@ public class Task implements Serializable{
                 Objects.equals(name, task.name) &&
                 Objects.equals(description, task.description) &&
                 Objects.equals(tags, task.tags) &&
-                Objects.equals(membersName, task.membersName);
+                Objects.equals(usuaris, task.usuaris);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, order, description, tags, membersName);
-    }
-
-    public String getId_category() {
-        return id_category;
+        return Objects.hash(name, order, description, tags, usuaris);
     }
 }
