@@ -25,15 +25,15 @@ public class GraphView extends JPanel{
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private int pointWidth = 4;
     private int numberYDivisions = 10;
-    private List<Double> scores;
+    private List<Integer> scores;
 
     /*public GraphView(List<Double> scores) {
         this.scores = scores;
     }*/
 
     public GraphView(){
-        ArrayList<Double> aux = new ArrayList<>();
-        aux.add(0.0);
+        ArrayList<Integer> aux = new ArrayList<>();
+        aux.add(0);
         this.scores = aux;
     }
 
@@ -132,7 +132,7 @@ public class GraphView extends JPanel{
 
     private double getMinScore() {
         double minScore = Double.MAX_VALUE;
-        for (Double score : scores) {
+        for (Integer score : scores) {
             minScore = Math.min(minScore, score);
         }
         return minScore;
@@ -140,19 +140,19 @@ public class GraphView extends JPanel{
 
     public double getMaxScore() {
         double maxScore = Double.MIN_VALUE;
-        for (Double score : scores) {
+        for (Integer score : scores) {
             maxScore = Math.max(maxScore, score);
         }
         return maxScore;
     }
 
-    public void setScores(ArrayList<Double> scores) {
+    public void setScores(ArrayList<Integer> scores) {
         this.scores = scores;
         invalidate();
         this.repaint();
     }
 
-    public List<Double> getScores() {
+    public List<Integer> getScores() {
         return scores;
     }
 

@@ -5,15 +5,15 @@ import java.util.Observable;
 
 public class DataModel extends Observable{
 
-    private ArrayList<Double> graphPoints = new ArrayList<>();
+    private ArrayList<Integer> graphPoints = new ArrayList<>();
 
-    public ArrayList<Double> getGraphPoints() {
+    public ArrayList<Integer> getGraphPoints() {
         return graphPoints;
     }
 
 
 
-    public void setGraphPoints(ArrayList<Double> graphPoints) {
+    public void setGraphPoints(ArrayList<Integer> graphPoints) {
         this.graphPoints = graphPoints;
         setChanged();
         notifyObservers(); //Estic notificant els dos observers //????
