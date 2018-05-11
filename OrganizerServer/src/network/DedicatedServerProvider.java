@@ -53,7 +53,7 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
 
     @Override
     public void deleteAllByID(String hashCode) {
-        sendBroadcast(hashCode, ServerObjectType.DELETE_PROJECT);
+        sendBroadcast(hashCode, ServerObjectType.EXIT_PROJECT);
         //TODO s'hauria de fer que el exitcode mostres un dialog a l'usuari
         projectServers.remove(hashCode);
     }
@@ -69,12 +69,10 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
     }
 
     @Override
-    public void sendBroadcastToUser(String username, ServerObjectType type, Object obj) {
-        for (LinkedList<DedicatedServer> list : projectServers.values()) {
-            for (DedicatedServer ds : list) {
-                if (ds.getUsername().equals(username)) {
-                    ds.sendData(type, obj);
-                }
+    public void sendDataToLobbyUser(String username, ServerObjectType type, Object obj) {
+        for (DedicatedServer ds : projectServers.get(LOBBY)) {
+            if (ds.getUsername().equals(username)) {
+                ds.sendData(type, obj);
             }
         }
     }

@@ -14,6 +14,6 @@ public interface DedicatedServerProvidable {
     void deleteAllByID(String hashCode);
     void addToLoby(DedicatedServer dedicated);
     void deleteFromLobby(DedicatedServer dedicated);
-    void sendBroadcastToUser(String username, ServerObjectType type, Object obj);
+    void sendDataToLobbyUser(String username, ServerObjectType type, Object obj);
 
 }
