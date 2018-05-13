@@ -64,15 +64,13 @@ public class DedicatedServer extends Thread{
                     switch (type) {
                         case LOGIN:
                             final UserLogIn logIn = (UserLogIn) objectIn.readObject();
+                            System.out.println(logIn.checkLogIn());
                             if(logIn.checkLogIn()) {
+                                System.out.println("se envia");
                                 username = logIn.getUserName();
-                                ArrayList<Project> projectsOwner = DataBaseManager.getProjectDBManager().
-                                        getProjectsOwner(DataBaseManager.getUserDBManager().getUser(logIn.getUserName()));
-                                ArrayList<Project> projectsMember = DataBaseManager.getProjectDBManager().
-                                        getProjectsMember(DataBaseManager.getUserDBManager().getUser(logIn.getUserName()));
-                                //TODO Enviar tot l'array de projectes
+                                sendProjectList(username);
                             } else {
-                                //TODO Enviar missatge de que no es correcte
+                                sendData(ServerObjectType.AUTH, 1);
                             }
                             break;
 
@@ -80,20 +78,15 @@ public class DedicatedServer extends Thread{
                             final UserRegister register = (UserRegister) objectIn.readObject();
                             if(register.checkSignIn() == 0) {
                                 username = register.getUserName();
-                                ArrayList<Project> projectsOwner = DataBaseManager.getProjectDBManager().getProjectsOwner(register.getUserName());
-                                ArrayList<Project> projectsMember = DataBaseManager.getProjectDBManager().getProjectsMember(register.getUserName());
-                                //TODO Enviar tot l'array de projectes
-                            } else if(register.checkSignIn() == 1) {
-                                //L'usuari introduit ja existeix a la bbdd
-                            } else if(register.checkSignIn() == 2) {
-                                //El correu introduit ja existeix a la bbdd
-                            } else if(register.checkSignIn() ==3) {
-                                //Falla alguna comprovació de les que es fan al client
+                                sendProjectList(username);
+                            } else {
+                                System.out.println(register.checkSignIn());
+                                sendData(ServerObjectType.AUTH, register.checkSignIn());
+                                System.out.println("Not nice");
                             }
                             break;
 
                         case GET_PROJECT:
-                            System.out.println("2");
                             hash = objectIn.readObject().toString();
                             System.out.println(3);
                             Project project = DataBaseManager.getProjectDBManager().getProject(hash);
@@ -116,12 +109,12 @@ public class DedicatedServer extends Thread{
                             break;
 
                         case DELETE_PROJECT:
-                            final String projectID = objectIn.readUTF();
-                            ArrayList<String> membersName = DataBaseManager.getMemberDBManager().getMembers(projectID);
+                            final String projectID = objectIn.readObject().toString();
+                            final Project p = DataBaseManager.getProjectDBManager().getProject(projectID);
                             DataBaseManager.getProjectDBManager().deleteProject(projectID);
                             provider.deleteAllByID(projectID);
-                            for (String name : membersName) {
-                                provider.sendBroadcastToUser(name, ServerObjectType.DELETE_PROJECT, projectID);
+                            for (String name : p.getMembersName()) {
+                                provider.sendDataToLobbyUser(name, ServerObjectType.DELETE_PROJECT, p);
                             }
                             break;
 
@@ -222,6 +215,19 @@ public class DedicatedServer extends Thread{
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void sendProjectList(String username) {
+        ArrayList<Project> projectsOwner = DataBaseManager.getProjectDBManager().getProjectsOwner(username);
+        ArrayList<Project> projectsMember = DataBaseManager.getProjectDBManager().getProjectsMember(username);
+        sendData(ServerObjectType.GET_PROJECT_LIST, projectsOwner.size());
+        for (Project p : projectsOwner) {
+            sendData(null, p);
+        }
+        sendData(null, projectsMember.size());
+        for (Project p : projectsMember) {
+            sendData(null, p);
         }
     }
 
