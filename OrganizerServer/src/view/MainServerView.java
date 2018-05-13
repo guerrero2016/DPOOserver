@@ -45,4 +45,6 @@ public class MainServerView extends JFrame {
         return superGraphContent;
     }
 
+    public Top10View getTop10Content(){ return top10View; }
+
 }
