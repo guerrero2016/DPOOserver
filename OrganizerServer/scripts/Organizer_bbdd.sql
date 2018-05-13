@@ -1,5 +1,3 @@
-DROP DATABASE IF EXISTS Organizer;
-CREATE DATABASE Organizer;
 USE Organizer;
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -10,7 +8,7 @@ DROP TABLE IF EXISTS Membre CASCADE;
 DROP TABLE IF EXISTS Columna CASCADE;
 DROP TABLE IF EXISTS Tasca CASCADE;
 DROP TABLE IF EXISTS Etiqueta CASCADE;
-DROP TABLE IF EXISTS Encarregat CASCADE;
+DROP TABLE IF EXISTS Tasca_Usuari CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE Usuari(
@@ -57,7 +55,7 @@ CREATE TABLE Tasca(
 	id_columna VARCHAR(255),
     id_tasca VARCHAR(255),
     nom_tasca VARCHAR(255),
-    descripcio VARCHAR(255),
+    descripcio TEXT,
     posicio INT,
     data_done DATE DEFAULT NULL,
     PRIMARY KEY (id_tasca),

@@ -46,7 +46,6 @@ public class TagDBManager {
         }
     }
 
-    //Funció validada
     public void deleteTag(String id_etiqueta) {
         try {
             s =(Statement) DataBaseManager.getConnection().createStatement();

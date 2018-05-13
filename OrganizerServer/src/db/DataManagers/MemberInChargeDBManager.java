@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class MemberInChargeDBManager {
     private Statement s;
 
+    //Funció validada
     public void addMemberInCharge(MemberInCharge memberInCharge, String id_tasca) {
         String query = "{CALL Organizer.AddEncarregat(?,?)}";
         java.sql.CallableStatement stmt = null;
@@ -23,7 +24,6 @@ public class MemberInChargeDBManager {
         }
     }
 
-    //Funció validada
     public void deleteMemberInCharge(String nom_usuari, String id_tasca) {
         try {
             s =(Statement) DataBaseManager.getConnection().createStatement();

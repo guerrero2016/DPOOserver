@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class CategoryDBManager {
     private Statement s;
 
-    //Funció validada
     ArrayList<Category> getCategories(String id_projecte) {
         ArrayList<Category> categories = new ArrayList<>();
         ResultSet rs;
@@ -47,7 +46,6 @@ public class CategoryDBManager {
         }
     }
 
-    //Funció validada
     public void deleteCategory(String id_columna) {
         String query = "{CALL Organizer.deleteCategory(?)}";
         java.sql.CallableStatement stmt;
@@ -75,5 +73,4 @@ public class CategoryDBManager {
             e.printStackTrace();
         }
     }
-
 }

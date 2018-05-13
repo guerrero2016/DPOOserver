@@ -106,6 +106,9 @@ public class DedicatedServer extends Thread{
                             System.out.println("Project");
                             String uniqueID = UUID.randomUUID().toString();
                             final Project projecte = (Project) objectIn.readObject();
+                            if(projecte.isOwner()) {
+                                DataBaseManager.getProjectDBManager().addProjectOwner(projecte.getId(), username);
+                            }
                             projecte.setId(uniqueID);
                             DataBaseManager.getProjectDBManager().addProject(projecte);
                             sendData(ServerObjectType.SET_PROJECT, projecte);
@@ -208,6 +211,10 @@ public class DedicatedServer extends Thread{
                             hash = null;
                             sendData(ServerObjectType.LOGOUT, null);
                             break;
+
+                        case TASK_DONE:
+                            final String id_task = (String) objectIn.readObject();
+                            DataBaseManager.getTaskDBManager().taskDone(id_task);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

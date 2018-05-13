@@ -28,13 +28,17 @@ public class MemberDBManager {
         return members;
     }
 
+    //Funció validada
     public void addMember(String id_projecte, String username) {
+        String query = "{CALL Organizer.addMember(?,?)}";
+        java.sql.CallableStatement stmt;
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
-            s.executeUpdate ("INSERT INTO Membre(nom_usuari, id_projecte) VALUES ('" + id_projecte + "', '"
-                    + username + "');");
-        } catch (SQLException ex) {
-            System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
+            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt.setString(1, id_projecte);
+            stmt.setString(2, username);
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

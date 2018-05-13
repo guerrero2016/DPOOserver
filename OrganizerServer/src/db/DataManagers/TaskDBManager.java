@@ -48,7 +48,6 @@ public class TaskDBManager {
         }
     }
 
-    //Funció validada
     public void deleteTask(String id_tasca) {
         String query = "{CALL Organizer.deleteTask(?)}";
         java.sql.CallableStatement stmt;
@@ -73,6 +72,19 @@ public class TaskDBManager {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    //Funció validada
+    public void taskDone(String id_task) {
+        String query = "{CALL Organizer.taskDone(?)}";
+        java.sql.CallableStatement stmt;
+        try {
+            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt.setString(1, id_task);
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

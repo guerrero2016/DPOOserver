@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class UserDBManager {
     private static Statement s;
 
+    //Funció validada
     public int RegistrarUsuari(String nom_usuari, String correu, String contrasenya) {
         ResultSet rs;
 
@@ -55,6 +56,7 @@ public class UserDBManager {
         return false;
     }
 
+    //Funció validada
     public String getUser(String userName) {
         ResultSet rs = null;
         String query = "{CALL Organizer.GetUser(?)}";

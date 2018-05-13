@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class ProjectDBManager {
     private Statement s;
 
-    //Funció validada
     public ArrayList<Project> getProjectsOwner(String userName) {
         ArrayList<Project> projects = new ArrayList<>();
         ResultSet rs;
@@ -63,7 +62,6 @@ public class ProjectDBManager {
         return projects;
     }
 
-    //Funció validada
     public Project getProject(String id_projecte) {
         Project project = new Project();
         ResultSet rs;
@@ -98,13 +96,26 @@ public class ProjectDBManager {
         }
     }
 
-    //Funció validada
     public void deleteProject(String id_projecte) {
         String query = "{CALL Organizer.deleteProject(?)}";
         java.sql.CallableStatement stmt;
         try {
             stmt = DataBaseManager.getConnection().prepareCall(query);
             stmt.setString(1, id_projecte);
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Funció validada
+    public void addProjectOwner(String id, String username) {
+        String query = "{CALL Organizer.addProjectOwner(?,?)}";
+        java.sql.CallableStatement stmt;
+        try {
+            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt.setString(1, id);
+            stmt.setString(2, username);
             stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

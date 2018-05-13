@@ -1,12 +1,16 @@
 import controller.SuperController;
 import db.ConnectorDB;
+import db.DataBaseManager;
 import model.DataModel;
+import model.project.*;
 import network.Server;
 import view.MainServerView;
 import view.PasswordDialog;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;
+import java.sql.Date;
+import java.util.ArrayList;
 
 
 public class Main {
@@ -29,7 +33,7 @@ public class Main {
                 mainServerView.dispatchEvent(new WindowEvent(mainServerView, WindowEvent.WINDOW_CLOSING));
             } else {
                 connector = new ConnectorDB("root", password, "Organizer", 3306);
-                if(connector.connect()) {
+                if (connector.connect()) {
                     JOptionPane.showMessageDialog(mainServerView, "Accés a la BBDD completat!", "Information", JOptionPane.INFORMATION_MESSAGE);
                     ok = true;
                 } else {
@@ -37,7 +41,6 @@ public class Main {
                 }
             }
         }
-
 
         Server server = new Server();
         server.startServer();

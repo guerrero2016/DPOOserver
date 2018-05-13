@@ -73,6 +73,7 @@ public class DataBaseManager {
         memberDBManager = new MemberDBManager();
     }
 
+    //Funció validada
     public static ArrayList<Date> requestUserEvolution(String username, Date minDate){
         String query = "{CALL Organizer.requestUserEvolution(?,?)}";
         java.sql.CallableStatement stmt = null;
@@ -86,7 +87,7 @@ public class DataBaseManager {
             rs = stmt.executeQuery();
 
             while(rs.next()) {
-                if (rs.getString("data_done") != null) {
+                if (rs.getDate("data_done") != null) {
                     dates.add(rs.getDate("data_done"));
                 }
             }
@@ -96,6 +97,7 @@ public class DataBaseManager {
         return dates;
     }
 
+    //Funció validada
     public static UserRanking[] requestTop10(){
         String query = "{CALL Organizer.requestTop10()}";
         java.sql.CallableStatement stmt = null;
@@ -107,21 +109,19 @@ public class DataBaseManager {
             rs = stmt.executeQuery();
 
             int i = 0;
-            while(rs.next() && rs.getString("nom_encarregat") != null && i < 10) {
-                ranking[i].setUsername(rs.getString("nom_encarregat"));
-                ranking[i].setTotalTasks(rs.getInt("tasques_per_fer"));
+            while(rs.next() && rs.getString("nom_usuari") != null && i < 10) {
+                ranking[i] = new UserRanking();
+                ranking[i].setUsername(rs.getString("nom_usuari"));
+                ranking[i].setPendingTasks(rs.getInt("tasques_per_fer"));
                 i++;
             }
             for(UserRanking u: ranking) {
                 if(u != null) {
                     s = (Statement) connection.createStatement();
-                    s.executeUpdate("SELECT COUNT(*) as tasques_fetes FROM Tasca as t JOIN Encarregat as e ON t.id_tasca = e.id_tasca\n" +
-                            "WHERE data_done IS NOT null AND nom_encarregat = '" + u.getUsername() + "' GROUP BY nom_encarregat;");
-                    while (rs.next() && rs.getString("nom_encarregat") != null && i < 10) {
-                        ranking[i].setUsername(rs.getString("nom_encarregat"));
-                        ranking[i].setTotalTasks(rs.getInt("tasques_per_fer"));
-                        i++;
-                    }
+                    rs = s.executeQuery("SELECT COUNT(*) as tasques_fetes FROM Tasca as t JOIN Tasca_Usuari as tu ON t.id_tasca = tu.id_tasca " +
+                            "WHERE data_done IS NOT null AND nom_usuari = '" + u.getUsername() + "' GROUP BY nom_usuari;");
+                    rs.next();
+                    u.setTotalTasks(u.getPendingTasks() + rs.getInt("tasques_fetes"));
                 }
             }
         } catch (SQLException e) {
