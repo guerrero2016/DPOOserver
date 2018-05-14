@@ -120,21 +120,24 @@ public class DedicatedServer extends Thread{
 
                         case SET_CATEGORY:
                             final Category category = (Category) objectIn.readObject();
+                            if (category.getId() == null) {
+                                category.setId(UUID.randomUUID().toString());
+                            }
                             DataBaseManager.getCategoryDBManager().addCategory(category, hash);
-                            provider.sendBroadcast(hash, category);
+                            provider.sendBroadcast(hash, ServerObjectType.SET_CATEGORY, category);
                             break;
 
                         case DELETE_CATEGORY:
-                            final String categoryID = objectIn.readUTF();
+                            final String categoryID = objectIn.readObject().toString();
                             DataBaseManager.getCategoryDBManager().deleteCategory(categoryID);
-                            provider.sendBroadcast(hash, categoryID);
+                            provider.sendBroadcast(hash, ServerObjectType.DELETE_CATEGORY, categoryID);
                             break;
 
                         case SET_TAG:
                             final String id_tasca = (String) objectIn.readObject();
                             final Tag tag = (Tag) objectIn.readObject();
                             DataBaseManager.getTagDBManager().addTag(tag, id_tasca);
-                            provider.sendBroadcast(hash, tag);
+                            provider.sendBroadcast(hash, ServerObjectType.SET_TAG, tag);
                             break;
 
                         case DELETE_TAG:
@@ -147,7 +150,7 @@ public class DedicatedServer extends Thread{
                             final String id_tasca2 = (String) objectIn.readObject();
                             final MemberInCharge encarregat = (MemberInCharge) objectIn.readObject();
                             DataBaseManager.getMemberInChargeDBManager().addMemberInCharge(encarregat, id_tasca2);
-                            provider.sendBroadcast(hash, encarregat);
+                            provider.sendBroadcast(hash,ServerObjectType.SET_ENCARREGAT, encarregat);
                             break;
 
                         case DELETE_ENCARREGAT:
@@ -161,13 +164,13 @@ public class DedicatedServer extends Thread{
                             final String id_category = (String) objectIn.readObject();
                             final Task task = (Task) objectIn.readObject();
                             DataBaseManager.getTaskDBManager().addTask(task, id_category);
-                            provider.sendBroadcast(hash, task);
+                            provider.sendBroadcast(hash,ServerObjectType.SET_TASK, task);
                             break;
 
                         case DELETE_TASK:
                             final String taskID = objectIn.readUTF();
                             DataBaseManager.getTaskDBManager().deleteTask(taskID);
-                            provider.sendBroadcast(hash, taskID);
+                            provider.sendBroadcast(hash, ServerObjectType.DELETE_TASK, taskID);
                             break;
 
                         case SWAP_CATEGORY:
@@ -184,13 +187,13 @@ public class DedicatedServer extends Thread{
                         case ADD_USER:
                             final String userName = objectIn.readUTF();
                             DataBaseManager.getMemberDBManager().addMember(hash, userName);
-                            provider.sendBroadcast(hash, userName);
+                            provider.sendBroadcast(hash, ServerObjectType.ADD_USER, userName);
                             break;
 
                         case DELETE_USER:
                             final String username = objectIn.readUTF();
                             DataBaseManager.getMemberDBManager().deleteMember(hash, username);
-                            provider.sendBroadcast(hash, username);
+                            provider.sendBroadcast(hash, ServerObjectType.DELETE_USER, username);
                             break;
 
                         case EXIT_PROJECT:
