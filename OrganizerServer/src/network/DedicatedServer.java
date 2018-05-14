@@ -128,14 +128,17 @@ public class DedicatedServer extends Thread{
 
                         case SET_CATEGORY:
                             final Category category = (Category) objectIn.readObject();
+                            if (category.getId() == null) {
+                                category.setId(UUID.randomUUID().toString());
+                            }
                             DataBaseManager.getCategoryDBManager().addCategory(category, hash);
                             provider.sendBroadcast(hash, ServerObjectType.SET_CATEGORY, category);
                             break;
 
                         case DELETE_CATEGORY:
-                            final String categoryID = objectIn.readUTF();
+                            final String categoryID = objectIn.readObject().toString();
                             DataBaseManager.getCategoryDBManager().deleteCategory(categoryID);
-                            provider.sendBroadcast(hash,ServerObjectType.DELETE_CATEGORY, categoryID);
+                            provider.sendBroadcast(hash, ServerObjectType.DELETE_CATEGORY, categoryID);
                             break;
 
                         case SET_TAG:
@@ -156,6 +159,7 @@ public class DedicatedServer extends Thread{
                             final MemberInCharge encarregat = (MemberInCharge) objectIn.readObject();
                             DataBaseManager.getMemberInChargeDBManager().addMemberInCharge(encarregat, id_tasca2);
                             provider.sendBroadcast(hash, ServerObjectType.SET_ENCARREGAT, encarregat);
+
                             break;
 
                         case DELETE_ENCARREGAT:
