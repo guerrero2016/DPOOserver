@@ -10,11 +10,11 @@ public class UserDBManager {
     private static Statement s;
 
     //Funció validada
-    public int RegistrarUsuari(String nom_usuari, String correu, String contrasenya) {
+    public int registrarUsuari(String nom_usuari, String correu, String contrasenya) {
         ResultSet rs;
 
         try {
-            String query = "{CALL Organizer.RegistrarUsuari(?,?,?)}";
+            String query = "{CALL Organizer.registrarUsuari(?,?,?)}";
             java.sql.CallableStatement stmt = DataBaseManager.getConnection().prepareCall(query);
             stmt.setString(1, nom_usuari);
             stmt.setString(2, correu);
@@ -35,11 +35,11 @@ public class UserDBManager {
     }
 
     //Funció validada
-    public boolean IniciarSessio(String nom_correu, String password) {
+    public boolean iniciarSessio(String nom_correu, String password) {
         ResultSet rs;
 
         try {
-            String query = "{CALL Organizer.IniciarSessio(?,?)}";
+            String query = "{CALL Organizer.iniciarSessio(?,?)}";
             java.sql.CallableStatement stmt = DataBaseManager.getConnection().prepareCall(query);
             stmt.setString(1, nom_correu);
             stmt.setString(2, password);

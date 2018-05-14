@@ -26,14 +26,6 @@ public class Task implements Serializable{
         return id;
     }
 
-    public Task(String name, int order, String description, ArrayList<Tag> tags, ArrayList<MemberInCharge> usuaris) {
-        this.name = name;
-        this.order = order;
-        this.description = description;
-        this.tags = tags;
-        this.usuaris = usuaris;
-    }
-
     public String getName() {
         return name;
     }
