@@ -161,10 +161,11 @@ public class DedicatedServer extends Thread{
                             break;
 
                         case SET_TASK:
-                            final String id_category = (String) objectIn.readObject();
+                            final String id_category = objectIn.readObject().toString();
                             final Task task = (Task) objectIn.readObject();
                             DataBaseManager.getTaskDBManager().addTask(task, id_category);
                             provider.sendBroadcast(hash,ServerObjectType.SET_TASK, task);
+                            provider.sendBroadcast(hash,null, id_category);
                             break;
 
                         case DELETE_TASK:
@@ -182,6 +183,7 @@ public class DedicatedServer extends Thread{
                         case SWAP_TASK:
                             final ArrayList<Task> tasks = (ArrayList<Task>) objectIn.readObject();
                             DataBaseManager.getTaskDBManager().swapTask(tasks);
+                            provider.sendBroadcast(hash, ServerObjectType.SWAP_TASK, tasks);
                             break;
 
                         case ADD_USER:
