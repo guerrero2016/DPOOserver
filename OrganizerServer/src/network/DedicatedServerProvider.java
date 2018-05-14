@@ -32,6 +32,10 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
 
     @Override
     public int countDedicated(String hashCode) {
+        if (projectServers.containsKey(hashCode)) {
+            return -1;
+        }
+
         return projectServers.get(hashCode).size();
     }
 

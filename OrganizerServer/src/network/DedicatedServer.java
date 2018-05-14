@@ -64,11 +64,10 @@ public class DedicatedServer extends Thread{
                     switch (type) {
                         case LOGIN:
                             final UserLogIn logIn = (UserLogIn) objectIn.readObject();
-                            System.out.println(logIn.checkLogIn());
-                            if(logIn.checkLogIn()) {
-                                System.out.println("se envia");
+                            if (logIn.checkLogIn()) {
                                 username = logIn.getUserName();
                                 sendProjectList(username);
+                                provider.addToLoby(this);
                             } else {
                                 sendData(ServerObjectType.AUTH, 1);
                             }
@@ -76,13 +75,13 @@ public class DedicatedServer extends Thread{
 
                         case REGISTER:
                             final UserRegister register = (UserRegister) objectIn.readObject();
-                            if(register.checkSignIn() == 0) {
+                            if (register.checkSignIn() == 0) {
                                 username = register.getUserName();
                                 sendProjectList(username);
+                                provider.addToLoby(this);
                             } else {
                                 System.out.println(register.checkSignIn());
                                 sendData(ServerObjectType.AUTH, register.checkSignIn());
-                                System.out.println("Not nice");
                             }
                             break;
 
@@ -90,22 +89,31 @@ public class DedicatedServer extends Thread{
                             hash = objectIn.readObject().toString();
                             System.out.println(3);
                             Project project = DataBaseManager.getProjectDBManager().getProject(hash);
+                            provider.deleteFromLobby(this);
                             provider.addDedicated(hash, this);
                             sendData(ServerObjectType.GET_PROJECT, project);
                             System.out.println(4);
                             break;
 
                         case SET_PROJECT:
-                            System.out.println("Project");
-                            String uniqueID = UUID.randomUUID().toString();
                             final Project projecte = (Project) objectIn.readObject();
+
+                            if (projecte.getId() == null) {
+                                String uniqueID = UUID.randomUUID().toString();
+                                projecte.setId(uniqueID);
+                            }
+
                             if(projecte.isOwner()) {
                                 DataBaseManager.getProjectDBManager().addProjectOwner(projecte.getId(), username);
                             }
-                            projecte.setId(uniqueID);
+
                             DataBaseManager.getProjectDBManager().addProject(projecte);
-                            sendData(ServerObjectType.SET_PROJECT, projecte);
-                            System.out.println("Broadcast");
+
+                            if (provider.countDedicated(projecte.getId()) == -1){
+                                sendData(ServerObjectType.SET_PROJECT, projecte);
+                            }else {
+                                provider.sendBroadcast(hash, ServerObjectType.SET_PROJECT, projecte);
+                            }
                             break;
 
                         case DELETE_PROJECT:
@@ -150,7 +158,8 @@ public class DedicatedServer extends Thread{
                             final String id_tasca2 = (String) objectIn.readObject();
                             final MemberInCharge encarregat = (MemberInCharge) objectIn.readObject();
                             DataBaseManager.getMemberInChargeDBManager().addMemberInCharge(encarregat, id_tasca2);
-                            provider.sendBroadcast(hash,ServerObjectType.SET_ENCARREGAT, encarregat);
+                            provider.sendBroadcast(hash, ServerObjectType.SET_ENCARREGAT, encarregat);
+
                             break;
 
                         case DELETE_ENCARREGAT:
