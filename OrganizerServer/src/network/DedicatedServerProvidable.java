@@ -10,7 +10,7 @@ public interface DedicatedServerProvidable {
     void addDedicated(String hashCode, DedicatedServer dedicated);
     int countDedicated(String hashCode);
     void deleteDedicated(String hashCode, DedicatedServer dedicated);
-    void sendBroadcast(String hashCode, Object object);
+    void sendBroadcast(String hashCode, ServerObjectType type, Object object);
     void deleteAllByID(String hashCode);
     void addToLoby(DedicatedServer dedicated);
     void deleteFromLobby(DedicatedServer dedicated);

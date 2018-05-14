@@ -45,15 +45,15 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
     }
 
     @Override
-    public void sendBroadcast(String hashCode, Object object) {
+    public void sendBroadcast(String hashCode, ServerObjectType type, Object object) {
         for (DedicatedServer ds : projectServers.get(hashCode)) {
-            //TODO funció al Dedicated server d'enviar dades
+            ds.sendData(type, object);
         }
     }
 
     @Override
     public void deleteAllByID(String hashCode) {
-        sendBroadcast(hashCode, ServerObjectType.EXIT_PROJECT);
+        sendBroadcast(hashCode, ServerObjectType.EXIT_PROJECT, null);
         //TODO s'hauria de fer que el exitcode mostres un dialog a l'usuari
         projectServers.remove(hashCode);
     }
