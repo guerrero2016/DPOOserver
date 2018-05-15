@@ -4,11 +4,9 @@ import model.ServerObjectType;
 import model.user.UserLogIn;
 import network.Communicable;
 import network.DedicatedServer;
-import network.DedicatedServerProvider;
+import network.DedicatedServerProvidable;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  * S'encarrega de la communicació quan l'usuari inicia sessió.
@@ -16,7 +14,7 @@ import java.io.ObjectOutputStream;
  */
 public class LogInCommunicator implements Communicable {
     @Override
-    public void communicate(DedicatedServer ds, DedicatedServerProvider provider) {
+    public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         final UserLogIn logIn;
         try {
             logIn = (UserLogIn) ds.readData();

@@ -72,18 +72,6 @@ public class DedicatedServer extends Thread{
                 System.out.println(type);
                 try {
                     switch (type) {
-                        case SET_CATEGORY:
-                            final Category category = (Category) objectIn.readObject();
-                            DataBaseManager.getCategoryDBManager().addCategory(category, hash);
-                            provider.sendBroadcast(hash, ServerObjectType.SET_PROJECT, category);
-                            break;
-
-                        case DELETE_CATEGORY:
-                            final String categoryID = objectIn.readUTF();
-                            DataBaseManager.getCategoryDBManager().deleteCategory(categoryID);
-                            provider.sendBroadcast(hash, ServerObjectType.DELETE_USER, categoryID);
-                            break;
-
                         case SET_TAG:
                             final String id_tasca = (String) objectIn.readObject();
                             final Tag tag = (Tag) objectIn.readObject();

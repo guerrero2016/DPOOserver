@@ -5,7 +5,7 @@ import model.ServerObjectType;
 import model.project.Project;
 import network.Communicable;
 import network.DedicatedServer;
-import network.DedicatedServerProvider;
+import network.DedicatedServerProvidable;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class ProjectDeletedCommunicator implements Communicable {
     @Override
-    public void communicate(DedicatedServer ds, DedicatedServerProvider provider) {
+    public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         final String projectID;
         try {
             projectID = ds.readData().toString();
