@@ -3,9 +3,7 @@ package network;
 import db.DataBaseManager;
 import model.ServerObjectType;
 import model.project.*;
-import model.user.UserLogIn;
-import model.user.UserRegister;
-import network.communicators.RegisterCommunicator;
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
+
 
 public class DedicatedServer extends Thread{
 

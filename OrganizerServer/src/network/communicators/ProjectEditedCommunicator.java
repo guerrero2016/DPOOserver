@@ -6,14 +6,14 @@ import model.project.Project;
 import network.Communicable;
 import network.DedicatedServer;
 import network.DedicatedServerProvidable;
-import network.DedicatedServerProvider;
+
 
 import java.io.IOException;
 import java.util.UUID;
 
 /**
- * S'encarrega d'escoltar si algú ha creat o modificat un projecte.
- * La modificació s'envia a tots els membre del projecte
+ * S'encarrega de la comunicació quan algú crea o modifica un projecte.
+ * Es notifica a tots els clients del projecte.
  */
 public class ProjectEditedCommunicator implements Communicable {
     @Override
