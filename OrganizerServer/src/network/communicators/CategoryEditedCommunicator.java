@@ -11,8 +11,8 @@ import network.DedicatedServerProvider;
 import java.io.IOException;
 
 /**
- * S'encarrega d'escoltar quan s'afegeix o s'edita una categoria.
- * Envia
+ * S'encarrega de la comunicació quan s'afegeix o s'edita una categoria.
+ * Notifica a tots els clients del projecte
  */
 public class CategoryEditedCommunicator implements Communicable {
     @Override

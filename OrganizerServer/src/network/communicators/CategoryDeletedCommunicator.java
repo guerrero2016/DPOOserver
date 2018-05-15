@@ -9,8 +9,8 @@ import network.DedicatedServerProvidable;
 import java.io.IOException;
 
 /**
- * S'encarrega d'escoltar quan un usuari elimina una categoria.
- * Envia un missatge per a notificar als altres usuaris del projcte que s'ha eliminat.
+ * S'encarrega de la comunicació quan s'elimina una categoria.
+ * Notifica a tots els clients del projecte
  */
 public class CategoryDeletedCommunicator implements Communicable {
     @Override

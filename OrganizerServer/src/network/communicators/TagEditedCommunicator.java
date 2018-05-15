@@ -10,8 +10,8 @@ import network.DedicatedServerProvidable;
 import java.io.IOException;
 
 /**
- * S'encarrega d'escoltar quan s'ha afegit o modificat una etiqueta.
- * Notifica als altres usuaris.
+ * S'encarrega de la comunicacio quan un client afegeix o  modifica una etiqueta.
+ * Notifica als altres usuaris del projecte.
  */
 public class TagEditedCommunicator implements Communicable {
     @Override

@@ -9,7 +9,7 @@ import network.DedicatedServerProvidable;
 import java.io.IOException;
 
 /**
- * S'encarrega de la communicació quan l'usuari inicia sessió.
+ * S'encarrega de la comunicació quan l'usuari inicia sessió.
  * Envia una resposta depenent si ha sigut satisfactori o no.
  */
 public class LogInCommunicator implements Communicable {

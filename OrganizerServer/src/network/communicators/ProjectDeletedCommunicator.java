@@ -10,7 +10,7 @@ import network.DedicatedServerProvidable;
 import java.io.IOException;
 
 /**
- * S'encarrega d'escoltar quan s'esborra un projecte.
+ * S'encarrega de la comunicació quan s'esborra un projecte.
  * Treu a tots els usuaris que estiguessin dins i l'esborra de la seva llista de projectes.
  */
 public class ProjectDeletedCommunicator implements Communicable {
