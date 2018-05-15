@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class CategoryDBManager {
     private Statement s;
 
-    //Funció validada
+    /** documentation */
     public  ArrayList<Category> getCategories(String id_projecte) {
         ArrayList<Category> categories = new ArrayList<>();
         ResultSet rs;

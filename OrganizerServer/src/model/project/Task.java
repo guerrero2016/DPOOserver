@@ -14,13 +14,11 @@ public class Task implements Serializable{
     private String name;
     private String description;
     private ArrayList<Tag> tags;
-<<<<<<< HEAD
-    private ArrayList<User> usuaris;
-
-    public Task(String id, String name, int order, String description, ArrayList<Tag> tags, ArrayList<User> usuaris) {
-=======
     private ArrayList<User> users;
     private int order;
+
+    public Task(String id, String name, int order, String description, ArrayList<Tag> tags, ArrayList<User> usuaris) {}
+
 
     public Task() {
         tags = new ArrayList<>();
@@ -29,7 +27,6 @@ public class Task implements Serializable{
     }
 
     public Task(String id, String name, int order, String description, ArrayList<Tag> tags) {
->>>>>>> bb9d9daa305d9905943c63ab5d667c0cac961a12
         this.id = id;
         this.name = name;
         this.description = description;
@@ -57,15 +54,7 @@ public class Task implements Serializable{
         this.order = order;
     }
 
-<<<<<<< HEAD
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
     public String getId() {
-=======
-    public String getID() {
->>>>>>> bb9d9daa305d9905943c63ab5d667c0cac961a12
         return id;
     }
 
@@ -103,10 +92,11 @@ public class Task implements Serializable{
         return tags;
     }
 
-<<<<<<< HEAD
+
     public ArrayList<User> getUsuaris() {
-        return usuaris;
-=======
+        return users;
+    }
+
     public void setTags(ArrayList<Tag> tags) {
         if(tags != null) {
             this.tags = tags;
@@ -197,7 +187,6 @@ public class Task implements Serializable{
         if(order >= 0) {
             this.order = order;
         }
->>>>>>> bb9d9daa305d9905943c63ab5d667c0cac961a12
     }
 
     @Override
