@@ -13,7 +13,7 @@ public class User {
         }
     }
 
-    public String getUserName() {
+    public String getName() {
         return userName;
     }
 

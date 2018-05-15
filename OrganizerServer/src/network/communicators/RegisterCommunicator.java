@@ -5,10 +5,10 @@ import model.user.UserRegister;
 import network.Communicable;
 import network.DedicatedServer;
 import network.DedicatedServerProvidable;
-import network.DedicatedServerProvider;
+
 
 /**
- * S'encarrega de la communicació quan l'usuari es registra.
+ * S'encarrega de la comunicació quan l'usuari es registra.
  * Envia una resposta depenent de si el registre ha estat satisfactori o no. Hi ha 3 errors possibles.
  */
 public class RegisterCommunicator implements Communicable {
@@ -17,6 +17,8 @@ public class RegisterCommunicator implements Communicable {
         final UserRegister register;
         try {
             register = (UserRegister) ds.readData();
+
+            System.out.println(register.getEmail());
 
             if(register.checkSignIn() == 0) {
                 ds.setUsername(register.getUserName());

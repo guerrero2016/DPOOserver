@@ -12,6 +12,7 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
 
     public DedicatedServerProvider() {
         this.projectServers = new HashMap<>();
+        this.projectServers.put(LOBBY, new LinkedList<>());
     }
 
     @Override

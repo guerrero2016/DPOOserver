@@ -6,13 +6,13 @@ import model.project.Project;
 import network.Communicable;
 import network.DedicatedServer;
 import network.DedicatedServerProvidable;
-import network.DedicatedServerProvider;
+
 
 import java.io.IOException;
 
 /**
- * S'encarrega d'escoltar si l'usuari ha sol·licitat un projecte al qual entrar.
- * Envia el projecte sol·licitat
+ * S'encarrega de la comunicacnió quan el client sol·licita un projecte al qual entrar.
+ * Envia el projecte sol·licitat a l'usuari.
  */
 public class ProjectSelectedCommunicator implements Communicable{
     @Override
