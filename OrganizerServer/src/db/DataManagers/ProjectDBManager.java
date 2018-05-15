@@ -72,7 +72,7 @@ public class ProjectDBManager {
             if(rs.getString("id_projecte") != null) {
                 project.setName(rs.getString("nom_projecte"));
                 project.setColor(rs.getString("color"));
-                project.setBackground(rs.getString("background"));
+                project.setBackgroundPath(rs.getString("background"));
             }
             project.setCategories(DataBaseManager.getCategoryDBManager().getCategories(id_projecte));
         } catch (SQLException ex) {
@@ -87,9 +87,9 @@ public class ProjectDBManager {
             String query = "{CALL Organizer.AddProject(?,?,?,?)}";
             java.sql.CallableStatement stmt = DataBaseManager.getConnection().prepareCall(query);
             stmt.setString(1, projecte.getName());
-            stmt.setString(2, projecte.getColor());
+            stmt.setString(2, projecte.getHexColor());
             stmt.setString(3, projecte.getId());
-            stmt.setString(4, projecte.getBackground());
+            stmt.setString(4, projecte.getBackgroundPath());
             stmt.executeQuery();
         } catch (SQLException e) {
             System.out.println("Problema al Recuperar les dades --> " + e.getSQLState());

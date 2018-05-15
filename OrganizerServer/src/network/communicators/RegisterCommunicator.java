@@ -4,6 +4,7 @@ import model.ServerObjectType;
 import model.user.UserRegister;
 import network.Communicable;
 import network.DedicatedServer;
+import network.DedicatedServerProvidable;
 import network.DedicatedServerProvider;
 
 /**
@@ -12,7 +13,7 @@ import network.DedicatedServerProvider;
  */
 public class RegisterCommunicator implements Communicable {
     @Override
-    public void communicate(DedicatedServer ds, DedicatedServerProvider provider) {
+    public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         final UserRegister register;
         try {
             register = (UserRegister) ds.readData();

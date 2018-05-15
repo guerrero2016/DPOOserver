@@ -23,6 +23,14 @@ public class Task implements Serializable{
         order = INVALID_INDEX;
     }
 
+    public Task(String id, String name, int order, String description, ArrayList<Tag> tags) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.tags = tags;
+        this.order = order;
+    }
+
     public Task(String name) {
 
         if(name != null) {

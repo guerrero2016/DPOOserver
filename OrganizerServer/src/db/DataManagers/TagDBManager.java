@@ -39,7 +39,7 @@ public class TagDBManager {
             stmt.setString(1, id_tasca);
             stmt.setString(2, tag.getId());
             stmt.setString(3, tag.getName());
-            stmt.setString(4, tag.getColor());
+            stmt.setString(4, tag.getHexColor());
             stmt.executeQuery();
         } catch (SQLException e) {
             System.out.println("Problema al Recuperar les dades --> " + e.getSQLState());
