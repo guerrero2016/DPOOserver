@@ -37,6 +37,18 @@ public class DedicatedServer extends Thread{
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
     public void startDedicatedServer() {
         this.isOn = true;
         this.start();
@@ -49,9 +61,7 @@ public class DedicatedServer extends Thread{
 
     @Override
     public void run() {
-        boolean logged = false;
         ServerObjectType type;
-        Object object;
 
         try {
             objectOut = new ObjectOutputStream(sClient.getOutputStream());
@@ -62,60 +72,6 @@ public class DedicatedServer extends Thread{
                 System.out.println(type);
                 try {
                     switch (type) {
-                        case LOGIN:
-                            final UserLogIn logIn = (UserLogIn) objectIn.readObject();
-                            System.out.println(logIn.checkLogIn());
-                            if(logIn.checkLogIn()) {
-                                System.out.println("se envia");
-                                username = logIn.getUserName();
-                                sendProjectList(username);
-                            } else {
-                                sendData(ServerObjectType.AUTH, 1);
-                            }
-                            break;
-
-                        case REGISTER:
-                            final UserRegister register = (UserRegister) objectIn.readObject();
-                            if(register.checkSignIn() == 0) {
-                                username = register.getUserName();
-                                sendProjectList(username);
-                            } else {
-                                System.out.println(register.checkSignIn());
-                                sendData(ServerObjectType.AUTH, register.checkSignIn());
-                                System.out.println("Not nice");
-                            }
-                            break;
-
-                        case GET_PROJECT:
-                            hash = objectIn.readObject().toString();
-                            System.out.println(3);
-                            Project project = DataBaseManager.getProjectDBManager().getProject(hash);
-                            provider.addDedicated(hash, this);
-                            sendData(ServerObjectType.GET_PROJECT, project);
-                            System.out.println(4);
-                            break;
-
-                        case SET_PROJECT:
-                            System.out.println("Project");
-                            final Project projecte = (Project) objectIn.readObject();
-                            if (projecte.getId() == null) {
-                                String uniqueID = UUID.randomUUID().toString();
-                                projecte.setId(uniqueID);
-                            }
-                            DataBaseManager.getProjectDBManager().addProject(projecte);
-
-                            if(projecte.isOwner()) {
-                                DataBaseManager.getProjectDBManager().addProjectOwner(projecte.getId(), username);
-                            }
-
-                            if (provider.countDedicated(projecte.getId()) == -1){
-                                sendData(ServerObjectType.SET_PROJECT, projecte);
-                            }else {
-                                provider.sendBroadcast(hash, ServerObjectType.SET_PROJECT, projecte);
-                            }
-
-                            break;
-
                         case DELETE_PROJECT:
                             final String projectID = objectIn.readObject().toString();
                             final Project p = DataBaseManager.getProjectDBManager().getProject(projectID);
@@ -226,7 +182,11 @@ public class DedicatedServer extends Thread{
         }
     }
 
-    private void sendProjectList(String username) {
+    public Object readData() throws IOException, ClassNotFoundException {
+        return objectIn.readObject();
+    }
+
+    public void sendProjectList() {
         ArrayList<Project> projectsOwner = DataBaseManager.getProjectDBManager().getProjectsOwner(username);
         ArrayList<Project> projectsMember = DataBaseManager.getProjectDBManager().getProjectsMember(username);
         sendData(ServerObjectType.GET_PROJECT_LIST, projectsOwner.size());
@@ -236,6 +196,33 @@ public class DedicatedServer extends Thread{
         sendData(null, projectsMember.size());
         for (Project p : projectsMember) {
             sendData(null, p);
+        }
+    }
+
+    public void sendBroadcast(String hashCode, ServerObjectType type, Object object) {
+        if (provider.countDedicated(hashCode) == -1){
+            sendData(ServerObjectType.SET_PROJECT, object);
+        }else {
+            provider.sendBroadcast(hash, ServerObjectType.SET_PROJECT, object);
+        }
+    }
+
+    public void sendToLobbyMembers(String hashCode, ServerObjectType type, Object object) {
+        for (String name : DataBaseManager.getMemberDBManager().getMembers(hashCode)) {
+            provider.sendDataToLobbyUser(name, type, object);
+        }
+    }
+
+    /**
+     * Afegeix el DedicatedServer a una llista amb altres DedicatedServers que estan al mateix projecte.
+     * Si el String val null, l'afegeix al 'Lobby'
+     * @param hashCode El id del projecte al on s'afegirà el DedicatedServer.
+     */
+    public void addToProvider(String hashCode) {
+        if (hashCode == null) {
+            provider.addToLoby(this);
+        } else {
+            provider.addDedicated(hashCode, this);
         }
     }
 
