@@ -72,16 +72,6 @@ public class DedicatedServer extends Thread{
                 System.out.println(type);
                 try {
                     switch (type) {
-                        case DELETE_PROJECT:
-                            final String projectID = objectIn.readObject().toString();
-                            final Project p = DataBaseManager.getProjectDBManager().getProject(projectID);
-                            DataBaseManager.getProjectDBManager().deleteProject(projectID);
-                            provider.deleteAllByID(projectID);
-                            for (String name : p.getMembersName()) {
-                                provider.sendDataToLobbyUser(name, ServerObjectType.DELETE_PROJECT, p);
-                            }
-                            break;
-
                         case SET_CATEGORY:
                             final Category category = (Category) objectIn.readObject();
                             DataBaseManager.getCategoryDBManager().addCategory(category, hash);
@@ -196,33 +186,6 @@ public class DedicatedServer extends Thread{
         sendData(null, projectsMember.size());
         for (Project p : projectsMember) {
             sendData(null, p);
-        }
-    }
-
-    public void sendBroadcast(String hashCode, ServerObjectType type, Object object) {
-        if (provider.countDedicated(hashCode) == -1){
-            sendData(ServerObjectType.SET_PROJECT, object);
-        }else {
-            provider.sendBroadcast(hash, ServerObjectType.SET_PROJECT, object);
-        }
-    }
-
-    public void sendToLobbyMembers(String hashCode, ServerObjectType type, Object object) {
-        for (String name : DataBaseManager.getMemberDBManager().getMembers(hashCode)) {
-            provider.sendDataToLobbyUser(name, type, object);
-        }
-    }
-
-    /**
-     * Afegeix el DedicatedServer a una llista amb altres DedicatedServers que estan al mateix projecte.
-     * Si el String val null, l'afegeix al 'Lobby'
-     * @param hashCode El id del projecte al on s'afegirà el DedicatedServer.
-     */
-    public void addToProvider(String hashCode) {
-        if (hashCode == null) {
-            provider.addToLoby(this);
-        } else {
-            provider.addDedicated(hashCode, this);
         }
     }
 

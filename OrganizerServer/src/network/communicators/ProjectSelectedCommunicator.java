@@ -5,6 +5,7 @@ import model.ServerObjectType;
 import model.project.Project;
 import network.Communicable;
 import network.DedicatedServer;
+import network.DedicatedServerProvider;
 
 import java.io.IOException;
 
@@ -14,12 +15,12 @@ import java.io.IOException;
  */
 public class ProjectSelectedCommunicator implements Communicable{
     @Override
-    public void communicate(DedicatedServer ds) {
+    public void communicate(DedicatedServer ds, DedicatedServerProvider provider) {
         try {
             String hash = ds.readData().toString();
             ds.setHash(hash);
             Project project = DataBaseManager.getProjectDBManager().getProject(ds.getHash());
-            ds.addToProvider(hash);
+            provider.addDedicated(hash, ds);
             ds.sendData(ServerObjectType.GET_PROJECT, project);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

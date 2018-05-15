@@ -4,6 +4,7 @@ import model.ServerObjectType;
 import model.user.UserRegister;
 import network.Communicable;
 import network.DedicatedServer;
+import network.DedicatedServerProvider;
 
 /**
  * S'encarrega de la communicació quan l'usuari es registra.
@@ -11,7 +12,7 @@ import network.DedicatedServer;
  */
 public class RegisterCommunicator implements Communicable {
     @Override
-    public void communicate(DedicatedServer ds) {
+    public void communicate(DedicatedServer ds, DedicatedServerProvider provider) {
         final UserRegister register;
         try {
             register = (UserRegister) ds.readData();
@@ -19,7 +20,7 @@ public class RegisterCommunicator implements Communicable {
             if(register.checkSignIn() == 0) {
                 ds.setUsername(register.getUserName());
                 ds.sendProjectList();
-                ds.addToProvider(null);
+                provider.addToLoby(ds);
             } else {
                 ds.sendData(ServerObjectType.AUTH, register.checkSignIn());
             }

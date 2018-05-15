@@ -5,6 +5,7 @@ import model.ServerObjectType;
 import model.project.Project;
 import network.Communicable;
 import network.DedicatedServer;
+import network.DedicatedServerProvider;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -15,7 +16,7 @@ import java.util.UUID;
  */
 public class ProjectEditedCommunicator implements Communicable {
     @Override
-    public void communicate(DedicatedServer ds) {
+    public void communicate(DedicatedServer ds, DedicatedServerProvider provider) {
         final Project projecte;
         try {
             projecte = (Project) ds.readData();
@@ -29,8 +30,15 @@ public class ProjectEditedCommunicator implements Communicable {
                 DataBaseManager.getProjectDBManager().addProjectOwner(projecte.getId(), ds.getUsername());
             }
 
-            ds.sendBroadcast(projecte.getId(), ServerObjectType.SET_PROJECT, projecte);
-            ds.sendToLobbyMembers(projecte.getId(), ServerObjectType.SET_PROJECT, projecte);
+            if (provider.countDedicated(projecte.getId()) == -1){
+                ds.sendData(ServerObjectType.SET_PROJECT, projecte);
+            }else {
+                provider.sendBroadcast(projecte.getId(), ServerObjectType.SET_PROJECT, projecte);
+            }
+
+            for (String name : DataBaseManager.getMemberDBManager().getMembers(projecte.getId())) {
+                provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
+            }
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

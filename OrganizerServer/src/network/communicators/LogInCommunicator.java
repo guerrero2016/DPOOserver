@@ -4,6 +4,7 @@ import model.ServerObjectType;
 import model.user.UserLogIn;
 import network.Communicable;
 import network.DedicatedServer;
+import network.DedicatedServerProvider;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,16 +16,15 @@ import java.io.ObjectOutputStream;
  */
 public class LogInCommunicator implements Communicable {
     @Override
-    public void communicate(DedicatedServer ds) {
+    public void communicate(DedicatedServer ds, DedicatedServerProvider provider) {
         final UserLogIn logIn;
         try {
-
             logIn = (UserLogIn) ds.readData();
 
             if(logIn.checkLogIn()) {
                 ds.setUsername(logIn.getUserName());
                 ds.sendProjectList();
-                ds.addToProvider(null);
+                provider.addToLoby(ds);
             } else {
                 ds.sendData(ServerObjectType.AUTH, 1);
             }
