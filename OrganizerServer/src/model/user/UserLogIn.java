@@ -4,8 +4,8 @@ import db.DataBaseManager;
 
 import java.io.Serializable;
 
-public class UserLogIn implements Serializable{
-    private String userName;
+public class UserLogIn extends User implements Serializable{
+
     private String password;
 
     public UserLogIn(String userName, String password) {
@@ -14,14 +14,12 @@ public class UserLogIn implements Serializable{
     }
 
     public boolean checkLogIn() {
-        return DataBaseManager.getUserDBManager().iniciarSessio(userName, password);
-    }
-
-    public String getUserName() {
-        return userName;
+        return true;
+        //return DataBaseManager.IniciarSessio(userName, password);
     }
 
     public String getPassword() {
         return password;
     }
+
 }

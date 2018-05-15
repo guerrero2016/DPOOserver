@@ -21,9 +21,9 @@ public class LogInCommunicator implements Communicable {
         final UserLogIn logIn;
         try {
             logIn = (UserLogIn) ds.readData();
-
+            System.out.println(logIn.getPassword());
             if(logIn.checkLogIn()) {
-                ds.setUsername(logIn.getUserName());
+                ds.setUsername(logIn.getName());
                 ds.sendProjectList();
                 provider.addToLoby(ds);
             } else {
