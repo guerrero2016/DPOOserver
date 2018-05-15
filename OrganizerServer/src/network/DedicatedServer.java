@@ -33,8 +33,7 @@ public class DedicatedServer extends Thread{
         this.server = server;
         this.hash = null;
         this.provider = provider;
-        communicators = new HashMap<>();
-        communicators.put(ServerObjectType.REGISTER, new RegisterCommunicator());
+        communicators = CommunicatorsFactory.create();
     }
 
     public String getUsername() {
