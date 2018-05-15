@@ -97,17 +97,16 @@ public class DedicatedServer extends Thread{
 
                         case SET_PROJECT:
                             final Project projecte = (Project) objectIn.readObject();
-
                             if (projecte.getId() == null) {
                                 String uniqueID = UUID.randomUUID().toString();
                                 projecte.setId(uniqueID);
                             }
+                            DataBaseManager.getProjectDBManager().addProject(projecte);
 
+                            username = "lactosito";
                             if(projecte.isOwner()) {
                                 DataBaseManager.getProjectDBManager().addProjectOwner(projecte.getId(), username);
                             }
-
-                            DataBaseManager.getProjectDBManager().addProject(projecte);
 
                             if (provider.countDedicated(projecte.getId()) == -1){
                                 sendData(ServerObjectType.SET_PROJECT, projecte);
