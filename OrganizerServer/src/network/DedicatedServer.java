@@ -3,16 +3,12 @@ package network;
 import db.DataBaseManager;
 import model.ServerObjectType;
 import model.project.*;
-import model.user.UserLogIn;
-import model.user.UserRegister;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class DedicatedServer extends Thread{
 
@@ -72,27 +68,7 @@ public class DedicatedServer extends Thread{
                 System.out.println(type);
                 try {
                     switch (type) {
-                        case SET_TAG:
-                            final String id_tasca = (String) objectIn.readObject();
-                            final Tag tag = (Tag) objectIn.readObject();
-                            DataBaseManager.getTagDBManager().addTag(tag, id_tasca);
-                            provider.sendBroadcast(hash, ServerObjectType.SET_TAG, tag);
-                            break;
-
-                        case DELETE_TAG:
-                            //TODO
-                            final String id_tag = objectIn.readUTF();
-                            DataBaseManager.getTagDBManager().deleteTag(id_tag);
-                            break;
-
-                        case SET_ENCARREGAT:
-                            final String id_tasca2 = (String) objectIn.readObject();
-                            final MemberInCharge encarregat = (MemberInCharge) objectIn.readObject();
-                            DataBaseManager.getMemberInChargeDBManager().addMemberInCharge(encarregat, id_tasca2);
-                            provider.sendBroadcast(hash, ServerObjectType.SET_ENCARREGAT, encarregat);
-                            break;
-
-                        case DELETE_ENCARREGAT:
+                        case DELETE_MEMEBER:
                             final String id_tasca3 = (String) objectIn.readObject();
                             final String nom_usuari = objectIn.readUTF();
                             DataBaseManager.getMemberInChargeDBManager().deleteMemberInCharge(nom_usuari, id_tasca3);
