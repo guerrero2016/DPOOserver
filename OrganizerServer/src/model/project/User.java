@@ -1,9 +1,9 @@
 package model.project;
 
-public class MemberInCharge {
+public class User {
     private String name;
 
-    public MemberInCharge(String name) {
+    public User(String name) {
         this.name = name;
     }
 

@@ -11,15 +11,15 @@ import java.util.ArrayList;
 public class ProjectDBManager {
     private Statement s;
 
+    //Funció validada
     public ArrayList<Project> getProjectsOwner(String userName) {
         ArrayList<Project> projects = new ArrayList<>();
         ResultSet rs;
-
         try {
             s =(Statement) DataBaseManager.getConnection().createStatement();
             //Seleccionem tots els projectes en que l'usuari sigui propietari.
-            rs = s.executeQuery ("SELECT * FROM Projecte as p JOIN Propietari as o ON p.id_projecte = o.id_projecte JOIN" +
-                    " Usuari as u ON u.nom_usuari = o.nom_propietari WHERE u.nom_usuari = '" + userName + "' OR u.correu = '" + userName + "';");
+            rs = s.executeQuery ("SELECT * FROM Projecte as p" +
+                    " WHERE p.nom_propietari = '" + userName + "';");
             while(rs.next()) {
                 if(rs.getString("id_projecte") != null) {
                     projects.add(new Project(rs.getString("id_projecte"), rs.getString("nom_projecte"),
@@ -37,6 +37,7 @@ public class ProjectDBManager {
         return projects;
     }
 
+    //Funció validada
     public ArrayList<Project> getProjectsMember(String userName) {
         ArrayList<Project> projects = new ArrayList<>();
         ResultSet rs;
@@ -62,6 +63,7 @@ public class ProjectDBManager {
         return projects;
     }
 
+    //Funció validada
     public Project getProject(String id_projecte) {
         Project project = new Project();
         ResultSet rs;
@@ -70,6 +72,7 @@ public class ProjectDBManager {
             rs = s.executeQuery ("SELECT * FROM Projecte WHERE id_projecte = '" + id_projecte + "';");
             rs.next();
             if(rs.getString("id_projecte") != null) {
+                project.setId(rs.getString("id_projecte"));
                 project.setName(rs.getString("nom_projecte"));
                 project.setColor(rs.getString("color"));
                 project.setBackground(rs.getString("background"));
@@ -96,6 +99,7 @@ public class ProjectDBManager {
         }
     }
 
+    //Funció validada
     public void deleteProject(String id_projecte) {
         String query = "{CALL Organizer.deleteProject(?)}";
         java.sql.CallableStatement stmt;

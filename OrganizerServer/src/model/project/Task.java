@@ -11,15 +11,19 @@ public class Task implements Serializable{
     private int order;
     private String description;
     private ArrayList<Tag> tags;
-    private ArrayList<MemberInCharge> usuaris;
+    private ArrayList<User> usuaris;
 
-    public Task(String id, String name, int order, String description, ArrayList<Tag> tags, ArrayList<MemberInCharge> usuaris) {
+    public Task(String id, String name, int order, String description, ArrayList<Tag> tags, ArrayList<User> usuaris) {
         this.id = id;
         this.name = name;
         this.order = order;
         this.description = description;
         this.usuaris = usuaris;
         this.tags = tags;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     public String getId() {
@@ -42,7 +46,7 @@ public class Task implements Serializable{
         return tags;
     }
 
-    public ArrayList<MemberInCharge> getUsuaris() {
+    public ArrayList<User> getUsuaris() {
         return usuaris;
     }
 

@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -145,7 +144,7 @@ public class DedicatedServer extends Thread{
 
                         case SET_ENCARREGAT:
                             final String id_tasca2 = (String) objectIn.readObject();
-                            final MemberInCharge encarregat = (MemberInCharge) objectIn.readObject();
+                            final User encarregat = (User) objectIn.readObject();
                             DataBaseManager.getMemberInChargeDBManager().addMemberInCharge(encarregat, id_tasca2);
                             provider.sendBroadcast(hash, encarregat);
                             break;
@@ -181,13 +180,13 @@ public class DedicatedServer extends Thread{
                             DataBaseManager.getTaskDBManager().swapTask(tasks);
                             break;
 
-                        case ADD_USER:
+                        case ADD_MEMBER:
                             final String userName = objectIn.readUTF();
                             DataBaseManager.getMemberDBManager().addMember(hash, userName);
                             provider.sendBroadcast(hash, userName);
                             break;
 
-                        case DELETE_USER:
+                        case DELETE_MEMBER:
                             final String username = objectIn.readUTF();
                             DataBaseManager.getMemberDBManager().deleteMember(hash, username);
                             provider.sendBroadcast(hash, username);

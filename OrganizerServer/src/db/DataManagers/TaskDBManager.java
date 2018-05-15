@@ -11,18 +11,19 @@ import java.util.ArrayList;
 public class TaskDBManager {
     private Statement s;
 
-    public ArrayList<Task> getTasks(String id_projecte, String id_columna) {
+    //Funció validada
+    public ArrayList<Task> getTasks(String id_columna) {
         ArrayList<Task> tasks = new ArrayList<>();
         ResultSet rs;
 
         try {
             s =(Statement) DataBaseManager.getConnection().createStatement();
-            rs = s.executeQuery ("SELECT * FROM Tasca WHERE id_projecte = '" + id_projecte + "' AND id_columna = '" + id_columna + "';");
+            rs = s.executeQuery ("SELECT * FROM Tasca WHERE id_columna = '" + id_columna + "';");
             while(rs.next()) {
                 if (rs.getString("id_tasca") != null) {
                     tasks.add(new Task(rs.getString("id_tasca"), rs.getString("nom_tasca"), rs.getInt("posicio"),
                             rs.getString("descripcio"), DataBaseManager.getTagDBManager().getTags(rs.getString("id_tasca")),
-                            DataBaseManager.getMemberInChargeDBManager().getMembersInCharge(id_projecte, id_columna, rs.getString("id_tasca"))));
+                            DataBaseManager.getMemberInChargeDBManager().getMembersInCharge(rs.getString("id_tasca"))));
                 }
             }
         } catch (SQLException ex) {
@@ -48,6 +49,7 @@ public class TaskDBManager {
         }
     }
 
+    //Funció validada
     public void deleteTask(String id_tasca) {
         String query = "{CALL Organizer.deleteTask(?)}";
         java.sql.CallableStatement stmt;
@@ -60,6 +62,7 @@ public class TaskDBManager {
         }
     }
 
+    //Funció validada
     public void swapTask(ArrayList<Task> tasks) {
         for(Task t: tasks) {
             String query = "{CALL Organizer.swapTask(?,?)}";
@@ -67,7 +70,7 @@ public class TaskDBManager {
             try {
                 stmt = DataBaseManager.getConnection().prepareCall(query);
                 stmt.setString(1, t.getId());
-                stmt.setInt(2, tasks.indexOf(t));
+                stmt.setInt(2, t.getOrder());
                 stmt.executeQuery();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -78,6 +81,19 @@ public class TaskDBManager {
     //Funció validada
     public void taskDone(String id_task) {
         String query = "{CALL Organizer.taskDone(?)}";
+        java.sql.CallableStatement stmt;
+        try {
+            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt.setString(1, id_task);
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Funció validada
+    public void taskNotDone(String id_task) {
+        String query = "{CALL Organizer.taskNotDone(?)}";
         java.sql.CallableStatement stmt;
         try {
             stmt = DataBaseManager.getConnection().prepareCall(query);

@@ -35,6 +35,25 @@ public class UserDBManager {
     }
 
     //Funció validada
+    public String getUsername(String nom_or_correu) {
+        ResultSet rs;
+
+        try {
+            s =(Statement) DataBaseManager.getConnection().createStatement();
+            rs = s.executeQuery ("SELECT nom_usuari FROM Usuari " +
+                    "WHERE correu = '" + nom_or_correu + "' OR nom_usuari = '" + nom_or_correu + "';");
+            while(rs.next()) {
+                if(rs.getString("nom_usuari") != null) {
+                    return rs.getString("nom_usuari");
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+        }
+        return "Fail";
+    }
+
+    //Funció validada
     public boolean iniciarSessio(String nom_correu, String password) {
         ResultSet rs;
 
@@ -54,21 +73,5 @@ public class UserDBManager {
             e.printStackTrace();
         }
         return false;
-    }
-
-    //Funció validada
-    public String getUser(String userName) {
-        ResultSet rs = null;
-        String query = "{CALL Organizer.GetUser(?)}";
-        try {
-            java.sql.CallableStatement stmt = DataBaseManager.getConnection().prepareCall(query);
-            stmt.setString(1, userName);
-            rs = stmt.executeQuery();
-            rs.next();
-            return rs.getString(1);
-        } catch (SQLException e) {
-            System.out.println("Problema al Recuperar les dades --> " + e.getSQLState());
-        }
-        return "";
     }
 }

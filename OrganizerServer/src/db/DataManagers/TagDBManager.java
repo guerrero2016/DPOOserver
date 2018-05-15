@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class TagDBManager {
     private Statement s;
 
-    ArrayList<Tag> getTags(String id_tasca) {
+    //Funció validada
+    public ArrayList<Tag> getTags(String id_tasca) {
         ArrayList<Tag> tags = new ArrayList<>();
         ResultSet rs;
 
@@ -46,6 +47,7 @@ public class TagDBManager {
         }
     }
 
+    //Funció validada
     public void deleteTag(String id_etiqueta) {
         try {
             s =(Statement) DataBaseManager.getConnection().createStatement();
