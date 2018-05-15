@@ -68,61 +68,6 @@ public class DedicatedServer extends Thread{
                 System.out.println(type);
                 try {
                     switch (type) {
-                        case DELETE_MEMEBER:
-                            final String id_tasca3 = (String) objectIn.readObject();
-                            final String nom_usuari = objectIn.readUTF();
-                            DataBaseManager.getMemberInChargeDBManager().deleteMemberInCharge(nom_usuari, id_tasca3);
-                            //TODO
-                            break;
-
-                        case SET_TASK:
-                            final String id_category = (String) objectIn.readObject();
-                            final Task task = (Task) objectIn.readObject();
-                            DataBaseManager.getTaskDBManager().addTask(task, id_category);
-                            provider.sendBroadcast(hash, ServerObjectType.SET_TASK, task);
-                            break;
-
-                        case DELETE_TASK:
-                            final String taskID = objectIn.readUTF();
-                            DataBaseManager.getTaskDBManager().deleteTask(taskID);
-                            provider.sendBroadcast(hash, ServerObjectType.DELETE_TASK, taskID);
-                            break;
-
-                        case SWAP_CATEGORY:
-                            final Category category1 = (Category) objectIn.readObject();
-                            final Category category2 = (Category) objectIn.readObject();
-                            DataBaseManager.getCategoryDBManager().swapCategory(hash, category1, category2);
-                            break;
-
-                        case SWAP_TASK:
-                            final ArrayList<Task> tasks = (ArrayList<Task>) objectIn.readObject();
-                            DataBaseManager.getTaskDBManager().swapTask(tasks);
-                            break;
-
-                        case ADD_USER:
-                            final String userName = objectIn.readUTF();
-                            DataBaseManager.getMemberDBManager().addMember(hash, userName);
-                            provider.sendBroadcast(hash, ServerObjectType.ADD_USER, userName);
-                            break;
-
-                        case DELETE_USER:
-                            final String username = objectIn.readUTF();
-                            DataBaseManager.getMemberDBManager().deleteMember(hash, username);
-                            provider.sendBroadcast(hash, ServerObjectType.DELETE_USER, username);
-                            break;
-
-                        case EXIT_PROJECT:
-                            provider.deleteDedicated(hash, this);
-                            hash = null;
-                            sendData(ServerObjectType.EXIT_PROJECT, null);
-                            break;
-
-                        case LOGOUT:
-                            provider.deleteDedicated(hash, this);
-                            hash = null;
-                            sendData(ServerObjectType.LOGOUT, null);
-                            break;
-
                         case TASK_DONE:
                             final String id_task = (String) objectIn.readObject();
                             DataBaseManager.getTaskDBManager().taskDone(id_task);
