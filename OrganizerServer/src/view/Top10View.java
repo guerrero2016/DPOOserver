@@ -105,12 +105,13 @@ public class Top10View extends JPanel {
         if(top10people != null) {
             for (int i = 0; i < top10people.size(); i++) {
                 if(top10people.get(i) != null) {
-                    //Fem top10people.size() - i - 1 perquè volem ordenaro al revés de com ho rebem
-                    jlNomUserArray[i].setText(top10people.get(top10people.size() - i - 1).getUsername());
-                    integer = top10people.get(top10people.size() -1-i).getTotalTasks();
-                    jlNumTaskTotalArray[i].setText(integer.toString());
-                    integer = top10people.get(top10people.size() - i - 1).getPendingTasks();
-                    jlNumTaskPendentsArray[i].setText(integer.toString());
+                    if(top10people.get(i).getUsername() != null){
+                        jlNomUserArray[i].setText(top10people.get(i).getUsername());
+                        integer = top10people.get(i).getTotalTasks();
+                        jlNumTaskTotalArray[i].setText(integer.toString());
+                        integer = top10people.get(i).getPendingTasks();
+                        jlNumTaskPendentsArray[i].setText(integer.toString());
+                    }
                 }
             }
         }

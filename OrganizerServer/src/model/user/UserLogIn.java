@@ -14,7 +14,7 @@ public class UserLogIn implements Serializable{
     }
 
     public boolean checkLogIn() {
-        return DataBaseManager.getUserDBManager().IniciarSessio(userName, password);
+        return DataBaseManager.getUserDBManager().iniciarSessio(userName, password);
     }
 
     public String getUserName() {

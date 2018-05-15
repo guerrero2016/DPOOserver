@@ -49,7 +49,7 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
     }
 
     @Override
-    public void sendBroadcast(String hashCode, ServerObjectType type, Object object) {
+    public void sendBroadcast(String hashCode,ServerObjectType type, Object object) {
         for (DedicatedServer ds : projectServers.get(hashCode)) {
             ds.sendData(type, object);
         }

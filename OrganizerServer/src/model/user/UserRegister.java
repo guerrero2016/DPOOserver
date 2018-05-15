@@ -94,6 +94,6 @@ public class UserRegister implements Serializable{
         if (!minus || !majus || !num) {
             return 3;
         }
-        return DataBaseManager.getUserDBManager().RegistrarUsuari(userName, email, password);
+        return DataBaseManager.getUserDBManager().registrarUsuari(userName, email, password);
     }
 }

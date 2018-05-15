@@ -73,7 +73,6 @@ public class DataBaseManager {
         memberDBManager = new MemberDBManager();
     }
 
-    //Funció validada
     public static ArrayList<Date> requestUserEvolution(String username, Date minDate){
         String query = "{CALL Organizer.requestUserEvolution(?,?)}";
         java.sql.CallableStatement stmt = null;
@@ -87,9 +86,10 @@ public class DataBaseManager {
             rs = stmt.executeQuery();
 
             while(rs.next()) {
-                if (rs.getDate("data_done") != null) {
-                    dates.add(rs.getDate("data_done"));
-                }
+
+                    Date data = rs.getDate("data_done");
+                    dates.add(data);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

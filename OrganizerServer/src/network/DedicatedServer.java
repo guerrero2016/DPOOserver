@@ -64,10 +64,11 @@ public class DedicatedServer extends Thread{
                     switch (type) {
                         case LOGIN:
                             final UserLogIn logIn = (UserLogIn) objectIn.readObject();
-                            if (logIn.checkLogIn()) {
+                            System.out.println(logIn.checkLogIn());
+                            if(logIn.checkLogIn()) {
+                                System.out.println("se envia");
                                 username = logIn.getUserName();
                                 sendProjectList(username);
-                                provider.addToLoby(this);
                             } else {
                                 sendData(ServerObjectType.AUTH, 1);
                             }
@@ -75,13 +76,13 @@ public class DedicatedServer extends Thread{
 
                         case REGISTER:
                             final UserRegister register = (UserRegister) objectIn.readObject();
-                            if (register.checkSignIn() == 0) {
+                            if(register.checkSignIn() == 0) {
                                 username = register.getUserName();
                                 sendProjectList(username);
-                                provider.addToLoby(this);
                             } else {
                                 System.out.println(register.checkSignIn());
                                 sendData(ServerObjectType.AUTH, register.checkSignIn());
+                                System.out.println("Not nice");
                             }
                             break;
 
@@ -89,13 +90,13 @@ public class DedicatedServer extends Thread{
                             hash = objectIn.readObject().toString();
                             System.out.println(3);
                             Project project = DataBaseManager.getProjectDBManager().getProject(hash);
-                            provider.deleteFromLobby(this);
                             provider.addDedicated(hash, this);
                             sendData(ServerObjectType.GET_PROJECT, project);
                             System.out.println(4);
                             break;
 
                         case SET_PROJECT:
+                            System.out.println("Project");
                             final Project projecte = (Project) objectIn.readObject();
                             if (projecte.getId() == null) {
                                 String uniqueID = UUID.randomUUID().toString();
@@ -103,7 +104,6 @@ public class DedicatedServer extends Thread{
                             }
                             DataBaseManager.getProjectDBManager().addProject(projecte);
 
-                            username = "lactosito";
                             if(projecte.isOwner()) {
                                 DataBaseManager.getProjectDBManager().addProjectOwner(projecte.getId(), username);
                             }
@@ -113,6 +113,7 @@ public class DedicatedServer extends Thread{
                             }else {
                                 provider.sendBroadcast(hash, ServerObjectType.SET_PROJECT, projecte);
                             }
+
                             break;
 
                         case DELETE_PROJECT:
@@ -127,17 +128,14 @@ public class DedicatedServer extends Thread{
 
                         case SET_CATEGORY:
                             final Category category = (Category) objectIn.readObject();
-                            if (category.getId() == null) {
-                                category.setId(UUID.randomUUID().toString());
-                            }
                             DataBaseManager.getCategoryDBManager().addCategory(category, hash);
-                            provider.sendBroadcast(hash, ServerObjectType.SET_CATEGORY, category);
+                            provider.sendBroadcast(hash, ServerObjectType.SET_PROJECT, category);
                             break;
 
                         case DELETE_CATEGORY:
-                            final String categoryID = objectIn.readObject().toString();
+                            final String categoryID = objectIn.readUTF();
                             DataBaseManager.getCategoryDBManager().deleteCategory(categoryID);
-                            provider.sendBroadcast(hash, ServerObjectType.DELETE_CATEGORY, categoryID);
+                            provider.sendBroadcast(hash, ServerObjectType.DELETE_USER, categoryID);
                             break;
 
                         case SET_TAG:
@@ -158,7 +156,6 @@ public class DedicatedServer extends Thread{
                             final MemberInCharge encarregat = (MemberInCharge) objectIn.readObject();
                             DataBaseManager.getMemberInChargeDBManager().addMemberInCharge(encarregat, id_tasca2);
                             provider.sendBroadcast(hash, ServerObjectType.SET_ENCARREGAT, encarregat);
-
                             break;
 
                         case DELETE_ENCARREGAT:
@@ -172,7 +169,7 @@ public class DedicatedServer extends Thread{
                             final String id_category = (String) objectIn.readObject();
                             final Task task = (Task) objectIn.readObject();
                             DataBaseManager.getTaskDBManager().addTask(task, id_category);
-                            provider.sendBroadcast(hash, ServerObjectType.SET_ENCARREGAT, task);
+                            provider.sendBroadcast(hash, ServerObjectType.SET_TASK, task);
                             break;
 
                         case DELETE_TASK:
@@ -253,5 +250,4 @@ public class DedicatedServer extends Thread{
             e.printStackTrace();
         }
     }
-
 }

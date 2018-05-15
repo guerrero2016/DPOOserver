@@ -75,9 +75,11 @@ public class Top10Controller extends Observable implements ActionListener {
             ArrayList<UserRanking> arrayOrdenat = new ArrayList<>();
             arrayOrdenat.addAll(Arrays.asList(top10People));
             for(int i = 0; i < arrayOrdenat.size(); i++){
-                System.out.println(arrayOrdenat.get(i).getUsername());
+                if(arrayOrdenat.get(i) != null) {
+                    System.out.println(arrayOrdenat.get(i).getUsername());
+                }
             }
-            arrayOrdenat.sort(Comparator.comparingInt(UserRanking::getPendingTasks));
+            //arrayOrdenat.sort(Comparator.comparingInt(UserRanking::getPendingTasks));
             top10View.actualizeTop10(arrayOrdenat);
         }
     }
