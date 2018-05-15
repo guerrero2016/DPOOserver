@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class DedicatedServer extends Thread{
@@ -23,6 +24,7 @@ public class DedicatedServer extends Thread{
     private String hash;
     private String username;
     private DedicatedServerProvidable provider;
+    private HashMap<ServerObjectType, Communicable> communicators;
 
     public DedicatedServer(Socket sClient, Server server, DedicatedServerProvidable provider) {
         this.isOn = false;
@@ -30,10 +32,23 @@ public class DedicatedServer extends Thread{
         this.server = server;
         this.hash = null;
         this.provider = provider;
+        communicators = new HashMap<>();
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
     public void startDedicatedServer() {
@@ -48,14 +63,13 @@ public class DedicatedServer extends Thread{
 
     @Override
     public void run() {
-        boolean logged = false;
         ServerObjectType type;
-        Object object;
-
         try {
             objectOut = new ObjectOutputStream(sClient.getOutputStream());
             objectIn = new ObjectInputStream(sClient.getInputStream());
+
             while(isOn) {
+<<<<<<< HEAD
                 int input = objectIn.readInt();
                 type =  ServerObjectType.valueOf(input);
                 System.out.println(type);
@@ -211,13 +225,21 @@ public class DedicatedServer extends Thread{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+=======
+                type = ServerObjectType.valueOf(objectIn.readInt());
+                communicators.get(type).communicate(this, provider);
+>>>>>>> bb9d9daa305d9905943c63ab5d667c0cac961a12
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void sendProjectList(String username) {
+    public Object readData() throws IOException, ClassNotFoundException {
+        return objectIn.readObject();
+    }
+
+    public void sendProjectList() {
         ArrayList<Project> projectsOwner = DataBaseManager.getProjectDBManager().getProjectsOwner(username);
         ArrayList<Project> projectsMember = DataBaseManager.getProjectDBManager().getProjectsMember(username);
         sendData(ServerObjectType.GET_PROJECT_LIST, projectsOwner.size());
