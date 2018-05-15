@@ -36,10 +36,10 @@ public class GraphController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       if(e.getActionCommand().equals("jbSearch")) {
+        if(e.getActionCommand().equals("jbSearch")) {
 
-           System.out.println("CLICKED");
-           //TEST -- Veiem com si canvien les dades canvia el gràfic
+            System.out.println("CLICKED");
+            //TEST -- Veiem com si canvien les dades canvia el gràfic
            /*ArrayList<Integer> aux = new ArrayList<>();
            aux.add(1);
            aux.add(1);
@@ -50,52 +50,57 @@ public class GraphController implements ActionListener{
            aux.add(12);
            aux.add(17);
            dataModel.setGraphPoints(aux);*/
-           //TREURE FINS AQUI
+            //TREURE FINS AQUI
 
-           if(superGraphView.getJtfUserContent().equals("")){
-               JOptionPane.showMessageDialog(superGraphView, "El camp de nom d'usuari no pot estar buit!");
-           }
-           else {
-               //Demanem les dades
-               //Primer necessitem saber des de quina data necessitem les dades
-               //Això ho fem en funció del periode seleccionat
-               Calendar cal;
-               Date date;
-               //Date que passarem a la base de dades com a data mínima
-               java.sql.Date sqlDate = null;
-               //Array amb dates de les tasques realitzades que ens retorna la bbdd
-               ArrayList<java.sql.Date> dateDots = null;
-               switch (periode) {
-                   case "Setmanal":
-                       cal = Calendar.getInstance();
-                       cal.add(Calendar.DATE, -7);
-                       date = cal.getTime();
-                       sqlDate = new java.sql.Date(date.getTime());
-                       System.out.println("S: " + date);
-                       System.out.println("SQL S: " + sqlDate);
-                       break;
-                   case "Mensual":
-                       cal = Calendar.getInstance();
-                       cal.add(Calendar.MONTH, -1);
-                       date = cal.getTime();
-                       sqlDate = new java.sql.Date(date.getTime());
-                       System.out.println("M: " + date);
-                       System.out.println("SQL M: " + sqlDate);
-                       break;
-                   case "Anual":
-                       cal = Calendar.getInstance();
-                       cal.add(Calendar.YEAR, -1);
-                       date = cal.getTime();
-                       sqlDate = new java.sql.Date(date.getTime());
-                       System.out.println("Y: " + date);
-                       System.out.println("SQL S: " + sqlDate);
-                       break;
-               }
-               //Un cop tenim la data fem la petició a la BBDD amb l'usuari i la data mínima
-               dateDots = DataBaseManager.getStatisticsDBManager().requestUserEvolution(superGraphView.getJtfUserContent(), sqlDate);
-               //Ordenem les dates que ens retornen
-               //NOMES UTILITZAT PER TEST
-               //NO FER CAS
+            if(superGraphView.getJtfUserContent().equals("")){
+                JOptionPane.showMessageDialog(superGraphView, "El camp de nom d'usuari no pot estar buit!");
+            }
+            else {
+                //Demanem les dades
+                //Primer necessitem saber des de quina data necessitem les dades
+                //Això ho fem en funció del periode seleccionat
+                Calendar cal;
+                Date date;
+                //Date que passarem a la base de dades com a data mínima
+                java.sql.Date sqlDate = null;
+                //Array amb dates de les tasques realitzades que ens retorna la bbdd
+                ArrayList<java.sql.Date> dateDots = null;
+                switch (periode) {
+                    case "Setmanal":
+                        cal = Calendar.getInstance();
+                        cal.add(Calendar.DATE, -7);
+                        cal.add(Calendar.YEAR, 1900);
+                        date = cal.getTime();
+                        sqlDate = new java.sql.Date(date.getTime());
+                        System.out.println("S: " + date);
+                        System.out.println("SQL S: " + sqlDate);
+                        break;
+                    case "Mensual":
+                        cal = Calendar.getInstance();
+                        cal.add(Calendar.MONTH, -1);
+                        cal.add(Calendar.YEAR, 1900);
+
+                        date = cal.getTime();
+                        sqlDate = new java.sql.Date(date.getTime());
+                        System.out.println("M: " + date);
+                        System.out.println("SQL M: " + sqlDate);
+                        break;
+                    case "Anual":
+                        cal = Calendar.getInstance();
+                        cal.add(Calendar.YEAR, -1);
+                        cal.add(Calendar.YEAR, 1900);
+                        date = cal.getTime();
+                        sqlDate = new java.sql.Date(date.getTime());
+                        System.out.println("Y: " + date);
+                        System.out.println("SQL S: " + sqlDate);
+                        break;
+                }
+                //Un cop tenim la data fem la petició a la BBDD amb l'usuari i la data mínima
+                dateDots = DataBaseManager.getStatisticsDBManager().requestUserEvolution(superGraphView.getJtfUserContent(), sqlDate);
+
+                //Ordenem les dates que ens retornen
+                //NOMES UTILITZAT PER TEST
+                //NO FER CAS
                /*
                SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
                Date parsed = null;
@@ -122,48 +127,52 @@ public class GraphController implements ActionListener{
                java.sql.Date sql3 = new java.sql.Date(parsed.getTime());
                dateDots.add(sql3);
                */
-               //ESBORRAR NOMÉS FINS AQUí
+                //ESBORRAR NOMÉS FINS AQUí
 
-               dateDots.sort(Comparator.naturalOrder());
-               for(java.sql.Date d: dateDots){
-                   System.out.println("DATA: " + d.toString());
-               }
+                dateDots.sort(Comparator.naturalOrder());
+                for(java.sql.Date d: dateDots){
+                    System.out.println("DATA: " + d.toString());
+                }
 
-               //Ara comptem quants cops es repeteix una data
-               ArrayList<Integer> repes = countDates(dateDots, periode);
-               dataModel.setGraphPoints(repes);
-           }
-       }
+                //Ara comptem quants cops es repeteix una data
+                ArrayList<Integer> repes = countDates(dateDots, periode);
+                dataModel.setGraphPoints(repes);
+            }
+        }
 
-       if (e.getActionCommand().equals("jcbPeriod")){
-          // graphView.definePeriodsUpdate();
-           periode = superGraphView.getPeriod();
-           System.out.println("Periode: " + periode);
-       }
+        if (e.getActionCommand().equals("jcbPeriod")){
+            // graphView.definePeriodsUpdate();
+            periode = superGraphView.getPeriod();
+            System.out.println("Periode: " + periode);
+        }
     }
 
     private ArrayList<Integer> countDates(ArrayList<java.sql.Date> dateDots, String periode){
         ArrayList<Integer> arrayDates = new ArrayList<>();
         Calendar calAux = Calendar.getInstance();
         Calendar calAuxActual = Calendar.getInstance();
+        calAuxActual.add(Calendar.YEAR, 1900);
         int i = 0;
         if(periode.equals("Setmanal")){
             calAux.add(Calendar.DATE, -7);
+            calAux.add(Calendar.YEAR, 1900);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
         if(periode.equals("Mensual")){
             calAux.add(Calendar.MONTH, -1);
+            calAux.add(Calendar.YEAR, 1900);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
         if(periode.equals("Anual")){
             calAux.add(Calendar.YEAR, -1);
+            calAux.add(Calendar.YEAR, 1900);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
         return arrayDates;
     }
 
     private ArrayList<Integer> auxCountDateInArray(Calendar calAux, Calendar calAuxActual,
-                                                         ArrayList<java.sql.Date> dateDots){
+                                                   ArrayList<java.sql.Date> dateDots){
         ArrayList<Integer> arrayDates = new ArrayList<>();
         int i = 0;
         for (Date date = calAux.getTime(); calAux.before(calAuxActual); calAux.add(Calendar.DATE, 1), date = calAux.getTime()) {
@@ -185,3 +194,4 @@ public class GraphController implements ActionListener{
 
 
 }
+
