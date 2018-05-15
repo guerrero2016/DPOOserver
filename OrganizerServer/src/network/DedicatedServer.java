@@ -5,6 +5,7 @@ import model.ServerObjectType;
 import model.project.*;
 import model.user.UserLogIn;
 import model.user.UserRegister;
+import network.communicators.RegisterCommunicator;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -33,6 +34,7 @@ public class DedicatedServer extends Thread{
         this.hash = null;
         this.provider = provider;
         communicators = new HashMap<>();
+        communicators.put(ServerObjectType.REGISTER, new RegisterCommunicator());
     }
 
     public String getUsername() {
@@ -64,13 +66,17 @@ public class DedicatedServer extends Thread{
     @Override
     public void run() {
         ServerObjectType type;
+
         try {
             objectOut = new ObjectOutputStream(sClient.getOutputStream());
             objectIn = new ObjectInputStream(sClient.getInputStream());
 
             while(isOn) {
                 type = ServerObjectType.valueOf(objectIn.readInt());
-                communicators.get(type).communicate(this, provider);
+                Communicable communicator = communicators.get(type);
+                if (communicator != null) {
+                    communicators.get(type).communicate(this, provider);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

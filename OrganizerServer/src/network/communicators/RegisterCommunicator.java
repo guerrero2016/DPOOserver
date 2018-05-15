@@ -18,6 +18,8 @@ public class RegisterCommunicator implements Communicable {
         try {
             register = (UserRegister) ds.readData();
 
+            System.out.println(register.getEmail());
+
             if(register.checkSignIn() == 0) {
                 ds.setUsername(register.getUserName());
                 ds.sendProjectList();

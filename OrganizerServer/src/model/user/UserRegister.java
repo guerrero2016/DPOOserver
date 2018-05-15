@@ -4,10 +4,10 @@ import db.DataBaseManager;
 
 import java.io.Serializable;
 
-public class UserRegister implements Serializable{
-    private final int MIN_LENGTH = 8;
+public class UserRegister extends User implements Serializable{
 
-    private String userName;
+    private final static int MIN_LENGTH = 8;
+
     private String email;
     private String password;
     private String confirm;
@@ -35,7 +35,7 @@ public class UserRegister implements Serializable{
         return confirm;
     }
 
-    public int checkSignIn() throws Exception{
+    public int checkSignIn(){
 
         if (userName == null){
             return 3;
@@ -94,6 +94,8 @@ public class UserRegister implements Serializable{
         if (!minus || !majus || !num) {
             return 3;
         }
-        return DataBaseManager.getUserDBManager().registrarUsuari(userName, email, password);
+        return 0;
+        //return DataBaseManager.RegistrarUsuari(userName, email, password);
     }
+
 }
