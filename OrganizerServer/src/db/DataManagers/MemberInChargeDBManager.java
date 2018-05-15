@@ -2,7 +2,7 @@ package db.DataManagers;
 
 import com.mysql.jdbc.Statement;
 import db.DataBaseManager;
-import model.project.User;
+import model.user.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
