@@ -17,14 +17,16 @@ public class Project implements Serializable{
     private ArrayList<Category> categories;
     private ArrayList<User> users;
     private Image background;
+    private String backgroundPath;
     private boolean isOwner;
 
     public Project() {}
 
-    public Project(String id, String name, Color color, boolean isOwner) {
+    public Project(String id, String name, String color, String backgroundPath, boolean isOwner) {
         this.id = id;
         this.name = name;
-        this.color = color;
+        this.backgroundPath = backgroundPath;
+        this.color = Color.decode(color);
         this.isOwner = isOwner;
         categories = new ArrayList<>();
         users = new ArrayList<>();
@@ -61,8 +63,28 @@ public class Project implements Serializable{
         return color;
     }
 
+    public String getHexColor () {
+        if (color == null) return null;
+        int rgb = color.getRGB()&0xffffff;
+        String zeros = "000000";
+        String data = Integer.toHexString(rgb);
+        return (zeros.substring(data.length()) + data).toUpperCase();
+    }
+
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public void setColor(String color) {
+        this.color = Color.decode(color);
+    }
+
+    public String getBackgroundPath() {
+        return backgroundPath;
+    }
+
+    public void setBackgroundPath(String backgroundPath) {
+        this.backgroundPath = backgroundPath;
     }
 
     public int getCategoriesSize() {
@@ -147,6 +169,13 @@ public class Project implements Serializable{
             Category category2 = categories.get(secondCategoryIndex);
             categories.set(firstCategoryIndex, category2);
             categories.set(secondCategoryIndex, category1);
+        }
+    }
+
+    public void setMembersName (ArrayList<String> names) {
+        ArrayList<User> users = new ArrayList<>();
+        for (String name:names) {
+            users.add(new User(name));
         }
     }
 

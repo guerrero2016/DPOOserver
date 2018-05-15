@@ -9,6 +9,7 @@ public enum ServerObjectType {
     SET_MEMBER(15), DELETE_MEMEBER(16), AUTH(17), SWAP_CATEGORY(18), SWAP_TASK(19), DELETE_PROJECT(20),
     TASK_DONE(21), GET_PROJECT_LIST(22), JOIN_PROJECT(23);
 
+
     private int value;
     private static HashMap map = new HashMap<>();
 

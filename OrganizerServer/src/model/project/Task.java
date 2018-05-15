@@ -23,6 +23,14 @@ public class Task implements Serializable{
         order = INVALID_INDEX;
     }
 
+    public Task(String id, String name, int order, String description, ArrayList<Tag> tags) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.tags = tags;
+        this.order = order;
+    }
+
     public Task(String name) {
 
         if(name != null) {
@@ -43,7 +51,16 @@ public class Task implements Serializable{
         this.order = order;
     }
 
-    public String getID() {
+    public Task(String id_tasca, String nom_tasca, int posicio, String descripcio, ArrayList<Tag> tags, ArrayList<User> users) {
+        this.id = id_tasca;
+        this.name = nom_tasca;
+        this.order = posicio;
+        this.description = descripcio;
+        this.tags = tags;
+        this.users = users;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -79,6 +96,11 @@ public class Task implements Serializable{
 
     public ArrayList<Tag> getTags() {
         return tags;
+    }
+
+
+    public ArrayList<User> getUsuaris() {
+        return users;
     }
 
     public void setTags(ArrayList<Tag> tags) {

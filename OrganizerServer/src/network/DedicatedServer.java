@@ -4,11 +4,14 @@ import db.DataBaseManager;
 import model.ServerObjectType;
 import model.project.*;
 
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class DedicatedServer extends Thread{
 
@@ -20,6 +23,7 @@ public class DedicatedServer extends Thread{
     private String hash;
     private String username;
     private DedicatedServerProvidable provider;
+    private HashMap<ServerObjectType, Communicable> communicators;
 
     public DedicatedServer(Socket sClient, Server server, DedicatedServerProvidable provider) {
         this.isOn = false;
@@ -27,6 +31,7 @@ public class DedicatedServer extends Thread{
         this.server = server;
         this.hash = null;
         this.provider = provider;
+        communicators = CommunicatorsFactory.create();
     }
 
     public String getUsername() {
@@ -62,18 +67,12 @@ public class DedicatedServer extends Thread{
         try {
             objectOut = new ObjectOutputStream(sClient.getOutputStream());
             objectIn = new ObjectInputStream(sClient.getInputStream());
+
             while(isOn) {
-                int input = objectIn.readInt();
-                type =  ServerObjectType.valueOf(input);
-                System.out.println(type);
-                try {
-                    switch (type) {
-                        case TASK_DONE:
-                            final String id_task = (String) objectIn.readObject();
-                            DataBaseManager.getTaskDBManager().taskDone(id_task);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                type = ServerObjectType.valueOf(objectIn.readInt());
+                Communicable communicator = communicators.get(type);
+                if (communicator != null) {
+                    communicators.get(type).communicate(this, provider);
                 }
             }
         } catch (IOException e) {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class MemberDBManager {
     private Statement s;
 
+    //Funció validada
     public ArrayList<String> getMembers(String id_projecte) {
         ArrayList<String> members = new ArrayList<>();
         ResultSet rs;
@@ -42,6 +43,7 @@ public class MemberDBManager {
         }
     }
 
+    //Funció validada
     public void deleteMember(String id_projecte, String username) {
         try {
             s = (Statement) DataBaseManager.getConnection().createStatement();

@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class CategoryDBManager {
     private Statement s;
 
-    ArrayList<Category> getCategories(String id_projecte) {
+    /** documentation */
+    public  ArrayList<Category> getCategories(String id_projecte) {
         ArrayList<Category> categories = new ArrayList<>();
         ResultSet rs;
         try {
@@ -21,7 +22,7 @@ public class CategoryDBManager {
                 if (rs.getString("id_columna") != null) {
                     categories.add(new Category(rs.getString("id_columna"),
                             rs.getString("nom_columna"), rs.getInt("posicio"),
-                            DataBaseManager.getTaskDBManager().getTasks(id_projecte, rs.getString("id_columna"))));
+                            DataBaseManager.getTaskDBManager().getTasks(rs.getString("id_columna"))));
                 }
             }
         } catch (SQLException ex) {
@@ -46,6 +47,7 @@ public class CategoryDBManager {
         }
     }
 
+    //Funció validada
     public void deleteCategory(String id_columna) {
         String query = "{CALL Organizer.deleteCategory(?)}";
         java.sql.CallableStatement stmt;
@@ -58,19 +60,24 @@ public class CategoryDBManager {
         }
     }
 
+    //Funció validada
     public void swapCategory(String id_projecte, Category category1, Category category2) {
-        String query = "{CALL Organizer.SwapCategory(?,?,?,?,?,?)}";
-        java.sql.CallableStatement stmt;
-        try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
-            stmt.setString(1, id_projecte);
-            stmt.setString(2, category1.getId());
-            stmt.setString(3, category2.getId());
-            stmt.setInt(4, category1.getOrder());
-            stmt.setInt(5, category2.getOrder());
-            stmt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if(Math.abs(category1.getOrder() - category2.getOrder()) == 1) {
+            String query = "{CALL Organizer.SwapCategory(?,?,?,?,?)}";
+            java.sql.CallableStatement stmt;
+            try {
+                stmt = DataBaseManager.getConnection().prepareCall(query);
+                stmt.setString(1, id_projecte);
+                stmt.setString(2, category1.getId());
+                stmt.setString(3, category2.getId());
+                stmt.setInt(4, category1.getOrder());
+                stmt.setInt(5, category2.getOrder());
+                stmt.executeQuery();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Per fer swap han de ser columnes col·lindants.");
         }
     }
 }
