@@ -18,7 +18,7 @@ public class CategorySwappedCommunicator implements Communicable {
         try {
             final Category fromCategory = (Category) ds.readData();
             final Category toCategory = (Category) ds.readData();
-            DataBaseManager.getCategoryDBManager().swapCategory(ds.getHash(), fromCategory, toCategory);
+            DataBaseManager.getCategoryDBManager().swapCategory(fromCategory, toCategory);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

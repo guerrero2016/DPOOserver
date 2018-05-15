@@ -137,15 +137,15 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.SwapCategory $$
-CREATE PROCEDURE Organizer.SwapCategory (IN id_p_in VARCHAR(255), IN id_c1_in VARCHAR(255),
+CREATE PROCEDURE Organizer.SwapCategory (IN id_c1_in VARCHAR(255),
 	IN id_c2_in VARCHAR(255), IN pos1_in INT, IN pos2_in INT)
 BEGIN
 	UPDATE Columna
 		SET posicio = pos1_in
-		WHERE id_projecte = id_p_in AND id_columna = id_c2_in;
+		WHERE id_columna = id_c2_in;
 	UPDATE Columna
 		SET posicio = pos2_in
-		WHERE id_projecte = id_p_in AND id_columna = id_c1_in;
+		WHERE id_columna = id_c1_in;
 END $$
 DELIMITER ;
 

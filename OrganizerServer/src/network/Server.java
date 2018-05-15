@@ -1,16 +1,13 @@
 package network;
 
-import model.project.Project;
-
+import utils.Configuration;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Server extends Thread{
-    private static final int SERVER_PORT = 15001;
+    private static final int SERVER_PORT = Configuration.getServerPort();
 
     private boolean isOn;
     private ServerSocket serverSocket;

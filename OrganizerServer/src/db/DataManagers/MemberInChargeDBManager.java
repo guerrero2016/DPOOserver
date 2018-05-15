@@ -29,7 +29,7 @@ public class MemberInChargeDBManager {
         java.sql.CallableStatement stmt = null;
         try {
             stmt = DataBaseManager.getConnection().prepareCall(query);
-            stmt.setString(1, user.getUserName());
+            stmt.setString(1, user.getName());
             stmt.setString(2, id_tasca);
             stmt.executeQuery();
         } catch (SQLException e) {

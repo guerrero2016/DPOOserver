@@ -30,7 +30,7 @@ public class ConnectorDB {
 
     private String userName;
     private String password;
-    private String url = "jdbc:mysql://localhost";
+    private String url = "jdbc:mysql://";
     private Connection conn = null;
     private Statement s;
 
@@ -42,9 +42,10 @@ public class ConnectorDB {
      * @param db Nom de la base de dades.
      * @param port Port en el que es troba la base de dades (o el gestor).
      */
-    public ConnectorDB(String usr, String pass, String db, int port) {
+    public ConnectorDB(String usr, String pass, String db, int port, String ip) {
         this.userName = usr;
         this.password = pass;
+        this.url += ip;
         this.url += ":" + port + "/";
         this.url += db;
     }

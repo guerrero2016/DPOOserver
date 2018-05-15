@@ -95,7 +95,6 @@ public class UserRegister extends User implements Serializable{
             return 3;
         }
         return 0;
-        //return DataBaseManager.RegistrarUsuari(userName, email, password);
     }
 
 }

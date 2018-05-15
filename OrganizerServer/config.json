@@ -1,0 +1,8 @@
+{
+  "bbddPORT": "3306",
+  "bbddIP": "localhost",
+  "bbddNAME": "Organizer",
+  "bbddUSER": "gandalf",
+  "bbddPASS": "1234",
+  "serverPORT": "15001"
+}
