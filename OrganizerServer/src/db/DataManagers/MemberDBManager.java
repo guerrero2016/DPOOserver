@@ -1,3 +1,9 @@
+/**
+ * MemberDBManager és el gestor que s'encarrega de fer totes les modificacions relacionades amb els membres.
+ *
+ * @author  Albert Ferrando
+ * @version 1.0
+ */
 package db.DataManagers;
 
 import com.mysql.jdbc.Statement;
@@ -10,7 +16,11 @@ import java.util.ArrayList;
 public class MemberDBManager {
     private Statement s;
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega de retornar tots els membres que estan en un mateix projecte.
+     *
+     * @param id_projecte Id del projecte del qual es volen recuperar els membres.
+     */
     public ArrayList<String> getMembers(String id_projecte) {
         ArrayList<String> members = new ArrayList<>();
         ResultSet rs;
@@ -29,7 +39,13 @@ public class MemberDBManager {
         return members;
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega de afegir un membre a un projecte. En cas que el membre ja formi part del projecte
+     * no modificarà res.
+     *
+     * @param id_projecte Id del projecte al qual volem afegir el membre.
+     * @param username Nom d'usuari del membre que volem afegir.
+     */
     public void addMember(String id_projecte, String username) {
         String query = "{CALL Organizer.addMember(?,?)}";
         java.sql.CallableStatement stmt;
@@ -43,7 +59,12 @@ public class MemberDBManager {
         }
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega d'esborrar un membre del projecte que li diguem.
+     *
+     * @param id_projecte Id del projecte del qual volem eliminar el membre.
+     * @param username Nom d'usuari del membre que volem eliminar.
+     */
     public void deleteMember(String id_projecte, String username) {
         try {
             s = (Statement) DataBaseManager.getConnection().createStatement();

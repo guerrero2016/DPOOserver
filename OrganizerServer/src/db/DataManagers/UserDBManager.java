@@ -1,3 +1,9 @@
+/**
+ * UserDBManager és el gestor que s'encarrega de fer totes les modificacions relacionades amb els usuaris.
+ *
+ * @author  Albert Ferrando
+ * @version 1.0
+ */
 package db.DataManagers;
 
 import com.mysql.jdbc.Statement;
@@ -9,7 +15,15 @@ import java.sql.SQLException;
 public class UserDBManager {
     private static Statement s;
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega de registrar un usuari en cas que les dades de registre siguin correctes.
+     * Si el nom d'usuari ja existeix a la base de dades retornarà un 1, si l'adreça de correu electrònic ja existeix
+     * a la base de dades retornarà un 2 i si el registre s'ha completat correctament retornarà un 0.
+     *
+     * @param nom_usuari Nom d'usuari a registrar.
+     * @param correu Correu electrònic a registrar.
+     * @param contrasenya Contrasenya a registrar.
+     */
     public int registrarUsuari(String nom_usuari, String correu, String contrasenya) {
         ResultSet rs;
 
@@ -34,7 +48,12 @@ public class UserDBManager {
         return 1;
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega de retornar el nom d'usuari d'un usuari indistintament de si li passem el correu
+     * electrònic o el nom d'usuari del mateix. Retorna "fail" si el nom d'usuari o correu no es troba registrat.
+     *
+     * @param nom_or_correu Nom d'usuari o correu electrònic de l'usuari del qual volem recuperar el seu nom d'usuari.
+     */
     public String getUsername(String nom_or_correu) {
         ResultSet rs;
 
@@ -53,8 +72,14 @@ public class UserDBManager {
         return "Fail";
     }
 
-    //Funció validada
-    public boolean iniciarSessio(String nom_correu, String password) {
+    /**
+     * Aquesta funció s'encarrega de mirar si les credencials d'un usuari per entrar al programa son correctes o no.
+     * En cas que les credencials siguin correctes retornarà un 1 i en cas contrari un 0.
+     *
+     * @param nom_correu Nom o correu de l'usuari que vol iniciar sessió.
+     * @param password Contrasenya de l'usuari que vol iniciar sessió.
+     */
+    public int iniciarSessio(String nom_correu, String password) {
         ResultSet rs;
 
         try {
@@ -65,13 +90,13 @@ public class UserDBManager {
             rs = stmt.executeQuery();
             rs.next();
             if(rs.getString(1).equals("NO")) {
-                return false;
+                return 0;
             } else {
-                return true;
+                return 1;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
 }

@@ -1,3 +1,10 @@
+/**
+ * Statistics és el gestor que s'encarrega de fer totes les recuperacions relacionades amb les estadístiques
+ * que s'han de mostrar en el servidor.
+ *
+ * @author  Albert Ferrando
+ * @version 1.0
+ */
 package db.DataManagers;
 
 import com.mysql.jdbc.Statement;
@@ -12,7 +19,14 @@ import java.util.ArrayList;
 public class StatisticsDBManager {
     private Statement s;
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega de retrornar un array de dates on cada data retornada representa la data en que
+     * l'usuari que indiquem va fer una tasca. No retornem totes les dates sinó les que siguin a partir de la data
+     * indicada.
+     *
+     * @param username Nom de l'usuari del qual volem recuperar les tasques fetes.
+     * @param minDate Data a partir de la qual volem recuperar les tasques fetes.
+     */
     public ArrayList<Date> requestUserEvolution(String username, Date minDate){
         String query = "{CALL Organizer.requestUserEvolution(?,?)}";
         java.sql.CallableStatement stmt = null;
@@ -35,7 +49,10 @@ public class StatisticsDBManager {
         return dates;
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció retorna ordenadament els 10 usuaris que tinguin pitjor ratio de tasques completades/tasques per
+     * completar juntament amb el número de tasques fetes i les tasques per fer.
+     */
     public UserRanking[] requestTop10(){
         String query = "{CALL Organizer.requestTop10()}";
         java.sql.CallableStatement stmt = null;

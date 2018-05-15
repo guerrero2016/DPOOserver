@@ -1,3 +1,9 @@
+/**
+ * ProjectDBManager és el gestor que s'encarrega de fer totes les modificacions relacionades amb els projectes.
+ *
+ * @author  Albert Ferrando
+ * @version 1.0
+ */
 package db.DataManagers;
 
 import com.mysql.jdbc.Statement;
@@ -11,7 +17,12 @@ import java.util.ArrayList;
 public class ProjectDBManager {
     private Statement s;
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega de retornar tots els projectes dels quals l'usuari que li passem sigui membre.
+     * A més, els projectes contindran els membres de cada projecte retornat.
+     *
+     * @param userName Nom d'usuari de l'usuari del qual volem retornar els projectes en que és membre.
+     */
     public ArrayList<Project> getProjectsOwner(String userName) {
         ArrayList<Project> projects = new ArrayList<>();
         ResultSet rs;
@@ -37,7 +48,12 @@ public class ProjectDBManager {
         return projects;
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega de retornar tots els projectes dels quals l'usuari que li passem sigui propietari.
+     * A més, els projectes contindran els membres de cada projecte retornat.
+     *
+     * @param userName Nom d'usuari de l'usuari del qual volem retornar els projectes en que és propietari.
+     */
     public ArrayList<Project> getProjectsMember(String userName) {
         ArrayList<Project> projects = new ArrayList<>();
         ResultSet rs;
@@ -63,7 +79,11 @@ public class ProjectDBManager {
         return projects;
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega de retornar el projecte que li demanem amb tots els elements interns d'aquest mateix.
+     *
+     * @param id_projecte Id del projecte que volem que se'ns retorni.
+     */
     public Project getProject(String id_projecte) {
         Project project = new Project();
         ResultSet rs;
@@ -84,7 +104,13 @@ public class ProjectDBManager {
         return project;
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega d'afegir un projecte en cas que no es trobi a la base de dades i, en cas contrari,
+     * s'encarrega d'editar els elements del propi projecte. Aquesta funció no afegeix el propietari del projecte,
+     * per a fer-ho s'ha d'usar la funció específica.
+     *
+     * @param projecte Projecte que volem afegir o editar.
+     */
     public void addProject(Project projecte) {
         try {
             String query = "{CALL Organizer.AddProject(?,?,?,?)}";
@@ -99,7 +125,11 @@ public class ProjectDBManager {
         }
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega d'esborrar un projecte i tots els elements que aquest conté.
+     *
+     * @param id_projecte Id del projecte que volem eliminar.
+     */
     public void deleteProject(String id_projecte) {
         String query = "{CALL Organizer.deleteProject(?)}";
         java.sql.CallableStatement stmt;
@@ -112,7 +142,12 @@ public class ProjectDBManager {
         }
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega d'assignar a un projecte un propietari.
+     *
+     * @param id Id del projecte al qual volem afegir un propietari.
+     * @param username Nom d'usuari del propietari.
+     */
     public void addProjectOwner(String id, String username) {
         String query = "{CALL Organizer.addProjectOwner(?,?)}";
         java.sql.CallableStatement stmt;
