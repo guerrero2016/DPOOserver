@@ -13,13 +13,24 @@ public class Category implements Serializable {
     private int order;
     private ArrayList<model.project.Task> tasks;
 
-    public Category(String name) {
-        id = UUID.randomUUID().toString();
-        this.name = name.toString();
+    /** Constructor amb un sol paràmetre id.
+     *
+     * @param id Id amb el qual volem construir la categoria.
+     */
+    public Category(String id) {
+        this.id = UUID.randomUUID().toString();
+        this.name = id.toString();
         order = INVALID_INDEX;
         tasks = new ArrayList<>();
     }
 
+    /** Constructor amb paràmetres.
+     *
+     * @param id Id de la categoria.
+     * @param name Nom de la categoria.
+     * @param order Posició de la categoria.
+     * @param tasks Tasques de la categoria.
+     */
     public Category(String id, String name, int order, ArrayList<Task> tasks) {
         this.id = id;
         this.name = name;
@@ -27,34 +38,56 @@ public class Category implements Serializable {
         this.tasks = tasks;
     }
 
+    /** Getter de l'id de la categoria.
+     */
     public String getId() {
         return id;
     }
 
+    /** Getter del nom de la categoria.
+     */
     public String getName() {
         return name;
     }
 
+    /** Setter del nom de la categoria.
+     *
+     * @param name Nom a settejar.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /** Getter de la posició de la categoria.
+     */
     public int getOrder() {
         return order;
     }
 
+    /** Setter de la posició de la categoria.
+     *
+     * @param order Posició a settejar.
+     */
     public void setOrder(int order) {
         this.order = order;
     }
 
+    /** Getter de la quantitat de tasques de la categoria.
+     */
     public int getTasksSize() {
         return tasks.size();
     }
 
+    /** Getter de les tasques de la categoria.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /** Setter de les tasques de la categoria.
+     *
+     * @param tasks: Tasques a settejar.
+     */
     public void setTasks(ArrayList<Task> tasks) {
         if(tasks != null) {
             this.tasks = tasks;
@@ -69,6 +102,7 @@ public class Category implements Serializable {
         }
     }
 
+
     public Task getTask(int taskIndex) {
         if(taskIndex < tasks.size()) {
             return tasks.get(taskIndex);
@@ -76,6 +110,7 @@ public class Category implements Serializable {
             return null;
         }
     }
+
 
     public void setTask(Task task) {
         if(tasks.contains(task)) {

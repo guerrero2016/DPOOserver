@@ -1,3 +1,9 @@
+/**
+ * TagDBManager és el gestor que s'encarrega de fer totes les modificacions relacionades amb les etiquetes.
+ *
+ * @author  Albert Ferrando
+ * @version 1.0
+ */
 package db.DataManagers;
 
 import com.mysql.jdbc.Statement;
@@ -11,7 +17,11 @@ import java.util.ArrayList;
 public class TagDBManager {
     private Statement s;
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega de retornar totes les etiquetes de la tasca indicada.
+     *
+     * @param id_tasca Id de la tasca de la qual volem recuperar les etiquetes.
+     */
     public ArrayList<Tag> getTags(String id_tasca) {
         ArrayList<Tag> tags = new ArrayList<>();
         ResultSet rs;
@@ -31,7 +41,12 @@ public class TagDBManager {
         return tags;
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega d'afegir una etiqueta a la tasca indicada.
+     *
+     * @param tag Etiqueta que volem afegir a la tasca en qüestió.
+     * @param id_tasca Id de la tasca a la qual volem afegir la etiqueta.
+     */
     public void addTag(Tag tag, String id_tasca) {
         String query = "{CALL Organizer.AddTag(?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
@@ -47,7 +62,11 @@ public class TagDBManager {
         }
     }
 
-    //Funció validada
+    /**
+     * Aquesta funció s'encarrega d'eliminar una etiqueta concreta.
+     *
+     * @param id_etiqueta Id de la etiqueta que volem eliminar.
+     */
     public void deleteTag(String id_etiqueta) {
         try {
             s =(Statement) DataBaseManager.getConnection().createStatement();
