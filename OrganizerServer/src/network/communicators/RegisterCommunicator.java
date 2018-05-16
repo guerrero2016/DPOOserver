@@ -1,5 +1,6 @@
 package network.communicators;
 
+import db.DataBaseManager;
 import model.ServerObjectType;
 import model.user.UserRegister;
 import network.Communicable;
@@ -24,6 +25,8 @@ public class RegisterCommunicator implements Communicable {
                 ds.setUsername(register.getUserName());
                 ds.sendProjectList();
                 provider.addToLoby(ds);
+                DataBaseManager.getUserDBManager().registrarUsuari(register.getUserName(), register.getEmail(),
+                        register.getPassword());
             } else {
                 ds.sendData(ServerObjectType.AUTH, register.checkSignIn());
             }

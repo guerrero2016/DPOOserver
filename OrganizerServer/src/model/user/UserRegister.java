@@ -1,10 +1,8 @@
 package model.user;
 
-import db.DataBaseManager;
-
 import java.io.Serializable;
 
-public class UserRegister extends User implements Serializable{
+public class UserRegister extends User implements Serializable {
 
     private final static int MIN_LENGTH = 8;
 
@@ -95,6 +93,7 @@ public class UserRegister extends User implements Serializable{
             return 3;
         }
         return 0;
+        //return DataBaseManager.RegistrarUsuari(userName, email, password);
     }
 
 }

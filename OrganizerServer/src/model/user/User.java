@@ -1,8 +1,10 @@
 package model.user;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
+
     protected String userName;
 
     public User() {}
@@ -13,7 +15,7 @@ public class User {
         }
     }
 
-    public String getName() {
+    public String getUserName() {
         return userName;
     }
 
