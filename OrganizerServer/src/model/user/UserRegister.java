@@ -72,22 +72,19 @@ public class UserRegister extends User {
             return 3;
         }
 
-        boolean majus = false;
         boolean minus = false;
         boolean num = false;
         for (int i = 0; i < password.length(); i++) {
             if (Character.isLowerCase(password.charAt(i))) {
                 minus = true;
             }
-            if (Character.isUpperCase(password.charAt(i))) {
-                majus = true;
-            }
+
             if (Character.isDigit(password.charAt(i))) {
                 num = true;
             }
         }
 
-        if (!minus || !majus || !num) {
+        if (!minus || !num) {
             return 3;
         }
         return 0;

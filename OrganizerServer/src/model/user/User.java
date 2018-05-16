@@ -20,7 +20,7 @@ public class User implements Serializable {
         return userName;
     }
 
-    public String getMD5(String entry) {
+    public static String getMD5(String entry) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(entry.getBytes());
@@ -33,6 +33,13 @@ public class User implements Serializable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean containsUpperCase(String entry) {
+        for (char c : entry.toCharArray()) {
+            if (Character.isUpperCase(c)) return true;
+        }
+        return false;
     }
 
     @Override
