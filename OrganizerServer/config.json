@@ -4,5 +4,5 @@
   "bbddNAME": "Organizer",
   "bbddUSER": "gandalf",
   "bbddPASS": "1234",
-  "serverPORT": "15001"
+  "communicationPORT": "15001"
 }

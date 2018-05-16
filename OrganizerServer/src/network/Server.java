@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.LinkedList;
 
 public class Server extends Thread{
-    private static final int SERVER_PORT = Configuration.getServerPort();
+    private static final int SERVER_PORT = Configuration.getCommunicationPort();
 
     private boolean isOn;
     private ServerSocket serverSocket;

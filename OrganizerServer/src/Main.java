@@ -7,7 +7,6 @@ import view.MainServerView;
 
 public class Main {
     public static void main(String[] args) {
-        boolean ok = false;
         ConnectorDB connector;
 
         DataModel dataModel = new DataModel();

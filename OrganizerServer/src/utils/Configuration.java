@@ -16,7 +16,6 @@ public class Configuration {
         config = new Properties();
 
         try {
-            System.out.println(path);
             br = new BufferedReader(new FileReader(path));
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
@@ -32,7 +31,7 @@ public class Configuration {
             config.setProperty("bbddNAME", jsonObject.getString("bbddNAME"));
             config.setProperty("bbddUSER", jsonObject.getString("bbddUSER"));
             config.setProperty("bbddPASS", jsonObject.getString("bbddPASS"));
-            config.setProperty("serverPORT", jsonObject.getString("serverPORT"));
+            config.setProperty("communicationPORT", jsonObject.getString("communicationPORT"));
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         } finally {
@@ -65,7 +64,7 @@ public class Configuration {
         return config.getProperty("bbddUSER");
     }
 
-    public static int getServerPort() {
-        return Integer.parseInt(config.getProperty("serverPORT"));
+    public static int getCommunicationPort() {
+        return Integer.parseInt(config.getProperty("communicationPORT"));
     }
 }
