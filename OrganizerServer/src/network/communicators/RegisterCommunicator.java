@@ -22,11 +22,15 @@ public class RegisterCommunicator implements Communicable {
             System.out.println(register.getEmail());
 
             if(register.checkSignIn() == 0) {
-                ds.setUsername(register.getUserName());
-                ds.sendProjectList();
-                provider.addToLoby(ds);
-                DataBaseManager.getUserDBManager().registrarUsuari(register.getUserName(), register.getEmail(),
+                int error = DataBaseManager.getUserDBManager().registrarUsuari(register.getUserName(), register.getEmail(),
                         register.getPassword());
+                if (error == 0) {
+                    ds.setUsername(register.getUserName());
+                    ds.sendProjectList();
+                    provider.addToLoby(ds);
+                } else {
+                    ds.sendData(ServerObjectType.AUTH, error);
+                }
             } else {
                 ds.sendData(ServerObjectType.AUTH, register.checkSignIn());
             }

@@ -74,7 +74,7 @@ public class UserDBManager {
 
     /**
      * Aquesta funció s'encarrega de mirar si les credencials d'un usuari per entrar al programa son correctes o no.
-     * En cas que les credencials siguin correctes retornarà un 1 i en cas contrari un 0.
+     * En cas que les credencials siguin correctes retornarà un 0 i en cas contrari un 1.
      *
      * @param nom_correu Nom o correu de l'usuari que vol iniciar sessió.
      * @param password Contrasenya de l'usuari que vol iniciar sessió.
@@ -90,13 +90,13 @@ public class UserDBManager {
             rs = stmt.executeQuery();
             rs.next();
             if(rs.getString(1).equals("NO")) {
-                return 0;
-            } else {
                 return 1;
+            } else {
+                return 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return 1;
     }
 }

@@ -1,5 +1,6 @@
 package network.communicators;
 
+import db.DataBaseManager;
 import model.ServerObjectType;
 import model.user.UserLogIn;
 import network.Communicable;
@@ -19,7 +20,8 @@ public class LogInCommunicator implements Communicable {
         try {
             logIn = (UserLogIn) ds.readData();
             System.out.println(logIn.getPassword());
-            if(logIn.checkLogIn()) {
+            if(logIn.checkLogIn() && DataBaseManager.getUserDBManager().
+                    iniciarSessio(logIn.getUserName(), logIn.getPassword()) == 0) {
                 ds.setUsername(logIn.getUserName());
                 ds.sendProjectList();
                 provider.addToLoby(ds);
