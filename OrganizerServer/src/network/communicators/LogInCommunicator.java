@@ -26,7 +26,7 @@ public class LogInCommunicator implements Communicable {
                 ds.sendProjectList();
                 provider.addToLoby(ds);
             } else {
-                ds.sendData(ServerObjectType.AUTH, 1);
+                ds.sendData(ServerObjectType.AUTH, 3);
             }
 
         } catch (IOException | ClassNotFoundException e) {

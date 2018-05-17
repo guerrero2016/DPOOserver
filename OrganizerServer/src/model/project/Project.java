@@ -2,7 +2,12 @@ package model.project;
 
 import model.user.User;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -17,15 +22,22 @@ public class Project implements Serializable{
     private ArrayList<Category> categories;
     private ArrayList<User> users;
     private Image background;
-    private String backgroundPath;
     private boolean isOwner;
 
     public Project() {}
 
-    public Project(String id, String name, String color, String backgroundPath, boolean isOwner) {
+    public Project(String id, String name, Color color, boolean isOwner) {
         this.id = id;
         this.name = name;
-        this.backgroundPath = backgroundPath;
+        this.color = color;
+        this.isOwner = isOwner;
+        categories = new ArrayList<>();
+        users = new ArrayList<>();
+    }
+
+    public Project(String id, String name, String color, boolean isOwner) {
+        this.id = id;
+        this.name = name;
         this.color = Color.decode(color);
         this.isOwner = isOwner;
         categories = new ArrayList<>();
@@ -63,28 +75,20 @@ public class Project implements Serializable{
         return color;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setColorFromCode(String color) {
+        this.color = Color.decode(color);
+    }
+
     public String getHexColor () {
         if (color == null) return null;
         int rgb = color.getRGB()&0xffffff;
         String zeros = "000000";
         String data = Integer.toHexString(rgb);
         return (zeros.substring(data.length()) + data).toUpperCase();
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public void setColor(String color) {
-        this.color = Color.decode(color);
-    }
-
-    public String getBackgroundPath() {
-        return backgroundPath;
-    }
-
-    public void setBackgroundPath(String backgroundPath) {
-        this.backgroundPath = backgroundPath;
     }
 
     public int getCategoriesSize() {
@@ -172,13 +176,6 @@ public class Project implements Serializable{
         }
     }
 
-    public void setMembersName (ArrayList<String> names) {
-        ArrayList<User> users = new ArrayList<>();
-        for (String name:names) {
-            users.add(new User(name));
-        }
-    }
-
     public int getUsersSize() {
         return users.size();
     }
@@ -229,6 +226,13 @@ public class Project implements Serializable{
         this.isOwner = isOwner;
     }
 
+    public void setMembersName (ArrayList<String> names) {
+        ArrayList<User> users = new ArrayList<>();
+        for (String name:names) {
+            users.add(new User(name));
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
 
@@ -254,5 +258,5 @@ public class Project implements Serializable{
     public int hashCode() {
         return Objects.hash(id, name, color, categories, users, background);
     }
-    
+
 }
