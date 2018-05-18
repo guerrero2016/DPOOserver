@@ -9,10 +9,7 @@ import network.DedicatedServerProvidable;
 
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.awt.image.VolatileImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -22,22 +19,15 @@ import java.util.UUID;
  * Es notifica a tots els clients del projecte.
  */
 public class ProjectEditedCommunicator implements Communicable {
-    private static final String PATH = "img/";
+    private static final String PATH = "/backgrounds/";
     private static final String EXT = "png";
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         final Project projecte;
         try {
             projecte = (Project) ds.readData();
-            if (projecte.getId() == null) {
-                String uniqueID = UUID.randomUUID().toString();
-                projecte.setId(uniqueID);
-            }
-            DataBaseManager.getProjectDBManager().addProject(projecte);
 
-            if(projecte.isOwner()) {
-                DataBaseManager.getProjectDBManager().addProjectOwner(projecte.getId(), ds.getUsername());
-            }
+            DataBaseManager.getProjectDBManager().addProject(projecte);
 
             if (provider.countDedicated(projecte.getId()) == -1){
                 ds.sendData(ServerObjectType.SET_PROJECT, projecte);
@@ -45,14 +35,18 @@ public class ProjectEditedCommunicator implements Communicable {
                 provider.sendBroadcast(projecte.getId(), ServerObjectType.SET_PROJECT, projecte);
             }
 
+            System.out.println(projecte.getName());
+
             for (String name : DataBaseManager.getMemberDBManager().getMembers(projecte.getId())) {
                 provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
             }
 
+            System.out.println("Aqui arriba");
+
             if (projecte.getBackground() != null) {
                 File file = new File(PATH + projecte.getId() + "." + EXT);
                 try {
-                    ImageIO.write((RenderedImage) projecte.getBackground(), EXT, file);  // ignore returned boolean
+                    ImageIO.write(projecte.getBackground(), EXT, file);  // ignore returned boolean
                 } catch(IOException e) {
                     System.out.println("Write error for " + file.getPath() +
                             ": " + e.getMessage());
@@ -63,5 +57,4 @@ public class ProjectEditedCommunicator implements Communicable {
             e.printStackTrace();
         }
     }
-
 }
