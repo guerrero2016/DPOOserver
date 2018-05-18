@@ -107,6 +107,8 @@ public class ProjectDBManager {
                 + id_projecte + ".png"));
                 project.setBackground(myPicture);
             }
+            project.setCategories(DataBaseManager.getInstance().getCategoryDBManager().getCategories(id_projecte));
+
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
         } catch (IOException e) {
