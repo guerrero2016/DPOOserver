@@ -19,7 +19,7 @@ import java.util.UUID;
  * Es notifica a tots els clients del projecte.
  */
 public class ProjectEditedCommunicator implements Communicable {
-    private static final String PATH = "/backgrounds/";
+    private static final String PATH = "backgrounds/";
     private static final String EXT = "png";
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
@@ -39,11 +39,9 @@ public class ProjectEditedCommunicator implements Communicable {
             }
 
             for (String name : DataBaseManager.getInstance().getMemberDBManager().getMembers(projecte.getId())) {
-                System.out.println(projecte.getName());
                 provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
             }
 
-            System.out.println("Aqui arriba");
 
             if (projecte.getBackground() != null) {
                 File file = new File(PATH + projecte.getId() + "." + EXT);

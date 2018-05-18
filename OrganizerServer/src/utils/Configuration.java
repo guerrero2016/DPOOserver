@@ -8,8 +8,7 @@ import java.util.Properties;
 
 public class Configuration {
     private static Properties config;
-    private final static String path = System.getProperty("user.dir") + System.getProperty("file.separator") + "OrganizerServer"
-            + System.getProperty("file.separator")
+    private final static String path = System.getProperty("user.dir") + System.getProperty("file.separator")
             + "config.json";
 
     public static void loadConfiguration() {
