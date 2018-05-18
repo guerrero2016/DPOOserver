@@ -11,7 +11,7 @@ public class Category implements Serializable {
 
     private String id;
     private String name;
-    private int order;
+    private int order = -1;
     private ArrayList<model.project.Task> tasks;
 
 
