@@ -32,12 +32,6 @@ public class ProjectEditedCommunicator implements Communicable {
             }
             DataBaseManager.getInstance().getProjectDBManager().addProject(projecte);
 
-            if(projecte.isOwner()) {
-                DataBaseManager.getInstance().getProjectDBManager().addProjectOwner(projecte.getId(), ds.getUsername());
-            }
-
-            DataBaseManager.getInstance().getMemberDBManager().addMember(projecte.getId(), ds.getUsername());
-
             if (provider.countDedicated(projecte.getId()) == -1){
                 ds.sendData(ServerObjectType.SET_PROJECT, projecte);
             }else {
@@ -48,7 +42,6 @@ public class ProjectEditedCommunicator implements Communicable {
                 provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
             }
 
-            System.out.println("Aqui arriba");
 
             if (projecte.getBackground() != null) {
                 File file = new File(PATH + projecte.getId() + "." + EXT);
