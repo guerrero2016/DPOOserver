@@ -24,7 +24,7 @@ public class Top10Controller extends Observable implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Carregar")){
-            UserRanking[] top10People = DataBaseManager.getStatisticsDBManager().requestTop10();
+            UserRanking[] top10People = DataBaseManager.getInstance().getStatisticsDBManager().requestTop10();
             /*SEGÜENT LINIA NOMES PER TEST
             UserRanking[] top10People = new UserRanking[10];
             //DADES NOMES DE TEST

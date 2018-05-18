@@ -18,10 +18,10 @@ public class UserJoinedCommunicator implements Communicable {
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         try {
             final String projectID = ds.readData().toString();
-            final Project p = DataBaseManager.getProjectDBManager().getProject(projectID);
+            final Project p = DataBaseManager.getInstance().getProjectDBManager().getProject(projectID);
 
-            DataBaseManager.getMemberDBManager().addMember(projectID, ds.getUsername());
             if (p.getId() != null) {
+                DataBaseManager.getInstance().getMemberDBManager().addMember(projectID, ds.getUsername());
                 provider.sendBroadcast(projectID, ServerObjectType.JOIN_PROJECT, p);
             }
             ds.sendData(ServerObjectType.JOIN_PROJECT, p);

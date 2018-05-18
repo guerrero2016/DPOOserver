@@ -85,9 +85,10 @@ public class DedicatedServer extends Thread{
     }
 
     public void sendProjectList() {
-        ArrayList<Project> projectsOwner = DataBaseManager.getProjectDBManager().getProjectsOwner(username);
-        ArrayList<Project> projectsMember = DataBaseManager.getProjectDBManager().getProjectsMember(username);
+        ArrayList<Project> projectsOwner = DataBaseManager.getInstance().getProjectDBManager().getProjectsOwner(username);
+        ArrayList<Project> projectsMember = DataBaseManager.getInstance().getProjectDBManager().getProjectsMember(username);
         sendData(null, projectsOwner.size());
+
         for (Project p : projectsOwner) {
             sendData(null, p);
         }

@@ -20,11 +20,11 @@ public class LogInCommunicator implements Communicable {
         try {
             logIn = (UserLogIn) ds.readData();
             System.out.println(logIn.getPassword());
-            if(logIn.checkLogIn() && DataBaseManager.getUserDBManager().
+            if(logIn.checkLogIn() && DataBaseManager.getInstance().getUserDBManager().
                     iniciarSessio(logIn.getUserName(), logIn.getPassword()) == 0) {
                 ds.setUsername(logIn.getUserName());
                 ds.sendData(ServerObjectType.GET_PROJECT_LIST,
-                        DataBaseManager.getUserDBManager().getUsername(logIn.getUserName()));
+                        DataBaseManager.getInstance().getUserDBManager().getUsername(logIn.getUserName()));
                 ds.sendProjectList();
                 provider.addToLoby(ds);
             } else {

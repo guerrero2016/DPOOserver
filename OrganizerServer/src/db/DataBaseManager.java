@@ -15,15 +15,22 @@ import java.sql.SQLException;
 
 public class DataBaseManager {
     private static DataBaseManager ourInstance = new DataBaseManager();
-    private static UserDBManager userDBManager;
-    private static Connection connection;
-    private static ProjectDBManager projectDBManager;
-    private static CategoryDBManager categoryDBManager;
-    private static TaskDBManager taskDBManager;
-    private static MemberInChargeDBManager memberInChargeDBManager;
-    private static TagDBManager tagDBManager;
-    private static MemberDBManager memberDBManager;
-    private static StatisticsDBManager statisticsDBManager;
+    private UserDBManager userDBManager;
+    private Connection connection;
+    private ProjectDBManager projectDBManager;
+    private CategoryDBManager categoryDBManager;
+    private TaskDBManager taskDBManager;
+    private MemberInChargeDBManager memberInChargeDBManager;
+    private TagDBManager tagDBManager;
+    private MemberDBManager memberDBManager;
+    private StatisticsDBManager statisticsDBManager;
+
+    /**
+     * Getter de la instància singleton.
+     */
+    public static DataBaseManager getInstance() {
+        return ourInstance;
+    }
 
     /**
      * Constructor sense paràmetres.
@@ -34,63 +41,63 @@ public class DataBaseManager {
     /**
      * Getter del UserDBManager.
      */
-    public static UserDBManager getUserDBManager() {
+    public UserDBManager getUserDBManager() {
         return userDBManager;
     }
 
     /**
      * Getter del ProjectDBManager.
      */
-    public static ProjectDBManager getProjectDBManager() {
+    public ProjectDBManager getProjectDBManager() {
         return projectDBManager;
     }
 
     /**
      * Getter del CategoryDBManager.
      */
-    public static CategoryDBManager getCategoryDBManager() {
+    public CategoryDBManager getCategoryDBManager() {
         return categoryDBManager;
     }
 
     /**
      * Getter del StatisticsDBManager.
      */
-    public static StatisticsDBManager getStatisticsDBManager() {
+    public StatisticsDBManager getStatisticsDBManager() {
         return statisticsDBManager;
     }
 
     /**
      * Getter del TaskDBManager.
      */
-    public static TaskDBManager getTaskDBManager() {
+    public TaskDBManager getTaskDBManager() {
         return taskDBManager;
     }
 
     /**
      * Getter del MemberInChargeDBManager.
      */
-    public static MemberInChargeDBManager getMemberInChargeDBManager() {
+    public MemberInChargeDBManager getMemberInChargeDBManager() {
         return memberInChargeDBManager;
     }
 
     /**
      * Getter del TagDBManager.
      */
-    public static TagDBManager getTagDBManager() {
+    public TagDBManager getTagDBManager() {
         return tagDBManager;
     }
 
     /**
      * Getter del MemberDBManager.
      */
-    public static MemberDBManager getMemberDBManager() {
+    public MemberDBManager getMemberDBManager() {
         return memberDBManager;
     }
 
     /**
      * Getter de la connexió amb la base de dades.
      */
-    public static Connection getConnection() {
+    public Connection getConnection() {
         return connection;
     }
 
@@ -98,8 +105,8 @@ public class DataBaseManager {
      * Setter de la connexió i un cop tenim la connexió i per tant ja podem connectar amb la base de dades
      * creem tots els Managers.
      */
-    static void setConnection(Connection connection) {
-        DataBaseManager.connection = connection;
+    public void setConnection(Connection connection) {
+        this.connection = connection;
         userDBManager = new UserDBManager();
         projectDBManager = new ProjectDBManager();
         categoryDBManager = new CategoryDBManager();

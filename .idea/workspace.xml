@@ -2,8 +2,43 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9884ab0b-3266-48a7-8fbd-b98d666aeb1b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/scripts/Organizer_bbdd.sql" afterPath="$PROJECT_DIR$/OrganizerServer/scripts/Organizer_bbdd.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/scripts/Organizer_procedures.sql" afterPath="$PROJECT_DIR$/OrganizerServer/scripts/Organizer_procedures.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/java_json.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Server.iml" afterPath="$PROJECT_DIR$/.idea/Server.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/controller/GraphController.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/controller/GraphController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/controller/Top10Controller.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/controller/Top10Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/ConnectorDB.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/ConnectorDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/DataBaseManager.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/DataBaseManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/CategoryDBManager.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/CategoryDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberDBManager.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberInChargeDBManager.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberInChargeDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/ProjectDBManager.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/ProjectDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/StatisticsDBManager.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/StatisticsDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/TagDBManager.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/TagDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/TaskDBManager.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/TaskDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/UserDBManager.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/UserDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/model/project/Category.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/model/project/Category.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/DedicatedServer.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/DedicatedServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategoryDeletedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategoryDeletedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategoryEditedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategoryEditedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategorySwappedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategorySwappedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/LogInCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/LogInCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/MemberAddedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/MemberAddedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/MemberDeletedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/MemberDeletedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectDeletedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectDeletedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectEditedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectEditedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectSelectedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectSelectedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/RegisterCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/RegisterCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TagDeletedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TagDeletedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TagEditedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TagEditedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDeletedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDeletedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDoneCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDoneCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskEditedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskEditedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskSwappedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskSwappedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserDeletedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserDeletedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserInvitedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserInvitedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserJoinedCommunicator.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserJoinedCommunicator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OrganizerServer/src/utils/Configuration.java" afterPath="$PROJECT_DIR$/OrganizerServer/src/utils/Configuration.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,92 +49,120 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MemberDBManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberDBManager.java">
+      <file leaf-file-name="TaskDeletedCommunicator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDeletedCommunicator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProjectDBManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/ProjectDBManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="140" column="27" lean-forward="true" selection-start-line="140" selection-start-column="27" selection-end-line="140" selection-end-column="27" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Organizer_bbdd.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OrganizerServer/scripts/Organizer_bbdd.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="29" column="23" lean-forward="true" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
+            <state relative-caret-position="235">
+              <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Organizer_procedures.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/OrganizerServer/scripts/Organizer_procedures.sql">
+      <file leaf-file-name="TaskDoneCommunicator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDoneCommunicator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="25" lean-forward="true" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+            <state relative-caret-position="235">
+              <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataBaseManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataBaseManager.java">
+      <file leaf-file-name="TaskEditedCommunicator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskEditedCommunicator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-119">
-              <caret line="18" column="41" lean-forward="true" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="234">
+              <caret line="21" column="41" lean-forward="false" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/Main.java">
+      <file leaf-file-name="TaskSwappedCommunicator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskSwappedCommunicator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="235">
+              <caret line="21" column="41" lean-forward="false" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConnectorDB.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/ConnectorDB.java">
+      <file leaf-file-name="UserDeletedCommunicator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserDeletedCommunicator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="68" column="1" lean-forward="false" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="155">
+              <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserInvitedCommunicator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserInvitedCommunicator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="23" column="59" lean-forward="false" selection-start-line="23" selection-start-column="59" selection-end-line="23" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserJoinedCommunicator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserJoinedCommunicator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="23" column="45" lean-forward="false" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DedicatedServer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/DedicatedServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1190">
+              <caret line="88" column="73" lean-forward="false" selection-start-line="88" selection-start-column="73" selection-end-line="88" selection-end-column="73" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GraphController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/controller/GraphController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="98" column="56" lean-forward="false" selection-start-line="98" selection-start-column="56" selection-end-line="98" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Top10Controller.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/OrganizerServer/src/controller/Top10Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="26" column="69" lean-forward="false" selection-start-line="26" selection-start-column="69" selection-end-line="26" selection-end-column="69" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Singleton" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>background</find>
+      <find>default.j</find>
+      <find>DataBaseManager</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -113,19 +176,49 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/OrganizerServer/src/db/ConnectorDB.java" />
-        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataBaseManager.java" />
-        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/ProjectDBManager.java" />
         <option value="$PROJECT_DIR$/OrganizerServer/scripts/Organizer_bbdd.sql" />
         <option value="$PROJECT_DIR$/OrganizerServer/scripts/Organizer_procedures.sql" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/utils/Configuration.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/model/project/Category.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataBaseManager.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/CategoryDBManager.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberDBManager.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberInChargeDBManager.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/ProjectDBManager.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/StatisticsDBManager.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/TagDBManager.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/UserDBManager.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/TaskDBManager.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/db/ConnectorDB.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategoryDeletedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategoryEditedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategorySwappedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/LogInCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/MemberAddedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/MemberDeletedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectDeletedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectEditedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectSelectedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/RegisterCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TagDeletedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TagEditedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDeletedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDoneCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskEditedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskSwappedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserDeletedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserInvitedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserJoinedCommunicator.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/network/DedicatedServer.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/controller/GraphController.java" />
+        <option value="$PROJECT_DIR$/OrganizerServer/src/controller/Top10Controller.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="4" />
-    <option name="y" value="23" />
-    <option name="width" value="1676" />
-    <option name="height" value="1027" />
+    <option name="x" value="-7" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -161,7 +254,52 @@
               <item name="Server" type="b2602c69:ProjectViewProjectNode" />
               <item name="Server" type="462c0819:PsiDirectoryNode" />
               <item name="OrganizerServer" type="462c0819:PsiDirectoryNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Server" type="462c0819:PsiDirectoryNode" />
+              <item name="OrganizerServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Server" type="462c0819:PsiDirectoryNode" />
+              <item name="OrganizerServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+              <item name="DataManagers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Server" type="462c0819:PsiDirectoryNode" />
+              <item name="OrganizerServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Server" type="462c0819:PsiDirectoryNode" />
+              <item name="OrganizerServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Server" type="462c0819:PsiDirectoryNode" />
+              <item name="OrganizerServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="network" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Server" type="462c0819:PsiDirectoryNode" />
+              <item name="OrganizerServer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="network" type="462c0819:PsiDirectoryNode" />
+              <item name="communicators" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -174,7 +312,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/OrganizerServer/libs/mysql-connector-java-5.1.18-bin.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OrganizerServer/libs/java-json.jar!/" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -314,12 +452,13 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280507" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41521394" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -336,7 +475,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -353,7 +491,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -373,7 +511,7 @@
         <state relative-caret-position="170">
           <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -383,7 +521,7 @@
         <state relative-caret-position="969">
           <caret line="68" column="1" lean-forward="false" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -393,59 +531,8 @@
         <state relative-caret-position="357">
           <caret line="21" column="33" lean-forward="true" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberDBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/ConnectorDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="68" column="1" lean-forward="false" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataBaseManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-119">
-          <caret line="18" column="41" lean-forward="true" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/ProjectDBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="140" column="27" lean-forward="true" selection-start-line="140" selection-start-column="27" selection-end-line="140" selection-end-column="27" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -453,7 +540,7 @@
     <entry file="file://$PROJECT_DIR$/OrganizerServer/scripts/Organizer_bbdd.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
-          <caret line="29" column="23" lean-forward="true" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
+          <caret line="29" column="23" lean-forward="false" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -461,7 +548,403 @@
     <entry file="file://$PROJECT_DIR$/OrganizerServer/scripts/Organizer_procedures.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="25" lean-forward="true" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+          <caret line="1" column="25" lean-forward="false" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/utils/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/model/project/Project.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+          <folding>
+            <marker date="1526637799736" expanded="true" signature="777:967" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="1043:1247" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="1414:1633" ph="{...}" />
+            <marker date="1526637799736" expanded="false" signature="1660:1671" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="1681:1687" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="1721:1732" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="1745:1751" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="1780:1791" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="1803:1809" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="1847:1858" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="1875:1881" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="1910:1921" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="1934:1940" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="1979:1990" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="2009:2015" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="2063:2074" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="2107:2113" ph=" }" />
+            <marker date="1526637799736" expanded="true" signature="2148:2395" ph="{...}" />
+            <marker date="1526637799736" expanded="false" signature="2431:2442" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="2467:2473" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="2521:2532" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="2550:2556" ph=" }" />
+            <marker date="1526637799736" expanded="true" signature="2620:2712" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="2765:2926" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="2979:3136" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="3195:3383" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="3432:4184" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="4236:4338" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="4420:4862" ph="{...}" />
+            <marker date="1526637799736" expanded="false" signature="4893:4904" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="4924:4930" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="4969:4980" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="4993:4999" ph=" }" />
+            <marker date="1526637799736" expanded="true" signature="5049:5126" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="5167:5324" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="5361:5443" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="5487:5598" ph="{...}" />
+            <marker date="1526637799736" expanded="false" signature="5632:5643" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="5661:5667" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="5716:5727" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="5756:5762" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="5792:5803" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="5818:5824" ph=" }" />
+            <marker date="1526637799736" expanded="false" signature="5867:5878" ph=" { " />
+            <marker date="1526637799736" expanded="false" signature="5901:5907" ph=" }" />
+            <marker date="1526637799736" expanded="true" signature="5966:6107" ph="{...}" />
+            <marker date="1526637799736" expanded="true" signature="6159:6703" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/CommunicatorsFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/model/project/Category.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="35" lean-forward="false" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+          <folding>
+            <element signature="e#740#741#0" expanded="true" />
+            <element signature="e#768#769#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/DedicatedServerProvidable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="14" column="2" lean-forward="false" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.sql/java/sql/PreparedStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="79" column="7" lean-forward="true" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.desktop/javax/imageio/ImageIO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="1307" column="0" lean-forward="false" selection-start-line="1307" selection-start-column="0" selection-end-line="1307" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/DedicatedServerProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="65" column="13" lean-forward="true" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/asdas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="5" lean-forward="true" selection-start-line="5" selection-start-column="4" selection-end-line="7" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataBaseManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="24" column="39" lean-forward="false" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
+          <folding>
+            <element signature="e#2101#2102#0" expanded="true" />
+            <element signature="e#2136#2137#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/CategoryDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="97" column="52" lean-forward="false" selection-start-line="97" selection-start-column="52" selection-end-line="97" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="69" column="57" lean-forward="false" selection-start-line="69" selection-start-column="57" selection-end-line="69" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/MemberInChargeDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="41">
+          <caret line="64" column="56" lean-forward="false" selection-start-line="64" selection-start-column="56" selection-end-line="64" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/ProjectDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="174" column="48" lean-forward="false" selection-start-line="174" selection-start-column="48" selection-end-line="174" selection-end-column="48" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/StatisticsDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="74" column="65" lean-forward="false" selection-start-line="74" selection-start-column="65" selection-end-line="74" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/TagDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="71" column="56" lean-forward="false" selection-start-line="71" selection-start-column="56" selection-end-line="71" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/UserDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="86" column="75" lean-forward="false" selection-start-line="86" selection-start-column="75" selection-end-line="86" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/DataManagers/TaskDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="130" column="48" lean-forward="false" selection-start-line="130" selection-start-column="48" selection-end-line="130" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/db/ConnectorDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="61" column="41" lean-forward="false" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategoryDeletedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategoryEditedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="24" column="41" lean-forward="false" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/CategorySwappedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/LogInCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="22" column="66" lean-forward="false" selection-start-line="22" selection-start-column="66" selection-end-line="22" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/MemberAddedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="21" column="41" lean-forward="false" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/MemberDeletedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectDeletedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="25" column="60" lean-forward="false" selection-start-line="25" selection-start-column="60" selection-end-line="25" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectEditedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="41" column="60" lean-forward="false" selection-start-line="41" selection-start-column="60" selection-end-line="41" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/ProjectSelectedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="22" column="59" lean-forward="false" selection-start-line="22" selection-start-column="59" selection-end-line="22" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/RegisterCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="24" column="57" lean-forward="false" selection-start-line="24" selection-start-column="57" selection-end-line="24" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TagDeletedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TagEditedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDeletedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskDoneCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskEditedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="21" column="41" lean-forward="false" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/TaskSwappedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="21" column="41" lean-forward="false" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserDeletedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserInvitedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="23" column="59" lean-forward="false" selection-start-line="23" selection-start-column="59" selection-end-line="23" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/communicators/UserJoinedCommunicator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="23" column="45" lean-forward="false" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/network/DedicatedServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="88" column="73" lean-forward="false" selection-start-line="88" selection-start-column="73" selection-end-line="88" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/controller/GraphController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="98" column="56" lean-forward="false" selection-start-line="98" selection-start-column="56" selection-end-line="98" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OrganizerServer/src/controller/Top10Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="26" column="69" lean-forward="false" selection-start-line="26" selection-start-column="69" selection-end-line="26" selection-end-column="69" />
           <folding />
         </state>
       </provider>
@@ -531,7 +1014,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>mysql-connector-java-5.1.18-bin</last-edited>
+          <last-edited>java-json</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

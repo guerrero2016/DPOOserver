@@ -18,7 +18,7 @@ public class UserDeletedCommunicator implements Communicable {
         final String username;
         try {
             username = ds.readData().toString();
-            DataBaseManager.getMemberDBManager().deleteMember(ds.getHash(), username);
+            DataBaseManager.getInstance().getMemberDBManager().deleteMember(ds.getHash(), username);
             provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_USER, username);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

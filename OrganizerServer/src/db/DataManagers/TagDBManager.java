@@ -27,7 +27,7 @@ public class TagDBManager {
         ResultSet rs;
 
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery ("SELECT * FROM Etiqueta WHERE id_tasca = '" + id_tasca + "';");
             while(rs.next()) {
                 if (rs.getString("id_etiqueta") != null) {
@@ -51,7 +51,7 @@ public class TagDBManager {
         String query = "{CALL Organizer.AddTag(?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, id_tasca);
             stmt.setString(2, tag.getId());
             stmt.setString(3, tag.getName());
@@ -69,7 +69,7 @@ public class TagDBManager {
      */
     public void deleteTag(String id_etiqueta) {
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             s.executeUpdate ("DELETE FROM Etiqueta WHERE id_etiqueta = '" + id_etiqueta + "';");
         } catch (SQLException ex) {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());

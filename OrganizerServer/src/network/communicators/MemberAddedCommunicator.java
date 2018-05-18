@@ -19,7 +19,7 @@ public class MemberAddedCommunicator implements Communicable {
         try {
             final String taskID = ds.readData().toString();
             final User memberUser = (User) ds.readData();
-            DataBaseManager.getMemberInChargeDBManager().addMemberInCharge(memberUser, taskID);
+            DataBaseManager.getInstance().getMemberInChargeDBManager().addMemberInCharge(memberUser, taskID);
             provider.sendBroadcast(ds.getHash(), ServerObjectType.SET_MEMBER, memberUser);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

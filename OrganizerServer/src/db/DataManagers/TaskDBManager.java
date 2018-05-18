@@ -28,13 +28,13 @@ public class TaskDBManager {
         ResultSet rs;
 
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery ("SELECT * FROM Tasca WHERE id_columna = '" + id_columna + "';");
             while(rs.next()) {
                 if (rs.getString("id_tasca") != null) {
                     tasks.add(new Task(rs.getString("id_tasca"), rs.getString("nom_tasca"), rs.getInt("posicio"),
-                            rs.getString("descripcio"), DataBaseManager.getTagDBManager().getTags(rs.getString("id_tasca")),
-                            DataBaseManager.getMemberInChargeDBManager().getMembersInCharge(rs.getString("id_tasca"))));
+                            rs.getString("descripcio"), DataBaseManager.getInstance().getTagDBManager().getTags(rs.getString("id_tasca")),
+                            DataBaseManager.getInstance().getMemberInChargeDBManager().getMembersInCharge(rs.getString("id_tasca"))));
                 }
             }
         } catch (SQLException ex) {
@@ -53,7 +53,7 @@ public class TaskDBManager {
         String query = "{CALL Organizer.AddTask(?,?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, id_category);
             stmt.setString(2, t.getId());
             stmt.setString(3, t.getName());
@@ -74,7 +74,7 @@ public class TaskDBManager {
         String query = "{CALL Organizer.deleteTask(?)}";
         java.sql.CallableStatement stmt;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, id_tasca);
             stmt.executeQuery();
         } catch (SQLException e) {
@@ -92,7 +92,7 @@ public class TaskDBManager {
             String query = "{CALL Organizer.swapTask(?,?)}";
             java.sql.CallableStatement stmt;
             try {
-                stmt = DataBaseManager.getConnection().prepareCall(query);
+                stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
                 stmt.setString(1, t.getId());
                 stmt.setInt(2, t.getOrder());
                 stmt.executeQuery();
@@ -111,7 +111,7 @@ public class TaskDBManager {
         String query = "{CALL Organizer.taskDone(?)}";
         java.sql.CallableStatement stmt;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, id_task);
             stmt.executeQuery();
         } catch (SQLException e) {
@@ -128,7 +128,7 @@ public class TaskDBManager {
         String query = "{CALL Organizer.taskNotDone(?)}";
         java.sql.CallableStatement stmt;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, id_task);
             stmt.executeQuery();
         } catch (SQLException e) {
