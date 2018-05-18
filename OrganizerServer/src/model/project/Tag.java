@@ -4,8 +4,10 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Tag implements Serializable{
+public class Tag implements Serializable {
 
+    private String id_category;
+    private String id_task;
     private String id;
     private String name;
     private Color color;
@@ -21,6 +23,13 @@ public class Tag implements Serializable{
         this.color = color;
     }
 
+    public String getId_category() {
+        return id_category;
+    }
+
+    public String getId_task() {
+        return id_task;
+    }
 
     public String getId() {
         return id;
@@ -39,18 +48,19 @@ public class Tag implements Serializable{
     public Color getColor() {
         return color;
     }
-    public String getHexColor () {
-        if (color == null) return null;
-        int rgb = color.getRGB()&0xffffff;
-        String zeros = "000000";
-        String data = Integer.toHexString(rgb);
-        return (zeros.substring(data.length()) + data).toUpperCase();
-    }
 
     public void setColor(Color color) {
         if(color != null) {
             this.color = color;
         }
+    }
+
+    public String getHexColor () {
+        if (color == null) return null;
+        int rgb = color.getRGB()&0xffffff;
+        String zeros = "000000";
+        String data = Integer.toHexString(rgb);
+        return "#" + (zeros.substring(data.length()) + data).toUpperCase();
     }
 
     @Override
@@ -73,4 +83,5 @@ public class Tag implements Serializable{
     public int hashCode() {
         return Objects.hash(name, color);
     }
+
 }

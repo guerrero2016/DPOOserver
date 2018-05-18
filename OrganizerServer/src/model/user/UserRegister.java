@@ -1,10 +1,6 @@
 package model.user;
 
-import db.DataBaseManager;
-
-import java.io.Serializable;
-
-public class UserRegister extends User implements Serializable{
+public class UserRegister extends User {
 
     private final static int MIN_LENGTH = 8;
 
@@ -76,22 +72,19 @@ public class UserRegister extends User implements Serializable{
             return 3;
         }
 
-        boolean majus = false;
         boolean minus = false;
         boolean num = false;
         for (int i = 0; i < password.length(); i++) {
             if (Character.isLowerCase(password.charAt(i))) {
                 minus = true;
             }
-            if (Character.isUpperCase(password.charAt(i))) {
-                majus = true;
-            }
+
             if (Character.isDigit(password.charAt(i))) {
                 num = true;
             }
         }
 
-        if (!minus || !majus || !num) {
+        if (!minus || !num) {
             return 3;
         }
         return 0;

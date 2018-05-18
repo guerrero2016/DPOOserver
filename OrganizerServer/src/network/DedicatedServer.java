@@ -1,8 +1,8 @@
 package network;
 
 import db.DataBaseManager;
+import model.project.Project;
 import model.ServerObjectType;
-import model.project.*;
 
 
 import java.io.IOException;

@@ -10,6 +10,11 @@ import com.mysql.jdbc.Statement;
 import db.DataBaseManager;
 import model.project.*;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +39,7 @@ public class ProjectDBManager {
             while(rs.next()) {
                 if(rs.getString("id_projecte") != null) {
                     projects.add(new Project(rs.getString("id_projecte"), rs.getString("nom_projecte"),
-                            rs.getString("color"), rs.getString("background"), true));
+                            rs.getString("color"), true));
                 }
             }
 
@@ -66,7 +71,7 @@ public class ProjectDBManager {
             while(rs.next()) {
                 if(rs.getString("id_projecte") != null) {
                     projects.add(new Project(rs.getString("id_projecte"), rs.getString("nom_projecte"),
-                            rs.getString("color"), rs.getString("background"), false));
+                            rs.getString("color"), false));
                 }
             }
 
@@ -94,12 +99,17 @@ public class ProjectDBManager {
             if(rs.getString("id_projecte") != null) {
                 project.setId(rs.getString("id_projecte"));
                 project.setName(rs.getString("nom_projecte"));
-                project.setColor(rs.getString("color"));
-                project.setBackgroundPath(rs.getString("background"));
+                project.setColorFromCode(rs.getString("color"));
+                BufferedImage myPicture;
+                myPicture = ImageIO.read(new File(rs.getString("background")));
+                Image resized = myPicture.getScaledInstance(750,750,Image.SCALE_SMOOTH);
+                project.setBackground(resized);
             }
             project.setCategories(DataBaseManager.getCategoryDBManager().getCategories(id_projecte));
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return project;
     }
@@ -118,7 +128,8 @@ public class ProjectDBManager {
             stmt.setString(1, projecte.getName());
             stmt.setString(2, projecte.getHexColor());
             stmt.setString(3, projecte.getId());
-            stmt.setString(4, projecte.getBackgroundPath());
+            //TODO fer que cada usuari tingui el seu background
+            stmt.setString(4,"img/" + projecte.getId());
             stmt.executeQuery();
         } catch (SQLException e) {
             System.out.println("Problema al Recuperar les dades --> " + e.getSQLState());
