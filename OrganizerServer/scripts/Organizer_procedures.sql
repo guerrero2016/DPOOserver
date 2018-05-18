@@ -54,14 +54,14 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.AddProject $$
 CREATE PROCEDURE Organizer.AddProject (IN nom_in VARCHAR(255), IN color_in VARCHAR(255),
-	IN id_in VARCHAR(255), IN background_in VARCHAR(255))
+	IN id_in VARCHAR(255))
 BEGIN
 	IF id_in IN (SELECT id_projecte FROM Projecte) THEN
 		UPDATE Projecte
-			SET nom_projecte = nom_in, color = color_in, background = background_in
+			SET nom_projecte = nom_in, color = color_in
             WHERE id_projecte = id_in;
 	ELSE
-		INSERT INTO Projecte(id_projecte, nom_projecte, color, background) VALUES (id_in, nom_in, color_in, background_in);
+		INSERT INTO Projecte(id_projecte, nom_projecte, color) VALUES (id_in, nom_in, color_in);
     END IF;
 END $$
 DELIMITER ;
