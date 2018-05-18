@@ -3,7 +3,7 @@
  * a la base de dades.
  *
  * @author  Albert Ferrando
- * @version 1.0
+ * @version 1.0    private static Connection connection;
  */
 package db;
 
@@ -15,7 +15,6 @@ import java.sql.SQLException;
 
 public class DataBaseManager {
     private static DataBaseManager ourInstance = new DataBaseManager();
-    private static Connection connection;
     private static UserDBManager userDBManager;
     private static ProjectDBManager projectDBManager;
     private static CategoryDBManager categoryDBManager;
