@@ -26,6 +26,7 @@ public class RegisterCommunicator implements Communicable {
                         register.getPassword());
                 if (error == 0) {
                     ds.setUsername(register.getUserName());
+                    ds.sendData(ServerObjectType.GET_PROJECT_LIST, register.getUserName());
                     ds.sendProjectList();
                     provider.addToLoby(ds);
                 } else {

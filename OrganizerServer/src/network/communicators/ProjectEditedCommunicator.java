@@ -8,6 +8,12 @@ import network.DedicatedServer;
 import network.DedicatedServerProvidable;
 
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.awt.image.VolatileImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -16,6 +22,8 @@ import java.util.UUID;
  * Es notifica a tots els clients del projecte.
  */
 public class ProjectEditedCommunicator implements Communicable {
+    private static final String PATH = "img/";
+    private static final String EXT = "png";
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         final Project projecte;
@@ -41,8 +49,19 @@ public class ProjectEditedCommunicator implements Communicable {
                 provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
             }
 
+            if (projecte.getBackground() != null) {
+                File file = new File(PATH + projecte.getId() + "." + EXT);
+                try {
+                    ImageIO.write((RenderedImage) projecte.getBackground(), EXT, file);  // ignore returned boolean
+                } catch(IOException e) {
+                    System.out.println("Write error for " + file.getPath() +
+                            ": " + e.getMessage());
+                }
+            }
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
 }

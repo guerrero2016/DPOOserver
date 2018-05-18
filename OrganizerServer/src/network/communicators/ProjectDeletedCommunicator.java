@@ -20,9 +20,13 @@ public class ProjectDeletedCommunicator implements Communicable {
         final String projectID;
         try {
             projectID = ds.readData().toString();
+            System.out.println(projectID);
             final Project p = DataBaseManager.getProjectDBManager().getProject(projectID);
             DataBaseManager.getProjectDBManager().deleteProject(projectID);
             provider.deleteAllByID(projectID);
+
+            provider.sendDataToLobbyUser(ds.getUsername(), ServerObjectType.DELETE_PROJECT, p);
+
             for (String name : DataBaseManager.getMemberDBManager().getMembers(projectID)) {
                 provider.sendDataToLobbyUser(name, ServerObjectType.DELETE_PROJECT, p);
             }

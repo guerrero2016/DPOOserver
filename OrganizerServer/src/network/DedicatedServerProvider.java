@@ -58,9 +58,11 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
 
     @Override
     public void deleteAllByID(String hashCode) {
-        sendBroadcast(hashCode, ServerObjectType.EXIT_PROJECT, null);
-        //TODO s'hauria de fer que el exitcode mostres un dialog a l'usuari
-        projectServers.remove(hashCode);
+        if (projectServers.containsKey(hashCode)) {
+            sendBroadcast(hashCode, ServerObjectType.EXIT_PROJECT, null);
+            //TODO s'hauria de fer que el exitcode mostres un dialog a l'usuari
+            projectServers.remove(hashCode);
+        }
     }
 
     @Override
