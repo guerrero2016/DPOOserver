@@ -26,22 +26,11 @@ public class ProjectEditedCommunicator implements Communicable {
         final Project projecte;
         try {
             projecte = (Project) ds.readData();
-<<<<<<< HEAD
             if (projecte.getId() == null) {
                 String uniqueID = UUID.randomUUID().toString();
                 projecte.setId(uniqueID);
             }
             DataBaseManager.getInstance().getProjectDBManager().addProject(projecte);
-
-            if(projecte.isOwner()) {
-                DataBaseManager.getInstance().getProjectDBManager().addProjectOwner(projecte.getId(), ds.getUsername());
-            }
-=======
-
-            DataBaseManager.getProjectDBManager().addProject(projecte);
->>>>>>> bb3bb61379a2b0c446ce272ce231eab99b2e0881
-
-            DataBaseManager.getInstance().getMemberDBManager().addMember(projecte.getId(), ds.getUsername());
 
             if (provider.countDedicated(projecte.getId()) == -1){
                 ds.sendData(ServerObjectType.SET_PROJECT, projecte);
@@ -49,13 +38,8 @@ public class ProjectEditedCommunicator implements Communicable {
                 provider.sendBroadcast(projecte.getId(), ServerObjectType.SET_PROJECT, projecte);
             }
 
-<<<<<<< HEAD
             for (String name : DataBaseManager.getInstance().getMemberDBManager().getMembers(projecte.getId())) {
-=======
-            System.out.println(projecte.getName());
-
-            for (String name : DataBaseManager.getMemberDBManager().getMembers(projecte.getId())) {
->>>>>>> bb3bb61379a2b0c446ce272ce231eab99b2e0881
+                System.out.println(projecte.getName());
                 provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
             }
 

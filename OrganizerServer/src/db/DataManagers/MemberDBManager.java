@@ -33,6 +33,10 @@ public class MemberDBManager {
                     members.add(rs.getString("nom_usuari"));
                 }
             }
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
+            rs = s.executeQuery ("SELECT * FROM Projecte WHERE id_projecte = '" + id_projecte + "';");
+            rs.next();
+            members.add("nom_propietari");
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
         }

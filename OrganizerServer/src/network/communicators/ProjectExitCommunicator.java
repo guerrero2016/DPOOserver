@@ -14,6 +14,7 @@ public class ProjectExitCommunicator implements Communicable {
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         provider.deleteDedicated(ds.getHash(), ds);
         ds.setHash(null);
+        ds.sendData(ServerObjectType.GET_PROJECT_LIST, ds.getUsername());
         ds.sendProjectList();
     }
 }
