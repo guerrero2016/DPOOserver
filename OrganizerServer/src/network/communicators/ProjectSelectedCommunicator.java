@@ -20,7 +20,9 @@ public class ProjectSelectedCommunicator implements Communicable{
         try {
             String hash = ds.readData().toString();
             ds.setHash(hash);
+            System.out.println("ENTRA");
             Project project = DataBaseManager.getInstance().getProjectDBManager().getProject(ds.getHash());
+            System.out.println(project.getCategories().size());
             provider.addDedicated(hash, ds);
             ds.sendData(ServerObjectType.GET_PROJECT, project);
         } catch (IOException | ClassNotFoundException e) {
