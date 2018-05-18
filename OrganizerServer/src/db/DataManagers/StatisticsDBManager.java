@@ -34,7 +34,7 @@ public class StatisticsDBManager {
         ArrayList<Date> dates = new ArrayList<>();
 
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, username);
             stmt.setDate(2, minDate);
             rs = stmt.executeQuery();
@@ -60,7 +60,7 @@ public class StatisticsDBManager {
         UserRanking[] ranking = new UserRanking[10];
 
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             rs = stmt.executeQuery();
 
             int i = 0;
@@ -72,7 +72,7 @@ public class StatisticsDBManager {
             }
             for(UserRanking u: ranking) {
                 if(u != null) {
-                    s = (Statement) DataBaseManager.getConnection().createStatement();
+                    s = (Statement) DataBaseManager.getInstance().getConnection().createStatement();
                     rs = s.executeQuery("SELECT COUNT(*) as tasques_fetes FROM Tasca as t JOIN Tasca_Usuari as tu ON t.id_tasca = tu.id_tasca " +
                             "WHERE data_done IS NOT null AND nom_usuari = '" + u.getUsername() + "' GROUP BY nom_usuari;");
                     rs.next();

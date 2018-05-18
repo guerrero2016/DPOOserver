@@ -19,7 +19,7 @@ public class TaskSwappedCommunicator implements Communicable {
         final ArrayList<Task> tasks;
         try {
             tasks = (ArrayList<Task>) ds.readData();
-            DataBaseManager.getTaskDBManager().swapTask(tasks);
+            DataBaseManager.getInstance().getTaskDBManager().swapTask(tasks);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

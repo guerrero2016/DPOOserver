@@ -18,7 +18,7 @@ public class TaskDeletedCommunicator implements Communicable {
         final String taskID;
         try {
             taskID = ds.readData().toString();
-            DataBaseManager.getTaskDBManager().deleteTask(taskID);
+            DataBaseManager.getInstance().getTaskDBManager().deleteTask(taskID);
             provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_TASK, taskID);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

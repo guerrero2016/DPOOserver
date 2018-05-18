@@ -18,7 +18,7 @@ public class TagDeletedCommunicator implements Communicable {
         final String tagID;
         try {
             tagID = ds.readData().toString();
-            DataBaseManager.getTagDBManager().deleteTag(tagID);
+            DataBaseManager.getInstance().getTagDBManager().deleteTag(tagID);
             provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_TAG, tagID);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

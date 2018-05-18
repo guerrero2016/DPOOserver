@@ -29,7 +29,7 @@ public class UserDBManager {
 
         try {
             String query = "{CALL Organizer.registrarUsuari(?,?,?)}";
-            java.sql.CallableStatement stmt = DataBaseManager.getConnection().prepareCall(query);
+            java.sql.CallableStatement stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, nom_usuari);
             stmt.setString(2, correu);
             stmt.setString(3, contrasenya);
@@ -58,7 +58,7 @@ public class UserDBManager {
         ResultSet rs;
 
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery ("SELECT nom_usuari FROM Usuari " +
                     "WHERE correu = '" + nom_or_correu + "' OR nom_usuari = '" + nom_or_correu + "';");
             while(rs.next()) {
@@ -84,7 +84,7 @@ public class UserDBManager {
 
         try {
             String query = "{CALL Organizer.iniciarSessio(?,?)}";
-            java.sql.CallableStatement stmt = DataBaseManager.getConnection().prepareCall(query);
+            java.sql.CallableStatement stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, nom_correu);
             stmt.setString(2, password);
             rs = stmt.executeQuery();

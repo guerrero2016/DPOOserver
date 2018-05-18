@@ -27,13 +27,14 @@ public class CategoryDBManager {
         ArrayList<Category> categories = new ArrayList<>();
         ResultSet rs;
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery ("SELECT * FROM Columna WHERE id_projecte = '" + id_projecte + "';");
             while(rs.next()) {
                 if (rs.getString("id_columna") != null) {
-                    categories.add(new Category(rs.getString("id_columna"),
-                            rs.getString("nom_columna"), rs.getInt("posicio"),
-                            DataBaseManager.getTaskDBManager().getTasks(rs.getString("id_columna"))));
+                    Category category = new Category(rs.getString("nom_columna"), rs.getInt("posicio"),
+                            DataBaseManager.getInstance().getTaskDBManager().getTasks(rs.getString("id_columna")));
+                    category.setId(rs.getString("id_columna"));
+                    categories.add(category);
                 }
             }
         } catch (SQLException ex) {
@@ -53,7 +54,7 @@ public class CategoryDBManager {
         String query = "{CALL Organizer.AddCategory(?,?,?,?)}";
         java.sql.CallableStatement stmt = null;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, id_projecte);
             stmt.setString(2, c.getId());
             stmt.setString(3, c.getName());
@@ -74,7 +75,7 @@ public class CategoryDBManager {
         String query = "{CALL Organizer.deleteCategory(?)}";
         java.sql.CallableStatement stmt;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, id_columna);
             stmt.executeQuery();
         } catch (SQLException e) {
@@ -94,7 +95,7 @@ public class CategoryDBManager {
             String query = "{CALL Organizer.SwapCategory(?,?,?,?)}";
             java.sql.CallableStatement stmt;
             try {
-                stmt = DataBaseManager.getConnection().prepareCall(query);
+                stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
                 stmt.setString(1, category1.getId());
                 stmt.setString(2, category2.getId());
                 stmt.setInt(3, category1.getOrder());

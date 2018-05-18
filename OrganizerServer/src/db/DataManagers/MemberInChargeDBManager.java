@@ -28,7 +28,7 @@ public class MemberInChargeDBManager {
         String query = "{CALL Organizer.AddEncarregat(?,?)}";
         java.sql.CallableStatement stmt = null;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, user.getUserName());
             stmt.setString(2, id_tasca);
             stmt.executeQuery();
@@ -45,7 +45,7 @@ public class MemberInChargeDBManager {
      */
     public void deleteMemberInCharge(String nom_usuari, String id_tasca) {
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             s.executeUpdate ("DELETE FROM Tasca_Usuari WHERE nom_usuari = '" + nom_usuari +
                     "' AND id_tasca = '" + id_tasca + "';");
         } catch (SQLException ex) {
@@ -62,7 +62,7 @@ public class MemberInChargeDBManager {
         ArrayList<User> membersInCharge = new ArrayList<>();
         ResultSet rs;
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery ("SELECT * FROM Tasca_Usuari WHERE id_tasca = '" + id_tasca + "';");
             while(rs.next()) {
                 if (rs.getString("id_tasca") != null) {

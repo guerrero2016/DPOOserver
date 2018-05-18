@@ -7,35 +7,28 @@ import java.util.UUID;
 
 public class Category implements Serializable {
     public final static int INVALID_INDEX = -1;
+    public final static int serialVersionUID = 1234;
 
     private String id;
     private String name;
     private int order;
     private ArrayList<model.project.Task> tasks;
 
-    /** Constructor amb un sol paràmetre id.
-     *
-     * @param id Id amb el qual volem construir la categoria.
-     */
-    public Category(String id) {
-        this.id = UUID.randomUUID().toString();
-        this.name = id.toString();
+
+    public Category(String name) {
+        this.name = name.toString();
         order = INVALID_INDEX;
         tasks = new ArrayList<>();
     }
 
-    /** Constructor amb paràmetres.
-     *
-     * @param id Id de la categoria.
-     * @param name Nom de la categoria.
-     * @param order Posició de la categoria.
-     * @param tasks Tasques de la categoria.
-     */
-    public Category(String id, String name, int order, ArrayList<Task> tasks) {
-        this.id = id;
+    public Category(String name, int order, ArrayList<Task> tasks) {
         this.name = name;
         this.order = order;
         this.tasks = tasks;
+    }
+
+    public void setId (String id) {
+        this.id = id;
     }
 
     /** Getter de l'id de la categoria.

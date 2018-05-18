@@ -96,7 +96,7 @@ public class GraphController implements ActionListener{
                         break;
                 }
                 //Un cop tenim la data fem la petició a la BBDD amb l'usuari i la data mínima
-                dateDots = DataBaseManager.getStatisticsDBManager().requestUserEvolution(superGraphView.getJtfUserContent(), sqlDate);
+                dateDots = DataBaseManager.getInstance().getStatisticsDBManager().requestUserEvolution(superGraphView.getJtfUserContent(), sqlDate);
 
                 //Ordenem les dates que ens retornen
                 //NOMES UTILITZAT PER TEST

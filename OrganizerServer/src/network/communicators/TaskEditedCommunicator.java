@@ -19,7 +19,7 @@ public class TaskEditedCommunicator implements Communicable {
         try {
             final String categoryID = ds.readData().toString();
             final Task task = (Task) ds.readData();
-            DataBaseManager.getTaskDBManager().addTask(task, categoryID);
+            DataBaseManager.getInstance().getTaskDBManager().addTask(task, categoryID);
             provider.sendBroadcast(ds.getHash(), ServerObjectType.SET_TASK, task);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

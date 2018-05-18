@@ -32,7 +32,7 @@ public class ProjectDBManager {
         ArrayList<Project> projects = new ArrayList<>();
         ResultSet rs;
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             //Seleccionem tots els projectes en que l'usuari sigui propietari.
             rs = s.executeQuery ("SELECT * FROM Projecte as p" +
                     " WHERE p.nom_propietari = '" + userName + "';");
@@ -45,7 +45,7 @@ public class ProjectDBManager {
 
             //Per cada projecte trobat:
             for (Project p: projects) {
-                p.setMembersName(DataBaseManager.getMemberDBManager().getMembers(p.getId()));
+                p.setMembersName(DataBaseManager.getInstance().getMemberDBManager().getMembers(p.getId()));
             }
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -64,7 +64,7 @@ public class ProjectDBManager {
         ResultSet rs;
 
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             //Seleccionem tots els projectes on l'usuari es membre.
             rs = s.executeQuery ("SELECT * FROM Projecte as p JOIN Membre as m ON p.id_projecte = m.id_projecte JOIN" +
                     " Usuari as u ON u.nom_usuari = m.nom_usuari WHERE u.nom_usuari = '" + userName + "' OR u.correu = '" + userName + "';");
@@ -76,7 +76,7 @@ public class ProjectDBManager {
             }
 
             for (Project p: projects) {
-                p.setMembersName(DataBaseManager.getMemberDBManager().getMembers(p.getId()));
+                p.setMembersName(DataBaseManager.getInstance().getMemberDBManager().getMembers(p.getId()));
             }
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -93,7 +93,7 @@ public class ProjectDBManager {
         Project project = new Project();
         ResultSet rs;
         try {
-            s =(Statement) DataBaseManager.getConnection().createStatement();
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery ("SELECT * FROM Projecte WHERE id_projecte = '" + id_projecte + "';");
             rs.next();
             if(rs.getString("id_projecte") != null) {
@@ -107,7 +107,7 @@ public class ProjectDBManager {
                 Image resized = myPicture.getScaledInstance(750,750,Image.SCALE_SMOOTH);
                 project.setBackground(resized);
             }
-            project.setCategories(DataBaseManager.getCategoryDBManager().getCategories(id_projecte));
+            project.setCategories(DataBaseManager.getInstance().getCategoryDBManager().getCategories(id_projecte));
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
         } catch (IOException e) {
@@ -135,7 +135,7 @@ public class ProjectDBManager {
     public void addProject(Project projecte) {
         try {
             String query = "{CALL Organizer.AddProject(?,?,?)}";
-            java.sql.CallableStatement stmt = DataBaseManager.getConnection().prepareCall(query);
+            java.sql.CallableStatement stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, projecte.getName());
             stmt.setString(2, projecte.getHexColor());
             stmt.setString(3, projecte.getId());
@@ -154,7 +154,7 @@ public class ProjectDBManager {
         String query = "{CALL Organizer.deleteProject(?)}";
         java.sql.CallableStatement stmt;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, id_projecte);
             stmt.executeQuery();
         } catch (SQLException e) {
@@ -172,7 +172,7 @@ public class ProjectDBManager {
         String query = "{CALL Organizer.addProjectOwner(?,?)}";
         java.sql.CallableStatement stmt;
         try {
-            stmt = DataBaseManager.getConnection().prepareCall(query);
+            stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
             stmt.setString(1, id);
             stmt.setString(2, username);
             stmt.executeQuery();

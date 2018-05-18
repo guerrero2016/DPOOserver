@@ -25,11 +25,13 @@ public class ProjectEditedCommunicator implements Communicable {
                 String uniqueID = UUID.randomUUID().toString();
                 projecte.setId(uniqueID);
             }
-            DataBaseManager.getProjectDBManager().addProject(projecte);
+            DataBaseManager.getInstance().getProjectDBManager().addProject(projecte);
 
             if(projecte.isOwner()) {
-                DataBaseManager.getProjectDBManager().addProjectOwner(projecte.getId(), ds.getUsername());
+                DataBaseManager.getInstance().getProjectDBManager().addProjectOwner(projecte.getId(), ds.getUsername());
             }
+
+            DataBaseManager.getInstance().getMemberDBManager().addMember(projecte.getId(), ds.getUsername());
 
             if (provider.countDedicated(projecte.getId()) == -1){
                 ds.sendData(ServerObjectType.SET_PROJECT, projecte);
@@ -37,7 +39,7 @@ public class ProjectEditedCommunicator implements Communicable {
                 provider.sendBroadcast(projecte.getId(), ServerObjectType.SET_PROJECT, projecte);
             }
 
-            for (String name : DataBaseManager.getMemberDBManager().getMembers(projecte.getId())) {
+            for (String name : DataBaseManager.getInstance().getMemberDBManager().getMembers(projecte.getId())) {
                 provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
             }
 

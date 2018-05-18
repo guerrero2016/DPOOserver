@@ -18,7 +18,7 @@ public class CategoryDeletedCommunicator implements Communicable {
         final String categoryID;
         try {
             categoryID = ds.readData().toString();
-            DataBaseManager.getCategoryDBManager().deleteCategory(categoryID);
+            DataBaseManager.getInstance().getCategoryDBManager().deleteCategory(categoryID);
             provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_USER, categoryID);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
