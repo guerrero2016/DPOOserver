@@ -8,6 +8,9 @@ import network.DedicatedServer;
 import network.DedicatedServerProvidable;
 
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -16,11 +19,14 @@ import java.util.UUID;
  * Es notifica a tots els clients del projecte.
  */
 public class ProjectEditedCommunicator implements Communicable {
+    private static final String PATH = "/backgrounds/";
+    private static final String EXT = "png";
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         final Project projecte;
         try {
             projecte = (Project) ds.readData();
+<<<<<<< HEAD
             if (projecte.getId() == null) {
                 String uniqueID = UUID.randomUUID().toString();
                 projecte.setId(uniqueID);
@@ -30,6 +36,10 @@ public class ProjectEditedCommunicator implements Communicable {
             if(projecte.isOwner()) {
                 DataBaseManager.getInstance().getProjectDBManager().addProjectOwner(projecte.getId(), ds.getUsername());
             }
+=======
+
+            DataBaseManager.getProjectDBManager().addProject(projecte);
+>>>>>>> bb3bb61379a2b0c446ce272ce231eab99b2e0881
 
             DataBaseManager.getInstance().getMemberDBManager().addMember(projecte.getId(), ds.getUsername());
 
@@ -39,8 +49,26 @@ public class ProjectEditedCommunicator implements Communicable {
                 provider.sendBroadcast(projecte.getId(), ServerObjectType.SET_PROJECT, projecte);
             }
 
+<<<<<<< HEAD
             for (String name : DataBaseManager.getInstance().getMemberDBManager().getMembers(projecte.getId())) {
+=======
+            System.out.println(projecte.getName());
+
+            for (String name : DataBaseManager.getMemberDBManager().getMembers(projecte.getId())) {
+>>>>>>> bb3bb61379a2b0c446ce272ce231eab99b2e0881
                 provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
+            }
+
+            System.out.println("Aqui arriba");
+
+            if (projecte.getBackground() != null) {
+                File file = new File(PATH + projecte.getId() + "." + EXT);
+                try {
+                    ImageIO.write(projecte.getBackground(), EXT, file);  // ignore returned boolean
+                } catch(IOException e) {
+                    System.out.println("Write error for " + file.getPath() +
+                            ": " + e.getMessage());
+                }
             }
 
         } catch (IOException | ClassNotFoundException e) {

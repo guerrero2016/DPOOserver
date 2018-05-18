@@ -23,6 +23,7 @@ public class CommunicatorsFactory {
         communicators.put(ServerObjectType.LOGOUT, new LogOutCommunicator());
         communicators.put(ServerObjectType.SET_MEMBER, new MemberAddedCommunicator());
         communicators.put(ServerObjectType.DELETE_MEMEBER, new MemberDeletedCommunicator());
+        communicators.put(ServerObjectType.ADD_PROJECT, new ProjectAddedCommunicator());
         communicators.put(ServerObjectType.DELETE_PROJECT, new ProjectDeletedCommunicator());
         communicators.put(ServerObjectType.SET_PROJECT, new ProjectEditedCommunicator());
         communicators.put(ServerObjectType.EXIT_PROJECT, new ProjectExitCommunicator());

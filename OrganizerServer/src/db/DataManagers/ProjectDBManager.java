@@ -100,12 +100,12 @@ public class ProjectDBManager {
                 project.setId(rs.getString("id_projecte"));
                 project.setName(rs.getString("nom_projecte"));
                 project.setColorFromCode(rs.getString("color"));
+                project.setOwnerName(rs.getString("nom_propietari"));
                 BufferedImage myPicture;
                 myPicture = ImageIO.read(new File(System.getProperty("user.dir") +
                         System.getProperty("file.separator") + "backgrounds" + System.getProperty("file.separator")
                 + id_projecte));
-                Image resized = myPicture.getScaledInstance(750,750,Image.SCALE_SMOOTH);
-                project.setBackground(resized);
+                project.setBackground(myPicture);
             }
             project.setCategories(DataBaseManager.getInstance().getCategoryDBManager().getCategories(id_projecte));
         } catch (SQLException ex) {
@@ -116,8 +116,7 @@ public class ProjectDBManager {
                 myPicture = ImageIO.read(new File(System.getProperty("user.dir") +
                         System.getProperty("file.separator") + "backgrounds" + System.getProperty("file.separator")
                         + "default.jpg"));
-                Image resized = myPicture.getScaledInstance(750,750,Image.SCALE_SMOOTH);
-                project.setBackground(resized);
+                project.setBackground(myPicture);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
