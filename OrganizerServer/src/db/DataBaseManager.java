@@ -16,6 +16,7 @@ import java.sql.SQLException;
 public class DataBaseManager {
     private static DataBaseManager ourInstance = new DataBaseManager();
     private static UserDBManager userDBManager;
+    private static Connection connection;
     private static ProjectDBManager projectDBManager;
     private static CategoryDBManager categoryDBManager;
     private static TaskDBManager taskDBManager;

@@ -101,7 +101,9 @@ public class ProjectDBManager {
                 project.setName(rs.getString("nom_projecte"));
                 project.setColorFromCode(rs.getString("color"));
                 BufferedImage myPicture;
-                myPicture = ImageIO.read(new File(rs.getString("background")));
+                myPicture = ImageIO.read(new File(System.getProperty("user.dir") +
+                        System.getProperty("file.separator") + "backgrounds" + System.getProperty("file.separator")
+                + id_projecte));
                 Image resized = myPicture.getScaledInstance(750,750,Image.SCALE_SMOOTH);
                 project.setBackground(resized);
             }
@@ -109,7 +111,16 @@ public class ProjectDBManager {
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
         } catch (IOException e) {
-            e.printStackTrace();
+            BufferedImage myPicture = null;
+            try {
+                myPicture = ImageIO.read(new File(System.getProperty("user.dir") +
+                        System.getProperty("file.separator") + "backgrounds" + System.getProperty("file.separator")
+                        + "default.jpg"));
+                Image resized = myPicture.getScaledInstance(750,750,Image.SCALE_SMOOTH);
+                project.setBackground(resized);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         return project;
     }
@@ -123,13 +134,11 @@ public class ProjectDBManager {
      */
     public void addProject(Project projecte) {
         try {
-            String query = "{CALL Organizer.AddProject(?,?,?,?)}";
+            String query = "{CALL Organizer.AddProject(?,?,?)}";
             java.sql.CallableStatement stmt = DataBaseManager.getConnection().prepareCall(query);
             stmt.setString(1, projecte.getName());
             stmt.setString(2, projecte.getHexColor());
             stmt.setString(3, projecte.getId());
-            //TODO fer que cada usuari tingui el seu background
-            stmt.setString(4,"img/" + projecte.getId());
             stmt.executeQuery();
         } catch (SQLException e) {
             System.out.println("Problema al Recuperar les dades --> " + e.getSQLState());
