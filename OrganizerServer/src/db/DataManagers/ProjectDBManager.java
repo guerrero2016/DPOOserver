@@ -104,7 +104,7 @@ public class ProjectDBManager {
                 BufferedImage myPicture;
                 myPicture = ImageIO.read(new File(System.getProperty("user.dir") +
                         System.getProperty("file.separator") + "backgrounds" + System.getProperty("file.separator")
-                + id_projecte));
+                + id_projecte + ".png"));
                 project.setBackground(myPicture);
             }
             project.setCategories(DataBaseManager.getCategoryDBManager().getCategories(id_projecte));
