@@ -51,8 +51,10 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
 
     @Override
     public void sendBroadcast(String hashCode,ServerObjectType type, Object object) {
-        for (DedicatedServer ds : projectServers.get(hashCode)) {
-            ds.sendData(type, object);
+        if (projectServers.containsKey(hashCode)) {
+            for (DedicatedServer ds : projectServers.get(hashCode)) {
+                ds.sendData(type, object);
+            }
         }
     }
 
@@ -78,6 +80,7 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
     @Override
     public void sendDataToLobbyUser(String username, ServerObjectType type, Object obj) {
         for (DedicatedServer ds : projectServers.get(LOBBY)) {
+            System.out.println(LOBBY + ds.getUsername());
             if (ds.getUsername().equals(username)) {
                 ds.sendData(type, obj);
             }

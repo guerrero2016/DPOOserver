@@ -19,8 +19,6 @@ public class RegisterCommunicator implements Communicable {
         try {
             register = (UserRegister) ds.readData();
 
-            System.out.println(register.getEmail());
-
             if(register.checkSignIn() == 0) {
                 int error = DataBaseManager.getInstance().getUserDBManager().registrarUsuari(register.getUserName(), register.getEmail(),
                         register.getPassword());

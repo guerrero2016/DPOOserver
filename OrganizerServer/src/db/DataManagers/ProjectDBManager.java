@@ -112,7 +112,7 @@ public class ProjectDBManager {
         } catch (IOException e) {
             BufferedImage myPicture = null;
             try {
-                myPicture = ImageIO.read(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "OrganizerServer" + System.getProperty("file.separator") + "backgrounds" +
+                myPicture = ImageIO.read(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "backgrounds" +
                         System.getProperty("file.separator") + "default.jpg"));
                 project.setBackground(myPicture);
             } catch (IOException e1) {
