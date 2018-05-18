@@ -107,21 +107,21 @@ public class ProjectDBManager {
                 + id_projecte + ".png"));
                 project.setBackground(myPicture);
             }
-            System.out.println("asdasd");
             project.setCategories(DataBaseManager.getInstance().getCategoryDBManager().getCategories(id_projecte));
+
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
         } catch (IOException e) {
             BufferedImage myPicture = null;
             try {
-                myPicture = ImageIO.read(new File(System.getProperty("user.dir") +
-                        System.getProperty("file.separator") + "backgrounds" + System.getProperty("file.separator")
-                        + "default.jpg"));
+                myPicture = ImageIO.read(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "OrganizerServer" + System.getProperty("file.separator") + "backgrounds" +
+                        System.getProperty("file.separator") + "default.jpg"));
                 project.setBackground(myPicture);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         }
+        project.setCategories(DataBaseManager.getInstance().getCategoryDBManager().getCategories(id_projecte));
         return project;
     }
 
