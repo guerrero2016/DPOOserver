@@ -75,4 +75,16 @@ public class TagDBManager {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
+
+    /**
+     * Aquesta funció s'encarrega de modificat una etiqueta concreta.
+     *
+     * @param
+     */
+    public void editTag(String taskId, Tag tag) {
+        //TODO: Alternativa?
+        deleteTag(tag.getId());
+        addTag(tag, taskId);
+    }
+
 }

@@ -104,6 +104,17 @@ public class Category implements Serializable {
         }
     }
 
+    public Task getTaskWithId(String taskId) {
+
+        for(Task task : tasks) {
+            if(task.getId().equals(taskId)) {
+                return task;
+            }
+        }
+
+        return null;
+
+    }
 
     public void setTask(Task task) {
         if(tasks.contains(task)) {

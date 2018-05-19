@@ -17,10 +17,13 @@ public class MemberAddedCommunicator implements Communicable {
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         try {
+            final String categoryId = ds.readData().toString();
             final String taskID = ds.readData().toString();
             final User memberUser = (User) ds.readData();
             DataBaseManager.getInstance().getMemberInChargeDBManager().addMemberInCharge(memberUser, taskID);
-            provider.sendBroadcast(ds.getHash(), ServerObjectType.SET_MEMBER, memberUser);
+            provider.sendBroadcast(ds.getHash(), ServerObjectType.SET_MEMBER, categoryId);
+            provider.sendBroadcast(ds.getHash(), null, taskID);
+            provider.sendBroadcast(ds.getHash(), null, memberUser);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

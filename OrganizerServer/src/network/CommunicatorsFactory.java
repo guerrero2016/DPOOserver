@@ -30,7 +30,7 @@ public class CommunicatorsFactory {
         communicators.put(ServerObjectType.GET_PROJECT, new ProjectSelectedCommunicator());
         communicators.put(ServerObjectType.REGISTER, new RegisterCommunicator());
         communicators.put(ServerObjectType.DELETE_TAG, new TagDeletedCommunicator());
-        communicators.put(ServerObjectType.SET_TAG, new TagEditedCommunicator());
+        communicators.put(ServerObjectType.SET_TAG, new TagAddedCommunicator());
         communicators.put(ServerObjectType.DELETE_TASK, new TaskDeletedCommunicator());
         communicators.put(ServerObjectType.TASK_DONE, new TaskDoneCommunicator());
         communicators.put(ServerObjectType.SET_TASK, new TaskEditedCommunicator());
@@ -38,6 +38,7 @@ public class CommunicatorsFactory {
         communicators.put(ServerObjectType.DELETE_USER, new UserDeletedCommunicator());
         communicators.put(ServerObjectType.INVITE_USER, new UserInvitedCommunicator());
         communicators.put(ServerObjectType.JOIN_PROJECT, new UserJoinedCommunicator());
+        communicators.put(ServerObjectType.EDIT_TAG, new TagEditedCommunicator());
         return communicators;
     }
 

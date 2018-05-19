@@ -10,20 +10,17 @@ import network.DedicatedServerProvidable;
 import java.io.IOException;
 
 /**
- * S'encarrega de la comunicació quan un client elimina una etiqueta.
- * Notifica als altres clients del projecte.
+ * S'encarrega de la comunicacio quan un client afegeix o  modifica una etiqueta.
+ * Notifica als altres usuaris del projecte.
  */
-public class TagDeletedCommunicator implements Communicable {
+public class TagAddedCommunicator implements Communicable {
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         try {
-            final String categoryId = ds.readData().toString();
             final String taskId = ds.readData().toString();
             final Tag tag = (Tag) ds.readData();
-            DataBaseManager.getInstance().getTagDBManager().deleteTag(tag.getId());
-            provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_TAG, categoryId);
-            provider.sendBroadcast(ds.getHash(), null, taskId);
-            provider.sendBroadcast(ds.getHash(), null, tag);
+            DataBaseManager.getInstance().getTagDBManager().addTag(tag, taskId);
+            provider.sendBroadcast(ds.getHash(), ServerObjectType.SET_TAG, tag);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
