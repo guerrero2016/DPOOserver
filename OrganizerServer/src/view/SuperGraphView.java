@@ -72,4 +72,5 @@ public class SuperGraphView extends JPanel{
     public String getPeriod(){
         return jcbPeriod.getSelectedItem().toString();
     }
+
 }

@@ -15,5 +15,6 @@ public interface DedicatedServerProvidable {
     void addToLoby(DedicatedServer dedicated);
     void deleteFromLobby(DedicatedServer dedicated);
     void sendDataToLobbyUser(String username, ServerObjectType type, Object obj);
+    boolean checkUserAlreadyConnected(String username);
 
 }
