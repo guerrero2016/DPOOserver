@@ -28,7 +28,7 @@ public class CategoryDBManager {
         ResultSet rs;
         try {
             s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
-            rs = s.executeQuery ("SELECT * FROM Columna WHERE id_projecte = '" + id_projecte + "';");
+            rs = s.executeQuery ("SELECT * FROM Columna WHERE id_projecte = '" + id_projecte + "' ORDER BY posicio ASC;");
             while(rs.next()) {
                 if (rs.getString("id_columna") != null) {
                     Category category = new Category(rs.getString("nom_columna"), rs.getInt("posicio"),
@@ -69,14 +69,17 @@ public class CategoryDBManager {
      * Aquesta funció s'encarrega d'eliminar una categoria, esborrant també totes les tasques, etiquetes i usuaris
      * que es trobin dins d'aquesta.
      *
-     * @param id_columna Id de la columna a eliminar.
+     * @param id_projecte Projecte en el que es troba la categoria a eliminar
+     * @param category Categoria que volem eliminar
      */
-    public void deleteCategory(String id_columna) {
-        String query = "{CALL Organizer.deleteCategory(?)}";
+    public void deleteCategory(Category category, String id_projecte) {
+        String query = "{CALL Organizer.deleteCategory(?,?,?)}";
         java.sql.CallableStatement stmt;
         try {
             stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
-            stmt.setString(1, id_columna);
+            stmt.setString(1, category.getId());
+            stmt.setString(2, id_projecte);
+            stmt.setInt(3, category.getOrder());
             stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

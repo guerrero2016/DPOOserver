@@ -15,6 +15,12 @@ public interface DedicatedServerProvidable {
     void addToLoby(DedicatedServer dedicated);
     void deleteFromLobby(DedicatedServer dedicated);
     void sendDataToLobbyUser(String username, ServerObjectType type, Object obj);
+
+    /**
+     * Funció que comprova si existex algun DedicatedServer amb el nom d'usuari que rep
+     * @param username Nom d'usuari a comprovar
+     * @return true si existeix ja un DS amb el username, false si no.
+     */
     boolean checkUserAlreadyConnected(String username);
 
 }

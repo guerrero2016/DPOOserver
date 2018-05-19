@@ -20,6 +20,7 @@ public class ProjectExitCommunicator implements Communicable {
             e.printStackTrace();
         }
         provider.deleteDedicated(ds.getHash(), ds);
+        provider.addToLoby(ds);
         ds.setHash(null);
         ds.sendData(ServerObjectType.GET_PROJECT_LIST, ds.getUsername());
         ds.sendProjectList();
