@@ -29,7 +29,7 @@ public class TaskDBManager {
 
         try {
             s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
-            rs = s.executeQuery ("SELECT * FROM Tasca WHERE id_columna = '" + id_columna + "';");
+            rs = s.executeQuery ("SELECT * FROM Tasca WHERE id_columna = '" + id_columna + "' ORDER BY posicio ASC;");
             while(rs.next()) {
                 if (rs.getString("id_tasca") != null) {
                     tasks.add(new Task(rs.getString("id_tasca"), rs.getString("nom_tasca"), rs.getInt("posicio"),
