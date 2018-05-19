@@ -174,18 +174,21 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.deleteProject $$
 CREATE PROCEDURE Organizer.deleteProject (IN id_in VARCHAR(255))
 BEGIN
-	DELETE e, tu, t, c, p
+	DELETE e, tu, t, c, p, m
     FROM Projecte as p LEFT JOIN Columna as c USING (id_projecte)
     LEFT JOIN Tasca as t USING (id_columna) LEFT JOIN Tasca_Usuari as tu USING (id_tasca)
-    LEFT JOIN Etiqueta as e ON e.id_tasca = t.id_tasca
+    LEFT JOIN Etiqueta as e ON e.id_tasca = t.id_tasca LEFT JOIN Membre as m USING (id_projecte)
     WHERE p.id_projecte = id_in;
 END $$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.deleteCategory $$
-CREATE PROCEDURE Organizer.deleteCategory (IN id_in VARCHAR(255))
+CREATE PROCEDURE Organizer.deleteCategory (IN id_in VARCHAR(255), IN id_project VARCHAR(255), IN pos INT)
 BEGIN
+	UPDATE Columna
+		SET posicio = posicio - 1
+		WHERE posicio > pos AND id_projecte = id_project;
 	DELETE tu, e, t, c
     FROM Columna as c LEFT JOIN Tasca as t USING (id_columna) LEFT JOIN Tasca_Usuari as tu USING (id_tasca)
     LEFT JOIN Etiqueta as e ON e.id_tasca = t.id_tasca
@@ -195,8 +198,11 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.deleteTask $$
-CREATE PROCEDURE Organizer.deleteTask (IN id_in VARCHAR(255))
+CREATE PROCEDURE Organizer.deleteTask (IN id_in VARCHAR(255), IN id_column VARCHAR(255))
 BEGIN
+	UPDATE Tasca
+		SET posicio = posicio - 1
+		WHERE posicio > pos AND id_columna = id_column;
 	DELETE tu, e, t
     FROM Tasca as t LEFT JOIN Tasca_Usuari as tu USING (id_tasca)
     LEFT JOIN Etiqueta as e ON e.id_tasca = t.id_tasca

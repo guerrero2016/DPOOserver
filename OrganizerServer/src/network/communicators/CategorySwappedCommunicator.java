@@ -1,6 +1,7 @@
 package network.communicators;
 
 import db.DataBaseManager;
+import model.ServerObjectType;
 import model.project.Category;
 import network.Communicable;
 import network.DedicatedServer;
@@ -19,6 +20,8 @@ public class CategorySwappedCommunicator implements Communicable {
             final Category fromCategory = (Category) ds.readData();
             final Category toCategory = (Category) ds.readData();
             DataBaseManager.getInstance().getCategoryDBManager().swapCategory(fromCategory, toCategory);
+            provider.sendBroadcast(ds.getHash(), ServerObjectType.SWAP_CATEGORY, fromCategory);
+            provider.sendBroadcast(ds.getHash(), null, toCategory);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

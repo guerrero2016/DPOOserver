@@ -2,6 +2,7 @@ package network.communicators;
 
 import db.DataBaseManager;
 import model.ServerObjectType;
+import model.project.Category;
 import network.Communicable;
 import network.DedicatedServer;
 import network.DedicatedServerProvidable;
@@ -15,11 +16,13 @@ import java.io.IOException;
 public class CategoryDeletedCommunicator implements Communicable {
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
-        final String categoryID;
+        final Category category;
+        final String id_projecte;
         try {
-            categoryID = ds.readData().toString();
-            DataBaseManager.getInstance().getCategoryDBManager().deleteCategory(categoryID);
-            provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_USER, categoryID);
+            category = (Category) ds.readData();
+            id_projecte = (String) ds.readData();
+            DataBaseManager.getInstance().getCategoryDBManager().deleteCategory(category, id_projecte);
+            provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_CATEGORY, category.getId());
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

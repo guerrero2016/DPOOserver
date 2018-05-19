@@ -37,8 +37,10 @@ CREATE TABLE Membre(
 	nom_usuari VARCHAR(255),
     id_projecte VARCHAR(255),
     PRIMARY KEY (nom_usuari, id_projecte),
-    FOREIGN KEY (nom_usuari) REFERENCES Usuari(nom_usuari),
+    FOREIGN KEY (nom_usuari) REFERENCES Usuari(nom_usuari)
+    ON DELETE CASCADE,
     FOREIGN KEY (id_projecte) REFERENCES Projecte(id_projecte)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE Columna(
