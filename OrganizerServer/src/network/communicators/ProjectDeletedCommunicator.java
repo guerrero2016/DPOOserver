@@ -20,12 +20,13 @@ public class ProjectDeletedCommunicator implements Communicable {
         final String projectID;
         try {
             projectID = ds.readData().toString();
-            final Project p = DataBaseManager.getProjectDBManager().getProject(projectID);
-            DataBaseManager.getProjectDBManager().deleteProject(projectID);
+            final Project p = DataBaseManager.getInstance().getProjectDBManager().getProject(projectID);
             provider.deleteAllByID(projectID);
-            for (String name : DataBaseManager.getMemberDBManager().getMembers(projectID)) {
+            for (String name : DataBaseManager.getInstance().getMemberDBManager().getMembers(projectID)) {
+                System.out.println("BBDD" + name);
                 provider.sendDataToLobbyUser(name, ServerObjectType.DELETE_PROJECT, p);
             }
+            DataBaseManager.getInstance().getProjectDBManager().deleteProject(projectID);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

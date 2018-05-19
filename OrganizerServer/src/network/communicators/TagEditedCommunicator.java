@@ -20,7 +20,7 @@ public class TagEditedCommunicator implements Communicable {
         try {
             id_tasca = ds.readData().toString();
             final Tag tag = (Tag) ds.readData();
-            DataBaseManager.getTagDBManager().addTag(tag, id_tasca);
+            DataBaseManager.getInstance().getTagDBManager().addTag(tag, id_tasca);
             provider.sendBroadcast(ds.getHash(), ServerObjectType.SET_TAG, tag);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

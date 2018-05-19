@@ -19,13 +19,12 @@ public class RegisterCommunicator implements Communicable {
         try {
             register = (UserRegister) ds.readData();
 
-            System.out.println(register.getEmail());
-
             if(register.checkSignIn() == 0) {
-                int error = DataBaseManager.getUserDBManager().registrarUsuari(register.getUserName(), register.getEmail(),
+                int error = DataBaseManager.getInstance().getUserDBManager().registrarUsuari(register.getUserName(), register.getEmail(),
                         register.getPassword());
                 if (error == 0) {
                     ds.setUsername(register.getUserName());
+                    ds.sendData(ServerObjectType.GET_PROJECT_LIST, register.getUserName());
                     ds.sendProjectList();
                     provider.addToLoby(ds);
                 } else {

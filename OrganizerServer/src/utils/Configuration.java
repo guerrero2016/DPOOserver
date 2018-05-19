@@ -56,6 +56,7 @@ public class Configuration {
     public static String getBBDDName() {
         return config.getProperty("bbddNAME");
     }
+
     public static String getBBDDPass() {
         return config.getProperty("bbddPASS");
     }

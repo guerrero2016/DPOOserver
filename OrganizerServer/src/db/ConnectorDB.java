@@ -59,12 +59,11 @@ public class ConnectorDB {
             if (conn != null) {
                 System.out.println("Conexió a base de dades " + url + " ... Ok");
             }
-            DataBaseManager.setConnection(conn);
+            DataBaseManager.getInstance().setConnection(conn);
             return true;
         } catch (SQLException ex) {
             System.out.println("Problema al connecta-nos a la BBDD --> " + url);
         }
         return false;
     }
-
 }

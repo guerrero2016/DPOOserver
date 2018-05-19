@@ -18,7 +18,7 @@ public class TaskDoneCommunicator implements Communicable {
         final String taskID;
         try {
             taskID = ds.readData().toString();
-            DataBaseManager.getTaskDBManager().taskDone(taskID);
+            DataBaseManager.getInstance().getTaskDBManager().taskDone(taskID);
             provider.sendBroadcast(ds.getHash(), ServerObjectType.TASK_DONE, taskID);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

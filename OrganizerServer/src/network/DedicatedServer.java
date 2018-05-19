@@ -1,8 +1,8 @@
 package network;
 
 import db.DataBaseManager;
+import model.project.Project;
 import model.ServerObjectType;
-import model.project.*;
 
 
 import java.io.IOException;
@@ -85,9 +85,10 @@ public class DedicatedServer extends Thread{
     }
 
     public void sendProjectList() {
-        ArrayList<Project> projectsOwner = DataBaseManager.getProjectDBManager().getProjectsOwner(username);
-        ArrayList<Project> projectsMember = DataBaseManager.getProjectDBManager().getProjectsMember(username);
-        sendData(ServerObjectType.GET_PROJECT_LIST, projectsOwner.size());
+        ArrayList<Project> projectsOwner = DataBaseManager.getInstance().getProjectDBManager().getProjectsOwner(username);
+        ArrayList<Project> projectsMember = DataBaseManager.getInstance().getProjectDBManager().getProjectsMember(username);
+        sendData(null, projectsOwner.size());
+
         for (Project p : projectsOwner) {
             sendData(null, p);
         }

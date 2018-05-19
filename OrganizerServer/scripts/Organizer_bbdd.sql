@@ -1,5 +1,6 @@
 USE Organizer;
 
+DROP USER IF EXISTS gandalf;
 CREATE USER gandalf IDENTIFIED BY '1234';
 GRANT ALL
 ON *.*
@@ -27,7 +28,6 @@ CREATE TABLE Projecte(
 	id_projecte VARCHAR(255),
     nom_projecte VARCHAR(255),
     color VARCHAR(255),
-    background VARCHAR(255),
     nom_propietari VARCHAR(255),
     PRIMARY KEY (id_projecte),
     FOREIGN KEY (nom_propietari) REFERENCES Usuari(nom_usuari)

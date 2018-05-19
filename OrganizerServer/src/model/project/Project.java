@@ -2,8 +2,12 @@ package model.project;
 
 import model.user.User;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.Serializable;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -16,31 +20,48 @@ public class Project implements Serializable{
     private Color color;
     private ArrayList<Category> categories;
     private ArrayList<User> users;
-    private Image background;
-    private String backgroundPath;
+    private byte[] background;
     private boolean isOwner;
+    private String ownerName;
 
-    public Project() {}
+    public Project() {
+        categories = new ArrayList<>();
+        users = new ArrayList<>();
+    }
 
-    public Project(String id, String name, String color, String backgroundPath, boolean isOwner) {
+    public Project(String id, String name, Color color, boolean isOwner) {
         this.id = id;
         this.name = name;
-        this.backgroundPath = backgroundPath;
+        this.color = color;
+        this.isOwner = isOwner;
+        categories = new ArrayList<>();
+        users = new ArrayList<>();
+    }
+
+    public Project(String id, String name, String color, boolean isOwner) {
+        this.id = id;
+        this.name = name;
         this.color = Color.decode(color);
         this.isOwner = isOwner;
         categories = new ArrayList<>();
         users = new ArrayList<>();
     }
 
-    public Project(String id, String name, Color color, ArrayList<Category> categories, ArrayList<User> users,
-                   Image background, boolean isOwner) {
+    public Project(String id, String name, Color color, ArrayList<Category> categories, ArrayList<User> users, boolean isOwner) {
         this.id = id;
         this.name = name;
         this.color = color;
         this.categories = categories;
         this.users = users;
-        this.background = background;
         this.isOwner = isOwner;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public String getId() {
@@ -63,28 +84,20 @@ public class Project implements Serializable{
         return color;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setColorFromCode(String color) {
+        this.color = Color.decode(color);
+    }
+
     public String getHexColor () {
         if (color == null) return null;
         int rgb = color.getRGB()&0xffffff;
         String zeros = "000000";
         String data = Integer.toHexString(rgb);
-        return (zeros.substring(data.length()) + data).toUpperCase();
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public void setColor(String color) {
-        this.color = Color.decode(color);
-    }
-
-    public String getBackgroundPath() {
-        return backgroundPath;
-    }
-
-    public void setBackgroundPath(String backgroundPath) {
-        this.backgroundPath = backgroundPath;
+        return "#" + (zeros.substring(data.length()) + data).toUpperCase();
     }
 
     public int getCategoriesSize() {
@@ -151,7 +164,8 @@ public class Project implements Serializable{
                 }
             }
 
-            categories.add(category.getOrder(), category);
+            category.setOrder(categories.size());
+            categories.add(category);
 
         }
     }
@@ -169,13 +183,6 @@ public class Project implements Serializable{
             Category category2 = categories.get(secondCategoryIndex);
             categories.set(firstCategoryIndex, category2);
             categories.set(secondCategoryIndex, category1);
-        }
-    }
-
-    public void setMembersName (ArrayList<String> names) {
-        ArrayList<User> users = new ArrayList<>();
-        for (String name:names) {
-            users.add(new User(name));
         }
     }
 
@@ -213,12 +220,27 @@ public class Project implements Serializable{
         }
     }
 
-    public Image getBackground() {
-        return background;
+    public BufferedImage getBackground() {
+        try {
+            if (background != null) {
+                return ImageIO.read(new ByteArrayInputStream(this.background));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public void setBackground(Image background) {
-        this.background = background;
+    public void setBackground(BufferedImage background) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(background, "png", baos);
+            baos.flush();
+            this.background = baos.toByteArray();
+            baos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isOwner() {
@@ -227,6 +249,13 @@ public class Project implements Serializable{
 
     public void setOwner(boolean isOwner) {
         this.isOwner = isOwner;
+    }
+
+    public void setMembersName (ArrayList<String> names) {
+        ArrayList<User> users = new ArrayList<>();
+        for (String name:names) {
+            users.add(new User(name));
+        }
     }
 
     @Override
@@ -254,5 +283,5 @@ public class Project implements Serializable{
     public int hashCode() {
         return Objects.hash(id, name, color, categories, users, background);
     }
-    
+
 }

@@ -9,6 +9,7 @@ import network.DedicatedServerProvidable;
 import network.DedicatedServerProvider;
 
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * S'encarrega de la comunicació quan s'afegeix o s'edita una categoria.
@@ -20,7 +21,12 @@ public class CategoryEditedCommunicator implements Communicable {
         final Category category;
         try {
             category = (Category) ds.readData();
-            DataBaseManager.getCategoryDBManager().addCategory(category, ds.getHash());
+
+            if (category.getId() == null || category.getId().isEmpty()) {
+                category.setId(UUID.randomUUID().toString());
+            }
+
+            DataBaseManager.getInstance().getCategoryDBManager().addCategory(category, ds.getHash());
             provider.sendBroadcast(ds.getHash(), ServerObjectType.SET_CATEGORY, category);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

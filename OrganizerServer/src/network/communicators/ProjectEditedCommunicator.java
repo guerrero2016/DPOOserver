@@ -8,6 +8,9 @@ import network.DedicatedServer;
 import network.DedicatedServerProvidable;
 
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -16,6 +19,8 @@ import java.util.UUID;
  * Es notifica a tots els clients del projecte.
  */
 public class ProjectEditedCommunicator implements Communicable {
+    private static final String PATH = "backgrounds/";
+    private static final String EXT = "png";
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         final Project projecte;
@@ -25,11 +30,7 @@ public class ProjectEditedCommunicator implements Communicable {
                 String uniqueID = UUID.randomUUID().toString();
                 projecte.setId(uniqueID);
             }
-            DataBaseManager.getProjectDBManager().addProject(projecte);
-
-            if(projecte.isOwner()) {
-                DataBaseManager.getProjectDBManager().addProjectOwner(projecte.getId(), ds.getUsername());
-            }
+            DataBaseManager.getInstance().getProjectDBManager().addProject(projecte);
 
             if (provider.countDedicated(projecte.getId()) == -1){
                 ds.sendData(ServerObjectType.SET_PROJECT, projecte);
@@ -37,8 +38,19 @@ public class ProjectEditedCommunicator implements Communicable {
                 provider.sendBroadcast(projecte.getId(), ServerObjectType.SET_PROJECT, projecte);
             }
 
-            for (String name : DataBaseManager.getMemberDBManager().getMembers(projecte.getId())) {
+            for (String name : DataBaseManager.getInstance().getMemberDBManager().getMembers(projecte.getId())) {
                 provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
+            }
+
+
+            if (projecte.getBackground() != null) {
+                File file = new File(PATH + projecte.getId() + "." + EXT);
+                try {
+                    ImageIO.write(projecte.getBackground(), EXT, file);  // ignore returned boolean
+                } catch(IOException e) {
+                    System.out.println("Write error for " + file.getPath() +
+                            ": " + e.getMessage());
+                }
             }
 
         } catch (IOException | ClassNotFoundException e) {
