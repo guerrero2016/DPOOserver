@@ -23,11 +23,14 @@ public class UserJoinedCommunicator implements Communicable {
             final String projectID = ds.readData().toString();
             final Project p = DataBaseManager.getInstance().getProjectDBManager().getProject(projectID);
             System.out.println(p.getName());
-            if (p.getId() != null) {
+            if (p.getId() != null && !checkIfAlreadyJoined(projectID, ds)) {
                 DataBaseManager.getInstance().getMemberDBManager().addMember(projectID, ds.getUsername());
                 provider.sendBroadcast(projectID, ServerObjectType.JOIN_PROJECT, p);
+                ds.sendData(ServerObjectType.SET_PROJECT, p);
+            } else {
+                ds.sendData(ServerObjectType.SET_PROJECT, null);
             }
-            ds.sendData(ServerObjectType.SET_PROJECT, p);
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -38,24 +41,24 @@ public class UserJoinedCommunicator implements Communicable {
      * Funció que comprova si un usuari ja forma part d'un projecte.
      * @param projectId Identficador del projecte que volem comprovar.
      * @param ds DedicatedServer d'on treurem el nom de l'usuari a comprovar.
-     * @return Si ja està al Project retornarem 1, sinó 0.
+     * @return Si ja està al Project retornarem true, sinó false.
      */
-    public int checkIfAlreadyJoined(String projectId, DedicatedServer ds){
-        int exists = 0;
-        String userId;
+    public boolean checkIfAlreadyJoined(String projectId, DedicatedServer ds){
         //recuperem el projecte del que volem comprovar si l'usuari ja en forma part.
         Project projectToCheck = DataBaseManager.getInstance().getProjectDBManager().getProject(projectId);
         //D'aquest proecte recuperem tots els usuaris que en formen part.
-        ArrayList<User> usersToCheck = projectToCheck.getUsers();
         //Treiem el User a comprovar
-        userId = ds.getUsername();
+        String userId = ds.getUsername();
+        if (userId.equals(projectToCheck.getOwnerName())){
+            return true;
+        }
         //Per cada usuari que forma part del Projecte mirarem si coincideix amb l'usuari a comprovar
-        for(User u : usersToCheck){
-            if(u.equals(userId)){
-                exists = 1;
-                return exists;
+        for(String name : DataBaseManager.getInstance().getMemberDBManager().getMembers(projectId)){
+            System.out.println(name + " " + userId);
+            if(name.equals(userId)){
+                return true;
             }
         }
-        return exists;
+        return false;
     }
 }
