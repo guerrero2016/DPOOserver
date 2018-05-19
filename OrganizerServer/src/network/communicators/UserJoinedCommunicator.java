@@ -19,12 +19,12 @@ public class UserJoinedCommunicator implements Communicable {
         try {
             final String projectID = ds.readData().toString();
             final Project p = DataBaseManager.getInstance().getProjectDBManager().getProject(projectID);
-
+            System.out.println(p.getName());
             if (p.getId() != null) {
                 DataBaseManager.getInstance().getMemberDBManager().addMember(projectID, ds.getUsername());
                 provider.sendBroadcast(projectID, ServerObjectType.JOIN_PROJECT, p);
             }
-            ds.sendData(ServerObjectType.JOIN_PROJECT, p);
+            ds.sendData(ServerObjectType.SET_PROJECT, p);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

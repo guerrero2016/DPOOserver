@@ -24,19 +24,20 @@ public class MemberDBManager {
     public ArrayList<String> getMembers(String id_projecte) {
         ArrayList<String> members = new ArrayList<>();
         ResultSet rs;
-
+        String aux;
         try {
             s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery ("SELECT * FROM Membre WHERE id_projecte = '" + id_projecte + "';");
             while(rs.next()) {
-                if(rs.getString("nom_usuari") != null) {
-                    members.add(rs.getString("nom_usuari"));
+                aux = rs.getString("nom_usuari");
+                if(aux != null) {
+                    members.add(aux);
                 }
             }
             s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery ("SELECT * FROM Projecte WHERE id_projecte = '" + id_projecte + "';");
             rs.next();
-            members.add("nom_propietari");
+            members.add(rs.getString("nom_propietari"));
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
         }
