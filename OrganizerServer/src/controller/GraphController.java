@@ -37,7 +37,6 @@ public class GraphController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("jbSearch")) {
-
             System.out.println("CLICKED");
             //TEST -- Veiem com si canvien les dades canvia el gràfic
            /*ArrayList<Integer> aux = new ArrayList<>();
