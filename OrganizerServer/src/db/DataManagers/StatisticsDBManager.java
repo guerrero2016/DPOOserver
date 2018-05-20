@@ -75,8 +75,14 @@ public class StatisticsDBManager {
                     s = (Statement) DataBaseManager.getInstance().getConnection().createStatement();
                     rs = s.executeQuery("SELECT COUNT(*) as tasques_fetes FROM Tasca as t JOIN Tasca_Usuari as tu ON t.id_tasca = tu.id_tasca " +
                             "WHERE data_done IS NOT null AND nom_usuari = '" + u.getUsername() + "' GROUP BY nom_usuari;");
-                    rs.next();
-                    u.setTotalTasks(u.getPendingTasks() + rs.getInt("tasques_fetes"));
+                    boolean flag = false;
+                    while(rs.next()) {
+                        u.setTotalTasks(u.getPendingTasks() + rs.getInt("tasques_fetes"));
+                        flag = true;
+                    }
+                    if(!flag){
+                        u.setTotalTasks(u.getPendingTasks());
+                    }
                 }
             }
         } catch (SQLException e) {

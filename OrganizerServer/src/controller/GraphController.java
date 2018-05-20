@@ -136,7 +136,8 @@ public class GraphController implements ActionListener{
                                                    ArrayList<java.sql.Date> dateDots){
         ArrayList<Integer> arrayDates = new ArrayList<>();
         int i = 0;
-        for (Date date = calAux.getTime(); calAux.before(calAuxActual); calAux.add(Calendar.DATE, 1), date = calAux.getTime()) {
+        for (Date date = calAux.getTime(); calAux.before(calAuxActual) || calAux.equals(calAuxActual); calAux.add(Calendar.DATE, 1), date = calAux.getTime()) {
+            System.out.println(date);
             int numRepe = 0;
             java.sql.Date dateAux = new java.sql.Date(date.getTime());
             for(java.sql.Date d : dateDots) {
