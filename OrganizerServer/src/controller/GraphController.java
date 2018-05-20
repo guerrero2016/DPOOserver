@@ -17,7 +17,7 @@ import java.util.*;
  */
 public class GraphController implements ActionListener{
 
-    private SuperController superController; //????
+    private SuperController superController;
     private DataModel dataModel;
 
     private GraphView graphView = new GraphView();
@@ -63,21 +63,18 @@ public class GraphController implements ActionListener{
                     case "Setmanal":
                         cal = Calendar.getInstance();
                         cal.add(Calendar.DATE, -7);
-                        cal.add(Calendar.YEAR, 1900);
                         date = cal.getTime();
                         sqlDate = new java.sql.Date(date.getTime());
                         break;
                     case "Mensual":
                         cal = Calendar.getInstance();
                         cal.add(Calendar.MONTH, -1);
-                        cal.add(Calendar.YEAR, 1900);
                         date = cal.getTime();
                         sqlDate = new java.sql.Date(date.getTime());
                         break;
                     case "Anual":
                         cal = Calendar.getInstance();
                         cal.add(Calendar.YEAR, -1);
-                        cal.add(Calendar.YEAR, 1900);
                         date = cal.getTime();
                         sqlDate = new java.sql.Date(date.getTime());
                         break;
@@ -112,21 +109,17 @@ public class GraphController implements ActionListener{
         ArrayList<Integer> arrayDates = new ArrayList<>();
         Calendar calAux = Calendar.getInstance();
         Calendar calAuxActual = Calendar.getInstance();
-        calAuxActual.add(Calendar.YEAR, 1900);
         int i = 0;
         if(periode.equals("Setmanal")){
             calAux.add(Calendar.DATE, -7);
-            calAux.add(Calendar.YEAR, 1900);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
         if(periode.equals("Mensual")){
             calAux.add(Calendar.MONTH, -1);
-            calAux.add(Calendar.YEAR, 1900);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
         if(periode.equals("Anual")){
             calAux.add(Calendar.YEAR, -1);
-            calAux.add(Calendar.YEAR, 1900);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
         return arrayDates;
