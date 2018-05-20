@@ -27,6 +27,12 @@ public class DedicatedServer extends Thread{
     private DedicatedServerProvidable provider;
     private HashMap<ServerObjectType, Communicable> communicators;
 
+    /**
+     * Crea el servidor dedicat per a poder dur la comunicació a terme
+     * @param sClient socket del client
+     * @param server servidor del programa
+     * @param provider DedicatedServerProvidable amb la resta de <code>DedicatedServer</code>
+     */
     public DedicatedServer(Socket sClient, Server server, DedicatedServerProvidable provider) {
         this.isOn = false;
         this.sClient = sClient;
@@ -36,18 +42,34 @@ public class DedicatedServer extends Thread{
         communicators = CommunicatorsFactory.create();
     }
 
+    /**
+     * Funció que recupera l'usuari amb qui té connexió.
+     * @return nom d'usuari
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Procediment que assigna un nom d'usuari
+     * @param username nom d'usuari a assignar
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Funció que recupera el codi del projecte en el qual està el client
+     * @return codi del projecte
+     */
     public String getHash() {
         return hash;
     }
 
+    /**
+     * Procediment que assigna un codi de projecte.
+     * @param hash codi del projecte a assignar
+     */
     public void setHash(String hash) {
         this.hash = hash;
     }

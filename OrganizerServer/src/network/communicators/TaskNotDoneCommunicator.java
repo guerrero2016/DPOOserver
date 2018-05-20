@@ -8,6 +8,9 @@ import network.DedicatedServerProvidable;
 
 import java.io.IOException;
 
+/**
+ * S'encarrega de la comunicació quan una tasca s'ha marcat com a no està feta.
+ */
 public class TaskNotDoneCommunicator implements Communicable {
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {

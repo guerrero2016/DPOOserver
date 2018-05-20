@@ -93,16 +93,4 @@ public class TagDBManager {
         return "";
     }
 
-     /**
-     * Aquesta funció s'encarrega de modificat una etiqueta concreta.
-     *
-     * @param
-     */
-
-    public void editTag(String taskId, Tag tag) {
-        //TODO: Alternativa?
-        deleteTag(tag.getId());
-        addTag(tag, taskId);
-    }
-
 }
