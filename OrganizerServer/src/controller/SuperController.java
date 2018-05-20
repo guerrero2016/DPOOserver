@@ -18,7 +18,9 @@ public class SuperController implements Observer{
     private Top10Controller top10Controller;
     private DataModel dataModel;
 
-
+    /**
+     * Constructor sense paràmetres.
+     */
     public SuperController(MainServerView mainServerView, DataModel dataModel){
         this.dataModel = dataModel;
         dataModel.addObserver(this);

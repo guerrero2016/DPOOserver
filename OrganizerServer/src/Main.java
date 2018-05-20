@@ -17,10 +17,10 @@ public class Main {
 
         mainServerView.linkController(superController);
 
-        Configuration.loadConfiguration();
+        Configuration.getInstance().loadConfiguration();
 
-        connector = new ConnectorDB(Configuration.getBBDDUser(), Configuration.getBBDDPass(),
-        Configuration.getBBDDName(), Configuration.getBBDDPort(), Configuration.getBBDDIp());
+        connector = new ConnectorDB(Configuration.getInstance().getBBDDUser(), Configuration.getInstance().getBBDDPass(),
+        Configuration.getInstance().getBBDDName(), Configuration.getInstance().getBBDDPort(), Configuration.getInstance().getBBDDIp());
         connector.connect();
 
         Server server = new Server();

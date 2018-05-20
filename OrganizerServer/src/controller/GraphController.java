@@ -24,6 +24,9 @@ public class GraphController implements ActionListener{
     private SuperGraphView superGraphView;
     private String periode = "Setmanal";
 
+    /**
+     * Constructor amb paràmetres.
+     */
     public GraphController(SuperController superController, DataModel dataModel, SuperGraphView superGraphView){
         this.superController = superController;
         this.dataModel = dataModel;
@@ -143,10 +146,7 @@ public class GraphController implements ActionListener{
             arrayDates.add(i,numRepe);
             i++;
         }
-
         return arrayDates;
     }
-
-
 }
 
