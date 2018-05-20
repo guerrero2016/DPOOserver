@@ -62,8 +62,12 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
     @Override
     public void deleteAllByID(String hashCode) {
         if (projectServers.containsKey(hashCode)) {
-            sendBroadcast(hashCode, ServerObjectType.EXIT_PROJECT, null);
-            //TODO s'hauria de fer que el exitcode mostres un dialog a l'usuari
+            sendBroadcast(hashCode, ServerObjectType.GET_PROJECT_LIST, null);
+            for (DedicatedServer ds : projectServers.get(hashCode)) {
+                ds.sendProjectList();
+                addToLoby(ds);
+                ds.setHash(null);
+            }
             projectServers.remove(hashCode);
         }
     }
@@ -90,7 +94,6 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
 
     @Override
     public boolean checkUserAlreadyConnected(String username) {
-        boolean trobat;
 
         //creem una LinkedList on guardarem cada DedicatedServer de forma individual per poder
         //fer les cmprovacions 1 a 1.
