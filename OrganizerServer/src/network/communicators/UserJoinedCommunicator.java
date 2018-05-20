@@ -22,7 +22,6 @@ public class UserJoinedCommunicator implements Communicable {
         try {
             final String projectID = ds.readData().toString();
             final Project p = DataBaseManager.getInstance().getProjectDBManager().getProject(projectID);
-            System.out.println(p.getName());
             if (p.getId() != null && !checkIfAlreadyJoined(projectID, ds)) {
                 DataBaseManager.getInstance().getMemberDBManager().addMember(projectID, ds.getUsername());
                 provider.sendBroadcast(projectID, ServerObjectType.JOIN_PROJECT, new User(ds.getUsername()));
@@ -54,7 +53,6 @@ public class UserJoinedCommunicator implements Communicable {
         }
         //Per cada usuari que forma part del Projecte mirarem si coincideix amb l'usuari a comprovar
         for(String name : DataBaseManager.getInstance().getMemberDBManager().getMembers(projectId)){
-            System.out.println(name + " " + userId);
             if(name.equals(userId)){
                 return true;
             }

@@ -6,12 +6,31 @@ import java.io.IOException;
 import org.json.*;
 import java.util.Properties;
 
+/**
+ * Classe singleton encarregada de llegir la configuració.
+ */
 public class Configuration {
-    private static Properties config;
-    private final static String path = System.getProperty("user.dir") + System.getProperty("file.separator")
+    private static Configuration ourInstance = new Configuration();
+    private Properties config;
+    private final String path = System.getProperty("user.dir") + System.getProperty("file.separator")
             + "config.json";
 
-    public static void loadConfiguration() {
+    /**
+     * Constructor sense paràmetres.
+     */
+    private Configuration() {}
+
+    /**
+     * Getter del singleton Configuration.
+     */
+    public static Configuration getInstance() {
+        return ourInstance;
+    }
+
+    /**
+     * Carrega diversos paràmetres de configuració a partir de l'arxiu config.json.
+     */
+    public void loadConfiguration() {
         BufferedReader br = null;
         config = new Properties();
 
@@ -45,27 +64,45 @@ public class Configuration {
         }
     }
 
-    public static int getBBDDPort() {
+    /**
+     * Getter del port de la base de dades Mysql.
+     */
+    public int getBBDDPort() {
         return Integer.parseInt(config.getProperty("bbddPORT"));
     }
 
-    public static String getBBDDIp() {
+    /**
+     * Getter de la IP de la base de dades Mysql.
+     */
+    public String getBBDDIp() {
         return config.getProperty("bbddIP");
     }
 
-    public static String getBBDDName() {
+    /**
+     * Getter del nom de la base de dades Mysql.
+     */
+    public String getBBDDName() {
         return config.getProperty("bbddNAME");
     }
 
-    public static String getBBDDPass() {
+    /**
+     * Getter de la contrasenya de l'usuari amb el qual ens connectem a la base de dades.
+     */
+    public String getBBDDPass() {
         return config.getProperty("bbddPASS");
     }
 
-    public static String getBBDDUser() {
+    /**
+     * Getter del nom de l'usuari amb el qual ens connectem a la base de dades.
+     */
+    public String getBBDDUser() {
         return config.getProperty("bbddUSER");
     }
 
-    public static int getCommunicationPort() {
+    /**
+     * Getter del port amb el qual ens connectarem amb el client.
+     */
+    public int getCommunicationPort() {
         return Integer.parseInt(config.getProperty("communicationPORT"));
     }
 }

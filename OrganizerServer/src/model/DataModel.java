@@ -11,6 +11,9 @@ public class DataModel extends Observable{
         return graphPoints;
     }
 
+    /**
+     * Setter dels punts del gràfic.
+     */
     public void setGraphPoints(ArrayList<Integer> graphPoints) {
         this.graphPoints = graphPoints;
         setChanged();
