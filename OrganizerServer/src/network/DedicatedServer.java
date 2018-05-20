@@ -77,6 +77,11 @@ public class DedicatedServer extends Thread{
             }
         } catch (IOException e) {
             e.printStackTrace();
+            if (hash != null) {
+                provider.deleteDedicated(hash,this);
+            } else {
+                provider.deleteFromLobby(this);
+            }
             stopDedicatedServer();
         }
     }
