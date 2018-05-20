@@ -5,6 +5,9 @@ import controller.GraphController;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vista on s'engloba tant el gràfic com el panell lateral de cerca.
+ */
 public class SuperGraphView extends JPanel{
 
     private JTextField jtfUser = new JTextField();
@@ -15,6 +18,9 @@ public class SuperGraphView extends JPanel{
     private JPanel jpGraph = new JPanel();
     private JPanel jpSuperGraph = new JPanel();
 
+    /**
+     * Constructor ed la vista.
+     */
     public SuperGraphView(){
         //Here we create all the panels and configure their layouts
         JPanel jpEast = new JPanel();
@@ -40,35 +46,47 @@ public class SuperGraphView extends JPanel{
         this.add(jpSuperGraph);
     }
 
+    /**
+     * Procediment per omplir les opcions del Combo Box
+     */
     public void configureJcbPeriod(){
-        jcbPeriod.addItem("Setmanal");
-        jcbPeriod.addItem("Mensual");
+        jcbPeriod.addItem("Weekly");
+        jcbPeriod.addItem("Monthly");
         jcbPeriod.addItem("Anual");
         jcbPeriod.setBorder(BorderFactory.createEmptyBorder(8,0,8,0));
         jcbPeriod.setActionCommand("jcbPeriod");
     }
 
+    /**
+     * Vinculació amb el controlador
+     * @param graphController Controlador amb el que es vincula la vista
+     */
     public void linkController(GraphController graphController){
 
         jbSearch.addActionListener(graphController);
         jcbPeriod.addActionListener(graphController);
     }
 
+    /**
+     * Funció per obtenir el nom de l'usuari a buscar
+     * @return String amb el nom introduït per l'usuari
+     */
     public String getJtfUserContent(){
         return jtfUser.getText();
     }
 
-    public void actualitzaGraph(GraphView graphView){
-        revalidate();
-        repaint();
-
-        System.out.println("Prova" + graphView.getMaxScore());
-    }
-
+    /**
+     * Procediment que ens afegeix a la vista el gràfic confeccionat a una altra classe.
+     * @param graph Gràfic que volem afegir a la vista.
+     */
     public void setGraph(GraphView graph) {
         jpGraph.add(graph, BorderLayout.CENTER);
     }
 
+    /**
+     * Funció per obtenir el periode seleccionat amb el Combo Box
+     * @return String amb el periode seleccionat.
+     */
     public String getPeriod(){
         return jcbPeriod.getSelectedItem().toString();
     }
