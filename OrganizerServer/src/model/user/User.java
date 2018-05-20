@@ -5,7 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 public class User implements Serializable {
-    public final static int serialVersionUID = 5555;
+    public final static int serialVersionUID = 1238;
+
 
     protected String userName;
 
