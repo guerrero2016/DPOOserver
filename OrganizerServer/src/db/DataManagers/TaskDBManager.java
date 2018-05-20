@@ -31,10 +31,14 @@ public class TaskDBManager {
             s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery ("SELECT * FROM Tasca WHERE id_columna = '" + id_columna + "' ORDER BY posicio ASC;");
             while(rs.next()) {
+                boolean acabada = false;
                 if (rs.getString("id_tasca") != null) {
+                    if(rs.getDate("data_done") != null) {
+                        acabada = true;
+                    }
                     tasks.add(new Task(rs.getString("id_tasca"), rs.getString("nom_tasca"), rs.getInt("posicio"),
                             rs.getString("descripcio"), DataBaseManager.getInstance().getTagDBManager().getTags(rs.getString("id_tasca")),
-                            DataBaseManager.getInstance().getMemberInChargeDBManager().getMembersInCharge(rs.getString("id_tasca"))));
+                            DataBaseManager.getInstance().getMemberInChargeDBManager().getMembersInCharge(rs.getString("id_tasca")), acabada));
                 }
             }
         } catch (SQLException ex) {

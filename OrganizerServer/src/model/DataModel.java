@@ -14,6 +14,6 @@ public class DataModel extends Observable{
     public void setGraphPoints(ArrayList<Integer> graphPoints) {
         this.graphPoints = graphPoints;
         setChanged();
-        notifyObservers(); //Estic notificant els dos observers //????
+        notifyObservers();
     }
 }

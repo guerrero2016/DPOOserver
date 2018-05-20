@@ -8,50 +8,49 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * Classe que engloba els dos controllers que seran per cada Tab.
+ */
 public class SuperController implements Observer{
 
     private MainServerView mainServerView;
     private GraphController graphController;
     private Top10Controller top10Controller;
-    private DataModel dataModel;// = new DataModel();
+    private DataModel dataModel;
+
 
     public SuperController(MainServerView mainServerView, DataModel dataModel){
         this.dataModel = dataModel;
-        //?????
-        dataModel.addObserver(this); //ELS DOS VIEWS SACTUALITZEN QUNA HI HA UPDATE
+        dataModel.addObserver(this);
         this.mainServerView = mainServerView;
         this.graphController = new GraphController(this, dataModel, mainServerView.getSuperGraphContent());
-        this.top10Controller = new Top10Controller(this,dataModel, mainServerView.getTop10Content());
-        //TEST
-        //FINS A ON ES DIU S'HAURA DE TREURE
-        /*
-        ArrayList<Double> aux = new ArrayList<>();
-        aux.add(0.0);
-        aux.add(1.4);
-        aux.add(5.0);
-        aux.add(6.7);
-        aux.add(9.8);
-        aux.add(10.5);
-        aux.add(15.7);
-        aux.add(16.75);
-        dataModel.setGraphPoints(aux);
-        */
-        //TREURE FINS AQUI
-
+        this.top10Controller = new Top10Controller(mainServerView.getTop10Content());
     }
 
+    /**
+     * Funció per obtenir el controller del Tab del gràfic
+     * @return Controller del Tab del gràfic
+     */
     public GraphController getGraphController() {
         return graphController;
     }
 
+    /**
+     * Funció per obtenir el controller del Tab del Top10
+     * @return Controller del Tab del Top10
+     */
     public Top10Controller getTop10Controller() {
         return top10Controller;
     }
 
 
+    /**
+     * Procediment propi del patro observer
+     * @param o Classe que és observable
+     * @param arg Objecte on s'ha fet l'update
+     */
     @Override
     public void update(Observable o, Object arg) {
-        //PASSEM ELS DE ?USUARI EN QÜESTIÓ DE TANTS DIES COM TINGUEM
         graphController.actualizeGraph(dataModel.getGraphPoints());
     }
 }

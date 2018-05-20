@@ -12,9 +12,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Controller corresponent al Tab on es pinta el gràfic
+ */
 public class GraphController implements ActionListener{
 
-    private SuperController superController; //????
+    private SuperController superController;
     private DataModel dataModel;
 
     private GraphView graphView = new GraphView();
@@ -29,6 +32,10 @@ public class GraphController implements ActionListener{
     }
 
 
+    /**
+     * Procediment per actualitzar els valors del gràfic
+     * @param scores Valors a pintar al gràfic
+     */
     public void actualizeGraph(ArrayList<Integer> scores){
         graphView.setScores(scores);
     }
@@ -36,23 +43,11 @@ public class GraphController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Si s'ha apretat el botó de cerca
         if(e.getActionCommand().equals("jbSearch")) {
-            System.out.println("CLICKED");
-            //TEST -- Veiem com si canvien les dades canvia el gràfic
-           /*ArrayList<Integer> aux = new ArrayList<>();
-           aux.add(1);
-           aux.add(1);
-           aux.add(5);
-           aux.add(5);
-           aux.add(8);
-           aux.add(15);
-           aux.add(12);
-           aux.add(17);
-           dataModel.setGraphPoints(aux);*/
-            //TREURE FINS AQUI
 
             if(superGraphView.getJtfUserContent().equals("")){
-                JOptionPane.showMessageDialog(superGraphView, "El camp de nom d'usuari no pot estar buit!");
+                JOptionPane.showMessageDialog(superGraphView, "Can't leave username blank!");
             }
             else {
                 //Demanem les dades
@@ -68,66 +63,24 @@ public class GraphController implements ActionListener{
                     case "Setmanal":
                         cal = Calendar.getInstance();
                         cal.add(Calendar.DATE, -7);
-                        cal.add(Calendar.YEAR, 1900);
                         date = cal.getTime();
                         sqlDate = new java.sql.Date(date.getTime());
-                        System.out.println("S: " + date);
-                        System.out.println("SQL S: " + sqlDate);
                         break;
                     case "Mensual":
                         cal = Calendar.getInstance();
                         cal.add(Calendar.MONTH, -1);
-                        cal.add(Calendar.YEAR, 1900);
-
                         date = cal.getTime();
                         sqlDate = new java.sql.Date(date.getTime());
-                        System.out.println("M: " + date);
-                        System.out.println("SQL M: " + sqlDate);
                         break;
                     case "Anual":
                         cal = Calendar.getInstance();
                         cal.add(Calendar.YEAR, -1);
-                        cal.add(Calendar.YEAR, 1900);
                         date = cal.getTime();
                         sqlDate = new java.sql.Date(date.getTime());
-                        System.out.println("Y: " + date);
-                        System.out.println("SQL S: " + sqlDate);
                         break;
                 }
                 //Un cop tenim la data fem la petició a la BBDD amb l'usuari i la data mínima
                 dateDots = DataBaseManager.getInstance().getStatisticsDBManager().requestUserEvolution(superGraphView.getJtfUserContent(), sqlDate);
-
-                //Ordenem les dates que ens retornen
-                //NOMES UTILITZAT PER TEST
-                //NO FER CAS
-               /*
-               SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-               Date parsed = null;
-               try {
-                   parsed = format.parse("20180210");
-               } catch (ParseException e1) {
-                   e1.printStackTrace();
-               }
-               java.sql.Date sql = new java.sql.Date(parsed.getTime());
-               dateDots.add(sql);
-               try {
-                   parsed = format.parse("20180508");
-               } catch (ParseException e1) {
-                   e1.printStackTrace();
-               }
-               java.sql.Date sql2 = new java.sql.Date(parsed.getTime());
-               dateDots.add(sql2);
-               dateDots.add(sql2);
-               try {
-                   parsed = format.parse("20190210");
-               } catch (ParseException e1) {
-                   e1.printStackTrace();
-               }
-               java.sql.Date sql3 = new java.sql.Date(parsed.getTime());
-               dateDots.add(sql3);
-               */
-                //ESBORRAR NOMÉS FINS AQUí
-
                 dateDots.sort(Comparator.naturalOrder());
                 for(java.sql.Date d: dateDots){
                     System.out.println("DATA: " + d.toString());
@@ -139,37 +92,46 @@ public class GraphController implements ActionListener{
             }
         }
 
+        //Si l'event ve del Combo Box, actualitzem el període
         if (e.getActionCommand().equals("jcbPeriod")){
             // graphView.definePeriodsUpdate();
             periode = superGraphView.getPeriod();
-            System.out.println("Periode: " + periode);
         }
     }
 
+    /**
+     * Funció per obtenir els punts a pintar al gràfic. Retornem el valor per cada dia en el periode
+     * @param dateDots Conjunt de dates en que l'usuari ha acabat una tasca
+     * @param periode Periode pel qual es vol mirar l'evolució
+     * @return Retornem un arrayList amb el nombre de tasques finalitzades per cada dia dins del periode establert
+     */
     private ArrayList<Integer> countDates(ArrayList<java.sql.Date> dateDots, String periode){
         ArrayList<Integer> arrayDates = new ArrayList<>();
         Calendar calAux = Calendar.getInstance();
         Calendar calAuxActual = Calendar.getInstance();
-        calAuxActual.add(Calendar.YEAR, 1900);
         int i = 0;
         if(periode.equals("Setmanal")){
             calAux.add(Calendar.DATE, -7);
-            calAux.add(Calendar.YEAR, 1900);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
         if(periode.equals("Mensual")){
             calAux.add(Calendar.MONTH, -1);
-            calAux.add(Calendar.YEAR, 1900);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
         if(periode.equals("Anual")){
             calAux.add(Calendar.YEAR, -1);
-            calAux.add(Calendar.YEAR, 1900);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
         return arrayDates;
     }
 
+    /**
+     * Funció que compta per cada dia al periode quantes tasques ha fet l'usuari
+     * @param calAux Data d'inici del periode
+     * @param calAuxActual Data actual, finalització del periode
+     * @param dateDots Conjunt de dates on ha acabat tasques
+     * @return Retornem l'ArrayList amb la quantitat de tasques fetes cada dia del periode
+     */
     private ArrayList<Integer> auxCountDateInArray(Calendar calAux, Calendar calAuxActual,
                                                    ArrayList<java.sql.Date> dateDots){
         ArrayList<Integer> arrayDates = new ArrayList<>();
@@ -185,9 +147,7 @@ public class GraphController implements ActionListener{
             arrayDates.add(i,numRepe);
             i++;
         }
-        for(Integer integer : arrayDates){
-            System.out.println("TEST ARRAY: " + integer);
-        }
+
         return arrayDates;
     }
 
