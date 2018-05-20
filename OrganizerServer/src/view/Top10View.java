@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Classe encarregada de la vista de la pantalla on mostrem el top 10 d'usuaris amb més tasques pendents.
+ */
 public class Top10View extends JPanel {
 
     private JPanel jpSuperTop = new JPanel();
@@ -18,6 +21,10 @@ public class Top10View extends JPanel {
     private JLabel[] jlNumTaskPendentsArray = new JLabel[10];
     private JLabel[] jlNumTaskTotalArray = new JLabel[10];
 
+
+    /**
+     * constructor. Aquí simplement iniciem els elements necessaris.
+     */
     public Top10View() {
         //Posem l'action command del botó
         jbActulize.setActionCommand("Carregar");
@@ -56,7 +63,7 @@ public class Top10View extends JPanel {
 
         JScrollPane jspCenter = new JScrollPane(jpCenter);
         jspCenter.setPreferredSize(new Dimension(300,475));
-        jspCenter.setBorder(BorderFactory.createTitledBorder("Llistat Top 10"));
+        jspCenter.setBorder(BorderFactory.createTitledBorder("Top 10"));
 
         //Afegim el botó al lateral
         jpEast.add(jbActulize);
@@ -69,13 +76,16 @@ public class Top10View extends JPanel {
         this.add(jpSuperTop);
     }
 
+    /**
+     * Aquí creem els 10 "contenidors" on posarem les dades dels 10 usuaris. Tant Panels com els seus Labels.
+     */
     private void createTop10Items(){
         for(int i = 0; i < jpArray.length; i++){
-            JLabel jlNom = new JLabel("Nom Usuari");
+            JLabel jlNom = new JLabel("Username");
             jlNom.setFont(new Font("Dialog", Font.BOLD, 12));
-            JLabel jlPendents = new JLabel("Tasques pendents");
+            JLabel jlPendents = new JLabel("Pending tasks");
             jlPendents.setFont(new Font("Dialog", Font.BOLD, 12));
-            JLabel jlTotals = new JLabel("Tasques totals");
+            JLabel jlTotals = new JLabel("Total tasks");
             jlTotals.setFont(new Font("Dialog", Font.BOLD, 12));
 
 
@@ -96,10 +106,19 @@ public class Top10View extends JPanel {
 
     }
 
+    /**
+     * Vinculem la vista amb el controlador
+     * @param top10Controller
+     */
     public void linkController(Top10Controller top10Controller){
         jbActulize.addActionListener(top10Controller);
     }
 
+
+    /**
+     * Procediment que ens actualitza el top 10 amb els usuaris que rebem.
+     * @param top10people Top 10 d'usuaris que hem de pintar per pantalla.
+     */
     public void actualizeTop10(ArrayList<UserRanking> top10people){
         Integer integer;
         if(top10people != null) {
