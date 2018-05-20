@@ -2,6 +2,7 @@ package network.communicators;
 
 import db.DataBaseManager;
 import model.ServerObjectType;
+import model.project.Task;
 import network.Communicable;
 import network.DedicatedServer;
 import network.DedicatedServerProvidable;
@@ -15,11 +16,15 @@ import java.io.IOException;
 public class TaskDeletedCommunicator implements Communicable {
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
-        final String taskID;
+        final Task task;
+        final String categoryID;
         try {
-            taskID = ds.readData().toString();
-            DataBaseManager.getInstance().getTaskDBManager().deleteTask(taskID);
-            provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_TASK, taskID);
+            task = (Task) ds.readData();
+            categoryID = ds.readData().toString();
+            DataBaseManager.getInstance().getTaskDBManager().deleteTask(task, categoryID);
+
+            provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_TASK, task);
+            provider.sendBroadcast(ds.getHash(), null, categoryID);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

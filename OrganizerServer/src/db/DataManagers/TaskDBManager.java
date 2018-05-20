@@ -67,15 +67,17 @@ public class TaskDBManager {
 
     /**
      * Aquesta funció s'encarrega d'eliminar la tasca indicada.
-     *
-     * @param id_tasca: Id de la tasca que volem eliminar.
+     *  @param task Tasca que volem eliminar.
+     * @param id_categoria Id de la categoria on es troba la tasca a eliminar.
      */
-    public void deleteTask(String id_tasca) {
-        String query = "{CALL Organizer.deleteTask(?)}";
+    public void deleteTask(Task task, String id_categoria) {
+        String query = "{CALL Organizer.deleteTask(?,?,?)}";
         java.sql.CallableStatement stmt;
         try {
             stmt = DataBaseManager.getInstance().getConnection().prepareCall(query);
-            stmt.setString(1, id_tasca);
+            stmt.setString(1, task.getId());
+            stmt.setString(2, id_categoria);
+            stmt.setInt(3, task.getOrder());
             stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

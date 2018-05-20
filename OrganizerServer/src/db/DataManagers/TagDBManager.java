@@ -75,4 +75,22 @@ public class TagDBManager {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
     }
+
+    /**
+     * Retorna l'id de la categoria del tag que li passem.
+     */
+    public String getCategoryId(Tag tag) {
+        ResultSet rs = null;
+        try {
+            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
+            rs = s.executeQuery("SELECT * FROM Columna JOIN Tasca USING (id_columna) JOIN Etiqueta USING (id_tasca)" +
+                    " WHERE id_etiqueta = '" + tag.getId() + "';");
+            rs.next();
+            return rs.getString("id_columna");
+        } catch (SQLException ex) {
+            System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
+        }
+        return "";
+    }
+
 }
