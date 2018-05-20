@@ -21,11 +21,9 @@ public class CategoryEditedCommunicator implements Communicable {
         final Category category;
         try {
             category = (Category) ds.readData();
-
             if (category.getId() == null || category.getId().isEmpty()) {
                 category.setId(UUID.randomUUID().toString());
             }
-
             DataBaseManager.getInstance().getCategoryDBManager().addCategory(category, ds.getHash());
             provider.sendBroadcast(ds.getHash(), ServerObjectType.SET_CATEGORY, category);
         } catch (IOException | ClassNotFoundException e) {

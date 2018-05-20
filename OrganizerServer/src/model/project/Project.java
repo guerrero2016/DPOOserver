@@ -204,6 +204,14 @@ public class Project implements Serializable{
         }
     }
 
+    public int getUserIndex(User user) {
+        if(users.contains(user)) {
+            return users.indexOf(user);
+        } else {
+            return INVALID_INDEX;
+        }
+    }
+
     public User getUser(int userIndex) {
         if(userIndex >= 0 && userIndex < users.size()) {
             return users.get(userIndex);
