@@ -11,6 +11,10 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * S'encarrega de la comunicació quan s'edita o es crea una etiqueta en una tasca.
+ * Notifica a tots els usuaris del projecte.
+ */
 public class TagEditedCommunicator implements Communicable {
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {

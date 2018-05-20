@@ -12,7 +12,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * Classe que representa un servidor dedicad per cada client.
+ */
 public class DedicatedServer extends Thread{
 
     private boolean isOn;
@@ -50,11 +52,17 @@ public class DedicatedServer extends Thread{
         this.hash = hash;
     }
 
+    /**
+     * Funcio que inicia el servidor dedicat
+     */
     public void startDedicatedServer() {
         this.isOn = true;
         this.start();
     }
 
+    /**
+     * Funcio que apaga el servidor dedicat
+     */
     public void stopDedicatedServer() {
         this.isOn = false;
         this.interrupt();
@@ -68,6 +76,9 @@ public class DedicatedServer extends Thread{
             objectOut = new ObjectOutputStream(sClient.getOutputStream());
             objectIn = new ObjectInputStream(sClient.getInputStream());
 
+            //Mentres hi hagi comunicacio amb el client llegirem el tipus de dades que
+            // ens volen enviar i segons aquest tipus obrirem un comunicator o un altre
+            //que s'encarregara de controlar la resposta.
             while(isOn) {
                 type = ServerObjectType.valueOf(objectIn.readInt());
                 Communicable communicator = communicators.get(type);
@@ -76,7 +87,7 @@ public class DedicatedServer extends Thread{
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //Si s'acaba la comunicacio amb el client eliminem i apaguem el dedicated server
             if (hash != null) {
                 provider.deleteDedicated(hash,this);
             } else {
@@ -86,10 +97,19 @@ public class DedicatedServer extends Thread{
         }
     }
 
+    /**
+     * Funcio encarregada de llegir dades del inputStream
+     * @return Objecte llegit
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public Object readData() throws IOException, ClassNotFoundException {
         return objectIn.readObject();
     }
 
+    /**
+     * Funcio que envia al client la llista de projectes
+     */
     public void sendProjectList() {
         ArrayList<Project> projectsOwner = DataBaseManager.getInstance().getProjectDBManager().getProjectsOwner(username);
         ArrayList<Project> projectsMember = DataBaseManager.getInstance().getProjectDBManager().getProjectsMember(username);
@@ -104,6 +124,11 @@ public class DedicatedServer extends Thread{
         }
     }
 
+    /**
+     * Funcio que s'encarrega d'enviar dades al client
+     * @param type Tipus de comunicacio
+     * @param obj Objecte a enviar
+     */
     public void sendData(ServerObjectType type, Object obj){
         try {
             if (type != null) {

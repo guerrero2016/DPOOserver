@@ -2,6 +2,8 @@ package network.communicators;
 
 import db.DataBaseManager;
 import model.ServerObjectType;
+import model.project.Project;
+import model.user.User;
 import network.Communicable;
 import network.DedicatedServer;
 import network.DedicatedServerProvidable;
@@ -15,11 +17,13 @@ import java.io.IOException;
 public class UserDeletedCommunicator implements Communicable {
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
-        final String username;
+        final User user;
         try {
-            username = ds.readData().toString();
-            DataBaseManager.getInstance().getMemberDBManager().deleteMember(ds.getHash(), username);
-            provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_USER, username);
+            user = (User) ds.readData();
+            DataBaseManager.getInstance().getMemberDBManager().deleteMember(ds.getHash(), user.getUserName());
+            provider.sendBroadcast(ds.getHash(), ServerObjectType.DELETE_USER, user);
+            Project p = DataBaseManager.getInstance().getProjectDBManager().getProject(ds.getHash());
+            provider.sendDataToLobbyUser(user.getUserName(), ServerObjectType.DELETE_PROJECT, p);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
