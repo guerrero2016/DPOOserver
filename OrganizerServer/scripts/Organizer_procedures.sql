@@ -198,7 +198,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS Organizer.deleteTask $$
-CREATE PROCEDURE Organizer.deleteTask (IN id_in VARCHAR(255), IN id_column VARCHAR(255))
+CREATE PROCEDURE Organizer.deleteTask (IN id_in VARCHAR(255), IN id_column VARCHAR(255), IN 	pos int)
 BEGIN
 	UPDATE Tasca
 		SET posicio = posicio - 1

@@ -42,7 +42,6 @@ public class ProjectEditedCommunicator implements Communicable {
                 provider.sendDataToLobbyUser(name, ServerObjectType.SET_PROJECT, projecte);
             }
 
-
             if (projecte.getBackground() != null) {
                 File file = new File(PATH + projecte.getId() + "." + EXT);
                 try {
