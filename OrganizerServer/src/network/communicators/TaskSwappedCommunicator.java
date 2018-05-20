@@ -1,6 +1,7 @@
 package network.communicators;
 
 import db.DataBaseManager;
+import model.ServerObjectType;
 import model.project.Task;
 import network.Communicable;
 import network.DedicatedServer;
@@ -17,9 +18,14 @@ public class TaskSwappedCommunicator implements Communicable {
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         final ArrayList<Task> tasks;
+        final String categoryId;
         try {
             tasks = (ArrayList<Task>) ds.readData();
+            categoryId = (String)ds.readData();
+
             DataBaseManager.getInstance().getTaskDBManager().swapTask(tasks);
+            provider.sendBroadcast(ds.getHash(), ServerObjectType.SWAP_TASK, tasks);
+            provider.sendBroadcast(ds.getHash(), null, categoryId);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
