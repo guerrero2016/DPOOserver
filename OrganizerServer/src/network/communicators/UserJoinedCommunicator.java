@@ -25,7 +25,7 @@ public class UserJoinedCommunicator implements Communicable {
             System.out.println(p.getName());
             if (p.getId() != null && !checkIfAlreadyJoined(projectID, ds)) {
                 DataBaseManager.getInstance().getMemberDBManager().addMember(projectID, ds.getUsername());
-                provider.sendBroadcast(projectID, ServerObjectType.JOIN_PROJECT, p);
+                provider.sendBroadcast(projectID, ServerObjectType.JOIN_PROJECT, new User(ds.getUsername()));
                 ds.sendData(ServerObjectType.SET_PROJECT, p);
             } else {
                 ds.sendData(ServerObjectType.SET_PROJECT, null);
