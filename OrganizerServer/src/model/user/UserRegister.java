@@ -1,5 +1,8 @@
 package model.user;
 
+/**
+ * Representacio d'un usuari en el moment de registrar-se
+ */
 public class UserRegister extends User {
     public final static int serialVersionUID = 1240;
     private final static int MIN_LENGTH = 8;
