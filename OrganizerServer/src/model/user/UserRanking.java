@@ -1,6 +1,7 @@
 package model.user;
 
 public class UserRanking {
+
     private String username;
     private int totalTasks;
     private int pendingTasks;

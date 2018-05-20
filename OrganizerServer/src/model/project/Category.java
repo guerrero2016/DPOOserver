@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Classe que representa una categoria del projecte
+ */
 public class Category implements Serializable {
     public final static int INVALID_INDEX = -1;
     public final static int serialVersionUID = 1234;
