@@ -4,6 +4,9 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Classe que representa el tag d'una taska
+ */
 public class Tag implements Serializable {
     public final static int serialVersionUID = 1236;
 
@@ -56,6 +59,10 @@ public class Tag implements Serializable {
         }
     }
 
+    /**
+     * Retorna el color en format hexadecimal
+     * @return
+     */
     public String getHexColor () {
         if (color == null) return null;
         int rgb = color.getRGB()&0xffffff;

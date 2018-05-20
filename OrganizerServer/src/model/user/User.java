@@ -4,10 +4,11 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
+/**
+ * Objecte que defineix com és un usuari.
+ */
 public class User implements Serializable {
     public final static int serialVersionUID = 1238;
-
-
     protected String userName;
 
     public User() {}
@@ -22,6 +23,11 @@ public class User implements Serializable {
         return userName;
     }
 
+    /**
+     * Encripta un <code>String</code>.
+     * @param entry <code>String</code> a encriptar.
+     * @return El <code>String</code> d'entrada encriptat.
+     */
     public static String getMD5(String entry) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
@@ -37,6 +43,11 @@ public class User implements Serializable {
         return null;
     }
 
+    /**
+     * Comprova si un <code>String</code> té alguna majúscula.
+     * @param entry <code>String</code> a comprovar
+     * @return <code>true</code> sie en té alguna, <code>false</code> si no en té.
+     */
     public static boolean containsUpperCase(String entry) {
         for (char c : entry.toCharArray()) {
             if (Character.isUpperCase(c)) return true;
