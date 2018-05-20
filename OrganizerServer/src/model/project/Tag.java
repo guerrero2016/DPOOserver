@@ -10,8 +10,6 @@ import java.util.Objects;
 public class Tag implements Serializable {
     public final static int serialVersionUID = 1236;
 
-    private String id_category;
-    private String id_task;
     private String id;
     private String name;
     private Color color;
@@ -22,6 +20,12 @@ public class Tag implements Serializable {
         this.color = Color.decode(color);
     }
 
+    public Tag(String id, String name, Color color) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+    }
+
     public Tag(String name, Color color) {
         this.name = name;
         this.color = color;
@@ -29,14 +33,6 @@ public class Tag implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getId_category() {
-        return id_category;
-    }
-
-    public String getId_task() {
-        return id_task;
     }
 
     public String getId() {
@@ -87,7 +83,7 @@ public class Tag implements Serializable {
         }
 
         Tag tag = (Tag) o;
-        return Objects.equals(name, tag.name) && Objects.equals(color, tag.color);
+        return Objects.equals(name, tag.name) && Objects.equals(color, tag.color) && Objects.equals(id, tag.id);
 
     }
 
