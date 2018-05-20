@@ -32,6 +32,8 @@ public class ProjectEditedCommunicator implements Communicable {
             }
             DataBaseManager.getInstance().getProjectDBManager().addProject(projecte);
 
+            System.out.println(projecte.getName());
+
             if (provider.countDedicated(projecte.getId()) == -1){
                 ds.sendData(ServerObjectType.SET_PROJECT, projecte);
             }else {
