@@ -11,6 +11,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Classe que representa un projecte
+ */
 public class Project implements Serializable{
 
     private final static int INVALID_INDEX = -1;
