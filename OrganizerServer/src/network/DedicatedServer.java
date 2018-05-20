@@ -131,6 +131,7 @@ public class DedicatedServer extends Thread{
      */
     public void sendData(ServerObjectType type, Object obj){
         try {
+            objectOut.flush();
             if (type != null) {
                 objectOut.writeInt(type.getValue());
             }
