@@ -82,10 +82,6 @@ public class GraphController implements ActionListener{
                 //Un cop tenim la data fem la petició a la BBDD amb l'usuari i la data mínima
                 dateDots = DataBaseManager.getInstance().getStatisticsDBManager().requestUserEvolution(superGraphView.getJtfUserContent(), sqlDate);
                 dateDots.sort(Comparator.naturalOrder());
-                for(java.sql.Date d: dateDots){
-                    System.out.println("DATA: " + d.toString());
-                }
-
                 //Ara comptem quants cops es repeteix una data
                 ArrayList<Integer> repes = countDates(dateDots, periode);
                 dataModel.setGraphPoints(repes);
@@ -137,7 +133,6 @@ public class GraphController implements ActionListener{
         ArrayList<Integer> arrayDates = new ArrayList<>();
         int i = 0;
         for (Date date = calAux.getTime(); calAux.before(calAuxActual) || calAux.equals(calAuxActual); calAux.add(Calendar.DATE, 1), date = calAux.getTime()) {
-            System.out.println(date);
             int numRepe = 0;
             java.sql.Date dateAux = new java.sql.Date(date.getTime());
             for(java.sql.Date d : dateDots) {
