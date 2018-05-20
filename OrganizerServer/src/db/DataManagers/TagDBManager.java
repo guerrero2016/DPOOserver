@@ -82,7 +82,7 @@ public class TagDBManager {
     public String getCategoryId(Tag tag) {
         ResultSet rs = null;
         try {
-            s =(Statement) DataBaseManager.getInstance().getConnection().createStatement();
+            s = (Statement) DataBaseManager.getInstance().getConnection().createStatement();
             rs = s.executeQuery("SELECT * FROM Columna JOIN Tasca USING (id_columna) JOIN Etiqueta USING (id_tasca)" +
                     " WHERE id_etiqueta = '" + tag.getId() + "';");
             rs.next();
@@ -91,6 +91,18 @@ public class TagDBManager {
             System.out.println("Problema al esborrar les dades --> " + ex.getSQLState());
         }
         return "";
+    }
+    
+     /**
+     * Aquesta funció s'encarrega de modificat una etiqueta concreta.
+     *
+     * @param
+     */
+
+    public void editTag(String taskId, Tag tag) {
+        //TODO: Alternativa?
+        deleteTag(tag.getId());
+        addTag(tag, taskId);
     }
 
 }

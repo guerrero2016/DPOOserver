@@ -77,6 +77,7 @@ public class DedicatedServer extends Thread{
             }
         } catch (IOException e) {
             e.printStackTrace();
+            stopDedicatedServer();
         }
     }
 

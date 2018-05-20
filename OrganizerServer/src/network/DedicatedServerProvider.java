@@ -88,11 +88,6 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
         }
     }
 
-    /**
-     * Funció que comprova si existex algun DedicatedServer amb el nom d'usuari que rep
-     * @param username Nom d'usuari a comprovar
-     * @return true si existeix ja un DS amb el username, false si no.
-     */
     @Override
     public boolean checkUserAlreadyConnected(String username) {
         boolean trobat;
@@ -104,19 +99,18 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
         //Recuperem totes les claus del HashMap per poder recuperar els diferents LikedList
         Set<String> keys = projectServers.keySet();
 
+
         for(String key: keys){
             //Ara per cada clau recuperem la LinkedList de DedicaedServers associada
             LinkedList<DedicatedServer> partialDedicatedServers = projectServers.get(key);
             //Cada dedicated que forma aquesta LinkedList l'afegim a la LinkedList final
-            for(DedicatedServer ds: partialDedicatedServers){
-                allDedicatedsExisting.add(ds);
-            }
+            allDedicatedsExisting.addAll(partialDedicatedServers);
         }
 
         //Ara que tenim la LinkedList final ja poodem comprovar tots els usernames
         for(DedicatedServer ds: allDedicatedsExisting){
             //En cas que el nom d'usuari del dedicated coincideixi amb el que volem comprovar retornem cert
-            if(ds.getUsername() == username){
+            if(ds.getUsername().equals(username)){
                 return true;
             }
         }
