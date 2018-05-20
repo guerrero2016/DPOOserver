@@ -92,7 +92,7 @@ public class TagDBManager {
         }
         return "";
     }
-    
+
      /**
      * Aquesta funció s'encarrega de modificat una etiqueta concreta.
      *
