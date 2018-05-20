@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 
+/**
+ * Classe específica per pintar el gràfic.
+ */
 public class GraphView extends JPanel{
 
     private static final Stroke LINIAGRAFIC = new BasicStroke(2f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND);
@@ -13,6 +16,9 @@ public class GraphView extends JPanel{
     private static final Color COLORDIVISIONS = new Color(44, 102, 230, 100);
 
 
+    /**
+     * Constructor. D'inici deixem els valors a 0.
+     */
     public GraphView(){
         ArrayList<Integer> aux = new ArrayList<>();
         //Al principi deixem els intervals a 0
@@ -20,7 +26,10 @@ public class GraphView extends JPanel{
         this.scores = aux;
     }
 
-    //Aquí és on pintem el gràfic en sí
+    /**
+     * Procediment amb el que fem Override per definir el nou component a pintar al JPanel. Aquí definim el gràfic en sí.
+     * @param g Components gràfics que volem repintar.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         //Repintem el gràfic anterior, si no cridem 'super' se'ns superposen els gràfics
@@ -99,6 +108,10 @@ public class GraphView extends JPanel{
         }
     }
 
+    /**
+     * Funció on simpllement definim les mides
+     * @return Dimensions de mides preferides per pintar el gràfic
+     */
     @Override
     public Dimension getPreferredSize() {
         int width = 600;
@@ -106,7 +119,10 @@ public class GraphView extends JPanel{
         return new Dimension(width, heigth);
     }
 
-    //Funció que ens retorna el mínim valor dins de scores
+    /**
+     * Funció que ens retorna el mínim valor dins de scores
+     * @return Valor mínim a pintar al gràfic
+     */
     private double getMinScore() {
         double minScore = Double.MAX_VALUE;
         for (Integer score : scores) {
@@ -115,7 +131,10 @@ public class GraphView extends JPanel{
         return minScore;
     }
 
-    //Funció que ens retorna el màxim valor dins de scores
+    /**
+     * Funció que ens retorna el màxim valor dins de scores
+     * @return Valor màxim a pintar al gràfic
+     */
     public double getMaxScore() {
         double maxScore = Double.MIN_VALUE;
         for (Integer score : scores) {
@@ -124,6 +143,10 @@ public class GraphView extends JPanel{
         return maxScore;
     }
 
+    /**
+     * Procediment amb el que fixem els nous valors a pintar al gràfic
+     * @param scores Valors a pintar
+     */
     public void setScores(ArrayList<Integer> scores) {
         this.scores = scores;
         invalidate();
