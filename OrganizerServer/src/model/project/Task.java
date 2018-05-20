@@ -53,13 +53,15 @@ public class Task implements Serializable{
         this.order = order;
     }
 
-    public Task(String id_tasca, String nom_tasca, int posicio, String descripcio, ArrayList<Tag> tags, ArrayList<User> users) {
+    public Task(String id_tasca, String nom_tasca, int posicio, String descripcio, ArrayList<Tag> tags,
+                ArrayList<User> users, boolean isFinished) {
         this.id = id_tasca;
         this.name = nom_tasca;
         this.order = posicio;
         this.description = descripcio;
         this.tags = tags;
         this.users = users;
+        this.isFinished = isFinished;
     }
 
     public String getId() {
