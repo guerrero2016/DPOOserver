@@ -8,6 +8,7 @@ import network.DedicatedServer;
 import network.DedicatedServerProvidable;
 
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * S'encarrega de la comunicacio quan un client afegeix o  modifica una etiqueta.
@@ -19,8 +20,14 @@ public class TagAddedCommunicator implements Communicable {
         try {
             final String taskId = ds.readData().toString();
             final Tag tag = (Tag) ds.readData();
+
+            if (tag.getId() == null || tag.getId().isEmpty()) {
+                tag.setId(UUID.randomUUID().toString());
+            }
             DataBaseManager.getInstance().getTagDBManager().addTag(tag, taskId);
             provider.sendBroadcast(ds.getHash(), ServerObjectType.SET_TAG, tag);
+            provider.sendBroadcast(ds.getHash(), null, taskId);
+            provider.sendBroadcast(ds.getHash(), null, DataBaseManager.getInstance().getTagDBManager().getCategoryId(tag));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
