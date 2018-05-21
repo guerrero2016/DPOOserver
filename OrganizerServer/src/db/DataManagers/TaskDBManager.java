@@ -22,6 +22,7 @@ public class TaskDBManager {
      * Les tasques retornades contindran tots els elements: Etiquetes i usuaris.
      *
      * @param id_columna: Id de la columna de la qual volem recuperar totes les seves tasques.
+     * @return Tasques
      */
     public ArrayList<Task> getTasks(String id_columna) {
         ArrayList<Task> tasks = new ArrayList<>();

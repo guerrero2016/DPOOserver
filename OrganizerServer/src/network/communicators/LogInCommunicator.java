@@ -29,7 +29,7 @@ public class LogInCommunicator implements Communicable {
                     ds.setUsername(username);
                     ds.sendData(ServerObjectType.GET_PROJECT_LIST, username);
                     ds.sendProjectList();
-                    provider.addToLoby(ds);
+                    provider.addToLobby(ds);
                 }
             } else {
                 ds.sendData(ServerObjectType.AUTH, 3);

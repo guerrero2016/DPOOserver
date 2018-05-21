@@ -20,6 +20,7 @@ public class MemberDBManager {
      * Aquesta funció s'encarrega de retornar tots els membres que estan en un mateix projecte.
      *
      * @param id_projecte Id del projecte del qual es volen recuperar els membres.
+     * @return Membres
      */
     public ArrayList<String> getMembers(String id_projecte) {
         ArrayList<String> members = new ArrayList<>();

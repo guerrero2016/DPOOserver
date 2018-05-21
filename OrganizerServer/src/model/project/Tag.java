@@ -61,7 +61,7 @@ public class Tag implements Serializable {
 
     /**
      * Retorna el color en format hexadecimal
-     * @return
+     * @return Color en hexadecimal
      */
     public String getHexColor () {
         if (color == null) return null;

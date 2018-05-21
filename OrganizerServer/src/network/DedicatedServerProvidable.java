@@ -50,13 +50,13 @@ public interface DedicatedServerProvidable {
 
     /**
      * Procediment encarregat d'afegir al <code>LOBBY</code> un <code>DedicatedServer</code>
-     * @param dedicated
+     * @param dedicated Server
      */
-    void addToLoby(DedicatedServer dedicated);
+    void addToLobby(DedicatedServer dedicated);
 
     /**
      * Procediment encarregat d'eliminar del <code>LOBBY</code> un <code>DedicatedServer</code>
-     * @param dedicated
+     * @param dedicated Server
      */
     void deleteFromLobby(DedicatedServer dedicated);
 

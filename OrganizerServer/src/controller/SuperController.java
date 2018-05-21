@@ -20,6 +20,8 @@ public class SuperController implements Observer{
 
     /**
      * Constructor sense paràmetres.
+     * @param mainServerView Vista
+     * @param dataModel Model
      */
     public SuperController(MainServerView mainServerView, DataModel dataModel){
         this.dataModel = dataModel;

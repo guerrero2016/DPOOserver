@@ -57,6 +57,7 @@ public class MemberInChargeDBManager {
      * Aquesta funció s'encarrega de retornar tots els usuaris d'una tasca.
      *
      * @param id_tasca Id de la tasca de la qual volem recuperar els usuaris.
+     * @return Usuaris
      */
     public ArrayList<User> getMembersInCharge(String id_tasca) {
         ArrayList<User> membersInCharge = new ArrayList<>();

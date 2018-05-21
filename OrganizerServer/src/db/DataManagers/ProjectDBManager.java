@@ -27,6 +27,7 @@ public class ProjectDBManager {
      * A més, els projectes contindran els membres de cada projecte retornat.
      *
      * @param userName Nom d'usuari de l'usuari del qual volem retornar els projectes en que és membre.
+     * @return Projectes
      */
     public ArrayList<Project> getProjectsOwner(String userName) {
         ArrayList<Project> projects = new ArrayList<>();
@@ -58,6 +59,7 @@ public class ProjectDBManager {
      * A més, els projectes contindran els membres de cada projecte retornat.
      *
      * @param userName Nom d'usuari de l'usuari del qual volem retornar els projectes en que és propietari.
+     * @return Projectes
      */
     public ArrayList<Project> getProjectsMember(String userName) {
         ArrayList<Project> projects = new ArrayList<>();
@@ -88,6 +90,7 @@ public class ProjectDBManager {
      * Aquesta funció s'encarrega de retornar el projecte que li demanem amb tots els elements interns d'aquest mateix.
      *
      * @param id_projecte Id del projecte que volem que se'ns retorni.
+     * @return Projecte
      */
     public Project getProject(String id_projecte) {
         Project project = new Project();

@@ -122,8 +122,8 @@ public class DedicatedServer extends Thread{
     /**
      * Funcio encarregada de llegir dades del inputStream
      * @return Objecte llegit
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException Error
+     * @throws ClassNotFoundException Error
      */
     public Object readData() throws IOException, ClassNotFoundException {
         return objectIn.readObject();

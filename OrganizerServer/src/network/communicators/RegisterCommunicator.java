@@ -26,7 +26,7 @@ public class RegisterCommunicator implements Communicable {
                     ds.setUsername(register.getUserName());
                     ds.sendData(ServerObjectType.GET_PROJECT_LIST, register.getUserName());
                     ds.sendProjectList();
-                    provider.addToLoby(ds);
+                    provider.addToLobby(ds);
                 } else {
                     ds.sendData(ServerObjectType.AUTH, error);
                 }

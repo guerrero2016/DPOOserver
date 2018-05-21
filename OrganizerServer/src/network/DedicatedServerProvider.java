@@ -65,7 +65,7 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
             sendBroadcast(hashCode, ServerObjectType.GET_PROJECT_LIST, null);
             for (DedicatedServer ds : projectServers.get(hashCode)) {
                 ds.sendProjectList();
-                addToLoby(ds);
+                addToLobby(ds);
                 ds.setHash(null);
             }
             projectServers.remove(hashCode);
@@ -73,7 +73,7 @@ public class DedicatedServerProvider implements DedicatedServerProvidable{
     }
 
     @Override
-    public void addToLoby(DedicatedServer dedicated) {
+    public void addToLobby(DedicatedServer dedicated) {
         projectServers.get(LOBBY).add(dedicated);
     }
 

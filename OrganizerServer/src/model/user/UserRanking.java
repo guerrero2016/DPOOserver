@@ -8,6 +8,7 @@ public class UserRanking {
 
     /**
      * Getter del nom d'usuari del UserRanking.
+     * @return Nom d'usuari
      */
     public String getUsername() {
         return username;
@@ -15,6 +16,7 @@ public class UserRanking {
 
     /**
      * Getter de les tasques pendents de l'UserRanking.
+     * @return Tasques pendents
      */
     public int getPendingTasks() {
         return pendingTasks;
@@ -22,6 +24,7 @@ public class UserRanking {
 
     /**
      * Getter de les tasques total de l'UserRanking.
+     * @return Nombre de tasques
      */
     public int getTotalTasks() {
         return totalTasks;
@@ -29,6 +32,7 @@ public class UserRanking {
 
     /**
      * Setter de les tasques pendents de l'UserRanking.
+     * @param pendingTasks Tasques pendents
      */
     public void setPendingTasks(int pendingTasks) {
         this.pendingTasks = pendingTasks;
@@ -36,6 +40,7 @@ public class UserRanking {
 
     /**
      * Setter de les tasques totals de l'UserRanking.
+     * @param totalTasks Nombre de tasques
      */
     public void setTotalTasks(int totalTasks) {
         this.totalTasks = totalTasks;
@@ -43,6 +48,7 @@ public class UserRanking {
 
     /**
      * Setter de l'username de l'UserRanking
+     * @param username Nom d'usuari
      */
     public void setUsername(String username) {
         this.username = username;

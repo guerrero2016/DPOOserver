@@ -26,6 +26,7 @@ public class StatisticsDBManager {
      *
      * @param username Nom de l'usuari del qual volem recuperar les tasques fetes.
      * @param minDate Data a partir de la qual volem recuperar les tasques fetes.
+     * @return Dates
      */
     public ArrayList<Date> requestUserEvolution(String username, Date minDate){
         String query = "{CALL Organizer.requestUserEvolution(?,?)}";
@@ -52,6 +53,7 @@ public class StatisticsDBManager {
     /**
      * Aquesta funció retorna ordenadament els 10 usuaris que tinguin pitjor ratio de tasques completades/tasques per
      * completar juntament amb el número de tasques fetes i les tasques per fer.
+     * @return Usuaris del ranking ordenats
      */
     public UserRanking[] requestTop10(){
         String query = "{CALL Organizer.requestTop10()}";

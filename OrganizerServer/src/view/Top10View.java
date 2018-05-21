@@ -108,7 +108,7 @@ public class Top10View extends JPanel {
 
     /**
      * Vinculem la vista amb el controlador
-     * @param top10Controller
+     * @param top10Controller Controlador
      */
     public void linkController(Top10Controller top10Controller){
         jbActulize.addActionListener(top10Controller);

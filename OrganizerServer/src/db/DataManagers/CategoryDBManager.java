@@ -22,8 +22,9 @@ public class CategoryDBManager {
      * amb els seus respectius tags i usuaris.
      *
      * @param id_projecte Id del projecte del qual es vol recuperar les seves categories.
+     * @return Categories
      */
-    public  ArrayList<Category> getCategories(String id_projecte) {
+    public ArrayList<Category> getCategories(String id_projecte) {
         ArrayList<Category> categories = new ArrayList<>();
         ResultSet rs;
         try {

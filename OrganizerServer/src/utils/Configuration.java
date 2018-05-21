@@ -22,6 +22,7 @@ public class Configuration {
 
     /**
      * Getter del singleton Configuration.
+     * @return Instància
      */
     public static Configuration getInstance() {
         return ourInstance;
@@ -66,6 +67,7 @@ public class Configuration {
 
     /**
      * Getter del port de la base de dades Mysql.
+     * @return Port
      */
     public int getBBDDPort() {
         return Integer.parseInt(config.getProperty("bbddPORT"));
@@ -73,6 +75,7 @@ public class Configuration {
 
     /**
      * Getter de la IP de la base de dades Mysql.
+     * @return IP
      */
     public String getBBDDIp() {
         return config.getProperty("bbddIP");
@@ -80,6 +83,7 @@ public class Configuration {
 
     /**
      * Getter del nom de la base de dades Mysql.
+     * @return Nom de la base de dades
      */
     public String getBBDDName() {
         return config.getProperty("bbddNAME");
@@ -87,6 +91,7 @@ public class Configuration {
 
     /**
      * Getter de la contrasenya de l'usuari amb el qual ens connectem a la base de dades.
+     * @return Contrasenya
      */
     public String getBBDDPass() {
         return config.getProperty("bbddPASS");
@@ -94,6 +99,7 @@ public class Configuration {
 
     /**
      * Getter del nom de l'usuari amb el qual ens connectem a la base de dades.
+     * @return Nom de l'usuari
      */
     public String getBBDDUser() {
         return config.getProperty("bbddUSER");
@@ -101,6 +107,7 @@ public class Configuration {
 
     /**
      * Getter del port amb el qual ens connectarem amb el client.
+     * @return Port
      */
     public int getCommunicationPort() {
         return Integer.parseInt(config.getProperty("communicationPORT"));

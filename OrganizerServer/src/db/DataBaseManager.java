@@ -27,6 +27,7 @@ public class DataBaseManager {
 
     /**
      * Getter de la instància singleton.
+     * @return Instància
      */
     public static DataBaseManager getInstance() {
         return ourInstance;
@@ -40,6 +41,7 @@ public class DataBaseManager {
 
     /**
      * Getter del UserDBManager.
+     * @return UserDBManager
      */
     public UserDBManager getUserDBManager() {
         return userDBManager;
@@ -47,6 +49,7 @@ public class DataBaseManager {
 
     /**
      * Getter del ProjectDBManager.
+     * @return ProjectDBManager
      */
     public ProjectDBManager getProjectDBManager() {
         return projectDBManager;
@@ -54,6 +57,7 @@ public class DataBaseManager {
 
     /**
      * Getter del CategoryDBManager.
+     * @return CategoryDBManager
      */
     public CategoryDBManager getCategoryDBManager() {
         return categoryDBManager;
@@ -61,6 +65,7 @@ public class DataBaseManager {
 
     /**
      * Getter del StatisticsDBManager.
+     * @return StatisticsDBManager
      */
     public StatisticsDBManager getStatisticsDBManager() {
         return statisticsDBManager;
@@ -68,6 +73,7 @@ public class DataBaseManager {
 
     /**
      * Getter del TaskDBManager.
+     * @return TaskDBManager
      */
     public TaskDBManager getTaskDBManager() {
         return taskDBManager;
@@ -75,6 +81,7 @@ public class DataBaseManager {
 
     /**
      * Getter del MemberInChargeDBManager.
+     * @return MemberInChargeDBManager
      */
     public MemberInChargeDBManager getMemberInChargeDBManager() {
         return memberInChargeDBManager;
@@ -82,6 +89,7 @@ public class DataBaseManager {
 
     /**
      * Getter del TagDBManager.
+     * @return TagDBManager
      */
     public TagDBManager getTagDBManager() {
         return tagDBManager;
@@ -89,6 +97,7 @@ public class DataBaseManager {
 
     /**
      * Getter del MemberDBManager.
+     * @return MemberDBManager
      */
     public MemberDBManager getMemberDBManager() {
         return memberDBManager;
@@ -96,6 +105,7 @@ public class DataBaseManager {
 
     /**
      * Getter de la connexió amb la base de dades.
+     * @return Connexió
      */
     public Connection getConnection() {
         return connection;
@@ -104,6 +114,7 @@ public class DataBaseManager {
     /**
      * Setter de la connexió i un cop tenim la connexió i per tant ja podem connectar amb la base de dades
      * creem tots els Managers.
+     * @param connection Connexió
      */
     public void setConnection(Connection connection) {
         this.connection = connection;

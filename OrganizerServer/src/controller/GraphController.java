@@ -26,6 +26,9 @@ public class GraphController implements ActionListener{
 
     /**
      * Constructor amb paràmetres.
+     * @param superController Controlador principal
+     * @param dataModel Model
+     * @param superGraphView Vista de la gràfica
      */
     public GraphController(SuperController superController, DataModel dataModel, SuperGraphView superGraphView){
         this.superController = superController;

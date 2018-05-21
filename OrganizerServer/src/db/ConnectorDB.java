@@ -17,6 +17,7 @@ public class ConnectorDB {
 
     /**
      * Aquesta funció s'encarrega de crear la instància del nostre singleton.
+     * @return Instància
      */
     public static ConnectorDB getInstance() {
         return ourInstance;
@@ -41,6 +42,7 @@ public class ConnectorDB {
      * @param pass Contrasenya de l'usuari.
      * @param db Nom de la base de dades.
      * @param port Port en el que es troba la base de dades (o el gestor).
+     * @param ip IP
      */
     public ConnectorDB(String usr, String pass, String db, int port, String ip) {
         this.userName = usr;
@@ -51,7 +53,7 @@ public class ConnectorDB {
     }
 
     /** Funció que s'encarrega de connectar amb la base de dades que els atributs del propi connector indiquen.
-     * Retorna cert si la connexió ha estat satisfactoria i fals si no.
+     * @return Retorna cert si la connexió ha estat satisfactoria i fals si no.
      */
     public boolean connect() {
         try {

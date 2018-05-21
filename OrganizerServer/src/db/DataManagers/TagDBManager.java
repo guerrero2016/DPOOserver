@@ -21,6 +21,7 @@ public class TagDBManager {
      * Aquesta funció s'encarrega de retornar totes les etiquetes de la tasca indicada.
      *
      * @param id_tasca Id de la tasca de la qual volem recuperar les etiquetes.
+     * @return Etiquetes
      */
     public ArrayList<Tag> getTags(String id_tasca) {
         ArrayList<Tag> tags = new ArrayList<>();
@@ -78,6 +79,8 @@ public class TagDBManager {
 
     /**
      * Retorna l'id de la categoria del tag que li passem.
+     * @param tag Etiqueta
+     * @return Id de l'etiqueta
      */
     public String getCategoryId(Tag tag) {
         ResultSet rs = null;

@@ -34,13 +34,17 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    /** Getter de l'id de la categoria.
+    /**
+     * Getter de l'id de la categoria.
+     * @return Id de la categoria
      */
     public String getId() {
         return id;
     }
 
-    /** Getter del nom de la categoria.
+    /**
+     * Getter del nom de la categoria.
+     * @return Nom de la categoria
      */
     public String getName() {
         return name;
@@ -54,7 +58,9 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    /** Getter de la posició de la categoria.
+    /**
+     * Getter de la posició de la categoria.
+     * @return Index de la categoria
      */
     public int getOrder() {
         return order;

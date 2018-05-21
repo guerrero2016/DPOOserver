@@ -23,6 +23,7 @@ public class UserDBManager {
      * @param nom_usuari Nom d'usuari a registrar.
      * @param correu Correu electrònic a registrar.
      * @param contrasenya Contrasenya a registrar.
+     * @return Codi de tornada
      */
     public int registrarUsuari(String nom_usuari, String correu, String contrasenya) {
         ResultSet rs;
@@ -53,6 +54,7 @@ public class UserDBManager {
      * electrònic o el nom d'usuari del mateix. Retorna "fail" si el nom d'usuari o correu no es troba registrat.
      *
      * @param nom_or_correu Nom d'usuari o correu electrònic de l'usuari del qual volem recuperar el seu nom d'usuari.
+     * @return Nom d'usuari
      */
     public String getUsername(String nom_or_correu) {
         ResultSet rs;
@@ -78,6 +80,7 @@ public class UserDBManager {
      *
      * @param nom_correu Nom o correu de l'usuari que vol iniciar sessió.
      * @param password Contrasenya de l'usuari que vol iniciar sessió.
+     * @return Codi de tornada
      */
     public int iniciarSessio(String nom_correu, String password) {
         ResultSet rs;
