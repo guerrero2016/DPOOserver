@@ -121,13 +121,17 @@ public class Top10View extends JPanel {
      */
     public void actualizeTop10(ArrayList<UserRanking> top10people){
         Integer integer;
+
         if(top10people != null) {
             for (int i = 0; i < top10people.size(); i++) {
                 if(top10people.get(i) != null) {
                     if(top10people.get(i).getUsername() != null){
+                        jlNomUserArray[i].setText(null);
                         jlNomUserArray[i].setText(top10people.get(i).getUsername());
+                        jlNumTaskTotalArray[i].setText(null);
                         integer = top10people.get(i).getTotalTasks();
                         jlNumTaskTotalArray[i].setText(integer.toString());
+                        jlNumTaskPendentsArray[i].setText(null);
                         integer = top10people.get(i).getPendingTasks();
                         jlNumTaskPendentsArray[i].setText(integer.toString());
                     }
