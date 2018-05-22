@@ -28,7 +28,8 @@ public class Top10Controller extends Observable implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Si ens premen carregar, actualitzem el Top 10 d'usuaris
         if(e.getActionCommand().equals("Carregar")){
-            UserRanking[] top10People = DataBaseManager.getInstance().getStatisticsDBManager().requestTop10();
+            UserRanking[] top10People = null;
+            top10People = DataBaseManager.getInstance().getStatisticsDBManager().requestTop10();
             ArrayList<UserRanking> arrayOrdenat = new ArrayList<>();
             arrayOrdenat.addAll(Arrays.asList(top10People));
             top10View.actualizeTop10(arrayOrdenat);
