@@ -22,7 +22,7 @@ public class GraphController implements ActionListener{
 
     private GraphView graphView = new GraphView();
     private SuperGraphView superGraphView;
-    private String periode = "Setmanal";
+    private String periode = "Weekly";
 
     /**
      * Constructor amb paràmetres.
@@ -64,15 +64,15 @@ public class GraphController implements ActionListener{
                 //Date que passarem a la base de dades com a data mínima
                 java.sql.Date sqlDate = null;
                 //Array amb dates de les tasques realitzades que ens retorna la bbdd
-                ArrayList<java.sql.Date> dateDots = null;
+                ArrayList<java.sql.Date> dateDots;
                 switch (periode) {
-                    case "Setmanal":
+                    case "Weekly":
                         cal = Calendar.getInstance();
                         cal.add(Calendar.DATE, -7);
                         date = cal.getTime();
                         sqlDate = new java.sql.Date(date.getTime());
                         break;
-                    case "Mensual":
+                    case "Monthly":
                         cal = Calendar.getInstance();
                         cal.add(Calendar.MONTH, -1);
                         date = cal.getTime();
@@ -87,6 +87,7 @@ public class GraphController implements ActionListener{
                 }
                 //Un cop tenim la data fem la petició a la BBDD amb l'usuari i la data mínima
                 dateDots = DataBaseManager.getInstance().getStatisticsDBManager().requestUserEvolution(superGraphView.getJtfUserContent(), sqlDate);
+
                 dateDots.sort(Comparator.naturalOrder());
                 //Ara comptem quants cops es repeteix una data
                 ArrayList<Integer> repes = countDates(dateDots, periode);
@@ -112,11 +113,11 @@ public class GraphController implements ActionListener{
         Calendar calAux = Calendar.getInstance();
         Calendar calAuxActual = Calendar.getInstance();
         int i = 0;
-        if(periode.equals("Setmanal")){
+        if(periode.equals("Weekly")){
             calAux.add(Calendar.DATE, -7);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
-        if(periode.equals("Mensual")){
+        if(periode.equals("Monthly")){
             calAux.add(Calendar.MONTH, -1);
             arrayDates = auxCountDateInArray(calAux, calAuxActual, dateDots);
         }
