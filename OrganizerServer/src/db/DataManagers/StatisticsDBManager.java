@@ -72,6 +72,20 @@ public class StatisticsDBManager {
                 ranking[i].setPendingTasks(rs.getInt("tasques_per_fer"));
                 i++;
             }
+            if(i < 10) {
+                //TODO: DEBUGGAR AQUESTA QUERY
+                s = (Statement) DataBaseManager.getInstance().getConnection().createStatement();
+                rs = s.executeQuery("SELECT nom_usuari FROM Tasca as t JOIN Tasca_Usuari" +
+                        " as tu ON t.id_tasca = tu.id_tasca WHERE " +
+                        "(SELECT COUNT(*) FROM Tasca as t2 JOIN Tasca_Usuari as tu2 ON t2.id_tasca = tu2.id_tasca " +
+                        "WHERE tu.nom_usuari = tu2.nom_usuari AND data_done IS NOT NULL GROUP BY tu2.nom_usuari) = 0;");
+                while(i < 10 && rs.next()) {
+                    ranking[i] = new UserRanking();
+                    ranking[i].setUsername(rs.getString("nom_usuari"));
+                    ranking[i].setPendingTasks(0);
+                    i++;
+                }
+            }
             for(UserRanking u: ranking) {
                 if(u != null) {
                     s = (Statement) DataBaseManager.getInstance().getConnection().createStatement();

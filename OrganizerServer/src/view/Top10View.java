@@ -132,7 +132,6 @@ public class Top10View extends JPanel {
 
                 if(top10people.get(i) != null) {
                     if(top10people.get(i).getUsername() != null){
-                        System.out.println("TEST " + top10people.get(i).getUsername());
                         jlNomUserArray[i].setText(top10people.get(i).getUsername());
                         integer = top10people.get(i).getTotalTasks();
                         jlNumTaskTotalArray[i].setText(integer.toString());
