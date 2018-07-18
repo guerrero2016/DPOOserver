@@ -2,6 +2,7 @@ package network.communicators;
 
 import db.DataBaseManager;
 import model.ServerObjectType;
+
 import model.user.UserLogIn;
 import network.Communicable;
 import network.DedicatedServer;

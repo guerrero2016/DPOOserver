@@ -25,6 +25,7 @@ public class ProjectAddedCommunicator implements Communicable {
             projecte = (Project) ds.readData();
             String uniqueID = UUID.randomUUID().toString();
             projecte.setId(uniqueID);
+            projecte.setOwnerName(ds.getUsername());
             DataBaseManager.getInstance().getProjectDBManager().addProject(projecte);
             DataBaseManager.getInstance().getProjectDBManager().addProjectOwner(projecte.getId(), ds.getUsername());
             ds.sendData(ServerObjectType.SET_PROJECT, projecte);

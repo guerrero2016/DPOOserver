@@ -5,14 +5,12 @@ import model.user.User;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Classe que representa un projecte
+ * Classe que representa un projecte amb tots els seus elements
  */
 public class Project implements Serializable{
 
@@ -28,11 +26,21 @@ public class Project implements Serializable{
     private boolean isOwner;
     private String ownerName;
 
+    /**
+     * Constructor sense parametres
+     */
     public Project() {
         categories = new ArrayList<>();
         users = new ArrayList<>();
     }
 
+    /**
+     * Constructor amb parametres
+     * @param id Id del projecte
+     * @param name Nom del projecte
+     * @param color Color del projecte
+     * @param isOwner Boolea que indica si l'usuari es propietari o no
+     */
     public Project(String id, String name, Color color, boolean isOwner) {
         this.id = id;
         this.name = name;
@@ -42,6 +50,13 @@ public class Project implements Serializable{
         users = new ArrayList<>();
     }
 
+    /**
+     * Constructor a partir de la id, nom, color en String i si es propietari
+     * @param id Id
+     * @param name Nom
+     * @param color Color
+     * @param isOwner Si es propietari
+     */
     public Project(String id, String name, String color, boolean isOwner) {
         this.id = id;
         this.name = name;
@@ -51,6 +66,15 @@ public class Project implements Serializable{
         users = new ArrayList<>();
     }
 
+    /**
+     * Constructor amb mes parametres
+     * @param id Id del projecte
+     * @param name Nom del projecte
+     * @param color Color del projecte
+     * @param categories Columnes del projecte
+     * @param users Usuaris del projecte
+     * @param isOwner Indica si l'usuari es owner
+     */
     public Project(String id, String name, Color color, ArrayList<Category> categories, ArrayList<User> users, boolean isOwner) {
         this.id = id;
         this.name = name;
@@ -60,42 +84,66 @@ public class Project implements Serializable{
         this.isOwner = isOwner;
     }
 
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
-
+    /**
+     * Getter de l'id
+     * @return Id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Setter de l'id
+     * @param id Id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Getter del propietari del projecte
+     * @return Nom del propietari
+     */
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    /**
+     * Setter del nom del propietari del projecte
+     * @param ownerName Nom del propietari
+     */
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    /**
+     * Getter del nom
+     * @return Nom
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Setter del name
+     * @param name Nom
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Getter del color
+     * @return Color
+     */
     public Color getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public void setColorFromCode(String color) {
-        this.color = Color.decode(color);
-    }
-
+    /**
+     * Getter del color en codi hexadecimal
+     * @return Color hexadecimal
+     */
     public String getHexColor () {
         if (color == null) return null;
         int rgb = color.getRGB()&0xffffff;
@@ -104,20 +152,53 @@ public class Project implements Serializable{
         return "#" + (zeros.substring(data.length()) + data).toUpperCase();
     }
 
+    /**
+     * Setter del color
+     * @param color Color
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    /**
+     * Setter del color a partir del codi hexadecimal
+     * @param color Color hexadecimal
+     */
+    public void setColorFromCode(String color) {
+        this.color = Color.decode(color);
+    }
+
+    /**
+     * Retorna la mida de les categories
+     * @return Mida de les categories
+     */
     public int getCategoriesSize() {
         return categories.size();
     }
 
+    /**
+     * Getter de les categories
+     * @return Categories
+     */
     public ArrayList<Category> getCategories() {
         return categories;
     }
 
+    /**
+     * Setter de les categories
+     * @param categories Categories
+     */
     public void setCategories(ArrayList<Category> categories) {
         if(categories != null) {
             this.categories = categories;
         }
     }
 
+    /**
+     * Getter de l'index d'una categoria
+     * @param category Categoria de la que es vol treure l'index
+     * @return Index de la categoria
+     */
     public int getCategoryIndex(Category category) {
         if(categories.contains(category)) {
             return categories.indexOf(category);
@@ -126,6 +207,11 @@ public class Project implements Serializable{
         }
     }
 
+    /**
+     * Retorna una categoria a partir d'un index
+     * @param categoryIndex Index de la categoria que volem obtenir
+     * @return Categoria
+     */
     public Category getCategory(int categoryIndex) {
         if(categoryIndex < categories.size()) {
             return categories.get(categoryIndex);
@@ -134,6 +220,11 @@ public class Project implements Serializable{
         }
     }
 
+    /**
+     * Retorna una categoria a partir d'una id
+     * @param categoryId Id de la categoria que volem obtenir
+     * @return Categoria
+     */
     public Category getCategoryWithId(String categoryId) {
 
         for(Category category : categories) {
@@ -141,69 +232,103 @@ public class Project implements Serializable{
                 return category;
             }
         }
-
         return null;
-
     }
 
-    public void setCategory(Category category) {
+    /**
+     * Setter d'una categoria que, en cas que ja existeixi, la sobreescriura i en cas que no existeixi, l'afegira
+     * @param category Categoria que volem afegir
+     */
+    public void addCategory(Category category) {
         if(category != null) {
 
+            //Find category
             for (int i = 0; i < categories.size(); i++) {
-                if (category.getId().equals(categories.get(i).getId())) {
-
-                    if (category.getName() != null) {
-                        categories.get(i).setName(category.getName());
-                    }
-
-                    if (category.getOrder() != -1) {
-                        Category aux = categories.get(i);
-                        aux.setOrder(category.getOrder());
-                        categories.remove(i);
-                        categories.add(aux.getOrder(), aux);
-                    }
-
+                if(category.getId().equals(categories.get(i).getId())) {
+                    categories.get(i).setName(category.getName());
+                    categories.get(i).setOrder(category.getOrder());
                     return;
-
                 }
             }
 
+            //Category not found
             category.setOrder(categories.size());
             categories.add(category);
 
         }
     }
 
+    /**
+     * Esborra una categoria
+     * @param category Categoria que volem esborrar
+     */
     public void deleteCategory(Category category) {
         if(categories.contains(category)) {
             categories.remove(category);
         }
     }
 
+    /**
+     * Swap de dues columnes colindants
+     * @param firstCategoryIndex Categoria que volem intercanviar
+     * @param secondCategoryIndex Categoria que volem intercanviar
+     */
     public void swapCategories(int firstCategoryIndex, int secondCategoryIndex) {
         if(firstCategoryIndex >= 0 && firstCategoryIndex < categories.size() && secondCategoryIndex < categories.size()
                 && secondCategoryIndex >= 0) {
             Category category1 = categories.get(firstCategoryIndex);
             Category category2 = categories.get(secondCategoryIndex);
+            int aux = category1.getOrder();
+            category1.setOrder(category2.getOrder());
+            category2.setOrder(aux);
             categories.set(firstCategoryIndex, category2);
             categories.set(secondCategoryIndex, category1);
         }
     }
 
+    /**
+     * Getter de la mida dels usuaris
+     * @return Mida dels usuaris
+     */
     public int getUsersSize() {
         return users.size();
     }
 
+    /**
+     * Getter dels usuaris
+     * @return Usuaris
+     */
     public ArrayList<User> getUsers() {
         return users;
     }
 
+    /**
+     * Getter dels usuaris a excepcio de l'usuari per parametre
+     * @param user Usuari a excloure
+     * @return Usuaris (a excecpio del parametre)
+     */
+    public ArrayList<User> getOtherUsers(User user) {
+        ArrayList<User> otherUsers = new ArrayList<>();
+        otherUsers.addAll(users);
+        otherUsers.remove(user);
+        return otherUsers;
+    }
+
+    /**
+     * Setter dels usuari
+     * @param users Usuaris a settejar
+     */
     public void setUsers(ArrayList<User> users) {
         if(users != null) {
             this.users = users;
         }
     }
 
+    /**
+     * Getter d'un index a partir d'un usuari
+     * @param user Usuari a partir del qual volem rebre l'index
+     * @return Index de l'suari
+     */
     public int getUserIndex(User user) {
         if(users.contains(user)) {
             return users.indexOf(user);
@@ -212,6 +337,11 @@ public class Project implements Serializable{
         }
     }
 
+    /**
+     * Getter d'un usuari a partir d'un index
+     * @param userIndex Index a partir del qual volem aconseguir l'usuari
+     * @return Usuari
+     */
     public User getUser(int userIndex) {
         if(userIndex >= 0 && userIndex < users.size()) {
             return users.get(userIndex);
@@ -220,18 +350,30 @@ public class Project implements Serializable{
         }
     }
 
+    /**
+     * Afegeix un usuari
+     * @param user Usuari a afegir
+     */
     public void addUser(User user) {
         if(!users.contains(user)) {
             users.add(user);
         }
     }
 
+    /**
+     * Esborra un usuari a partir d'un index
+     * @param userIndex Index de l'usuari que volem esborrar
+     */
     public void deleteUser(int userIndex) {
         if(userIndex >= 0 && userIndex < users.size()) {
             users.remove(userIndex);
         }
     }
 
+    /**
+     * Getter del background
+     * @return Background obtingut, si no n'hi ha retorna null
+     */
     public BufferedImage getBackground() {
         try {
             if (background != null) {
@@ -243,6 +385,10 @@ public class Project implements Serializable{
         return null;
     }
 
+    /**
+     * Setter del background
+     * @param background Background
+     */
     public void setBackground(BufferedImage background) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -255,14 +401,26 @@ public class Project implements Serializable{
         }
     }
 
+    /**
+     * Getter del camp isOwner
+     * @return Si es propietari
+     */
     public boolean isOwner() {
         return isOwner;
     }
 
+    /**
+     * Setter del camp isOwner
+     * @param isOwner Si es propietari
+     */
     public void setOwner(boolean isOwner) {
         this.isOwner = isOwner;
     }
 
+    /**
+     * Setter dels usuaris a partir dels noms
+     * @param names Noms
+     */
     public void setMembersName (ArrayList<String> names) {
         ArrayList<User> users = new ArrayList<>();
         for (String name:names) {
@@ -270,6 +428,11 @@ public class Project implements Serializable{
         }
     }
 
+    /**
+     * Equals
+     * @param o Objecte
+     * @return Si equival
+     */
     @Override
     public boolean equals(Object o) {
 
@@ -291,6 +454,10 @@ public class Project implements Serializable{
 
     }
 
+    /**
+     * Hashcode
+     * @return Hashcode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id, name, color, categories, users, background);

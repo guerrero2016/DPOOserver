@@ -20,20 +20,21 @@ public class ProjectSelectedCommunicator implements Communicable{
     @Override
     public void communicate(DedicatedServer ds, DedicatedServerProvidable provider) {
         try {
+
             String hash = ds.readData().toString();
             ds.setHash(hash);
             Project project = DataBaseManager.getInstance().getProjectDBManager().getProject(ds.getHash());
             ArrayList<String> membersName = DataBaseManager.getInstance().getMemberDBManager().getMembers(hash);
 
             for (String m : membersName) {
-                if (!m.equals(ds.getUsername())) {
-                    project.getUsers().add(new User(m));
-                }
+                project.getUsers().add(new User(m));
             }
 
             provider.addDedicated(hash, ds);
             provider.deleteFromLobby(ds);
             ds.sendData(ServerObjectType.GET_PROJECT, project);
+            ds.sendData(null, ds.getUsername());
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

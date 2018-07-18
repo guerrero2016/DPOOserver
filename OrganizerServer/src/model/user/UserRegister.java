@@ -4,13 +4,22 @@ package model.user;
  * Representacio d'un usuari en el moment de registrar-se
  */
 public class UserRegister extends User {
+
     public final static int serialVersionUID = 1240;
+
     private final static int MIN_LENGTH = 8;
 
     private String email;
     private String password;
     private String confirm;
 
+    /**
+     * Constructor a partir de diversos parameters
+     * @param userName Nom d'usuari
+     * @param email Email
+     * @param password Contrasenya
+     * @param confirm Confirmacio
+     */
     public UserRegister(String userName, String email, String password, String confirm) {
         this.userName = userName;
         this.email = email;
@@ -18,24 +27,43 @@ public class UserRegister extends User {
         this.confirm = confirm;
     }
 
+    /**
+     * Getter del nom d'usuari
+     * @return Nom d'usuari
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * Getter de l'email
+     * @return Email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Getter de la contrasenya
+     * @return Contrasenya
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Getter de la confirmacio
+     * @return Confirmacio
+     */
     public String getConfirm() {
         return confirm;
     }
 
-    public int checkSignIn(){
-
+    /**
+     * Funcio encarregada de revisar si el registre es correcte
+     * @return Codi d'error
+     */
+    public int checkSignIn() {
         if (userName == null){
             return 3;
         }
